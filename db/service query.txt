@@ -1,0 +1,2 @@
+INSERT INTO `complain_types`(`df_problem_id`, `problem_type_id`) SELECT `id`,`problem_type_id` FROM `df_problems`;
+ALTER TABLE `requisitions` ADD `comment` VARCHAR(150) NULL AFTER `approved_at`;
