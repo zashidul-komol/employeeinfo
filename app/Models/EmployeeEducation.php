@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class EmployeeEducation extends Model
 {
+    protected $table = 'employee_educations';
     protected $fillable = ['employee_id',	'last_education',	'institution',	'passing_year',	'result',	'remarks'];
 
     public function employees() {
