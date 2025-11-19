@@ -3,7 +3,7 @@
     <div class="leftside-header">
         <div class="logo">
             <h4>
-               <a href="{{ route('dashboard') }}"> {{ $site_settings->site_title or '' }} </a>
+               <a href="{{ route('dashboard') }}"> {{ $site_settings->site_title ?? '' }} </a>
             </h4>
             {{-- <a href="{{ route('dashboard') }}">
                 @if(!empty($site_settings->logo))
