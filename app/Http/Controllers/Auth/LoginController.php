@@ -60,6 +60,14 @@ class LoginController extends Controller {
 			->withInput($request->only($this->username(), 'remember'))
 			->withErrors($errors);
 	}
+
+	/**
+     * Override to use 'username' instead of 'email'
+     */
+    public function username()
+    {
+        return 'username'; // or 'user_name' or whatever your DB field is
+    }
 	
 	 
 }

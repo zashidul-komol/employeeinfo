@@ -42,7 +42,7 @@
                         <td>{{$data->result ?? ''}}</td>
                         <td>
                           {!!  Html::decode(link_to_route('employeeEducations.edit', '<span aria-hidden="true" class="fa fa-edit fa-x"></span>', array($data->id)))!!}
-                          {!! Form::delete(route('employeeEducations.destroy',array($data->id))) !!}
+
                           <form action="{{ route('employeeEducations.destroy', $data->id) }}" method="POST" class="d-inline">
                               @csrf
                               @method('DELETE')

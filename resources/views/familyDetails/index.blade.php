@@ -41,7 +41,7 @@
                         <td>{{$data->wife_name ?? ''}}</td>
                         <td>
                           {!!  Html::decode(link_to_route('familyDetails.edit', '<span aria-hidden="true" class="fa fa-edit fa-x"></span>', array($data->id)))!!}
-                          {!! Form::delete(route('familyDetails.destroy',array($data->id))) !!}
+
                           <form action="{{ route('familyDetails.destroy', $data->id) }}" method="POST" class="d-inline">
                               @csrf
                               @method('DELETE')

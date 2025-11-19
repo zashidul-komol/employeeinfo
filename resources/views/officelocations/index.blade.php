@@ -42,7 +42,6 @@
                         <td>{{config('myconfig.status')[$data->status] }}</td>
                         <td>
                           {!!  Html::decode(link_to_route('officelocations.edit', '<span aria-hidden="true" class="fa fa-edit fa-x"></span>', array($data->id)))!!}
-                          {!! Form::delete(route('officelocations.destroy',array($data->id))) !!}
                           <form action="{{ route('officelocations.destroy', array($data->id)) }}" method="POST" class="d-inline">
                               @csrf
                               @method('DELETE')
