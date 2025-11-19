@@ -72,9 +72,9 @@
 @section('vuescript')
 @if($param=='2')
     <script>
-        laravelObj.division_id='{{ $locations->parent->parent_id or '' }}';
-        laravelObj.districts=JSON.parse('{!! $districts or '' !!}');
-        laravelObj.district_id='{{ $locations->parent_id or '' }}';
+        laravelObj.division_id='{{ $locations->parent->parent_id ?? '' }}';
+        laravelObj.districts=JSON.parse('{!! $districts ?? '' !!}');
+        laravelObj.district_id='{{ $locations->parent_id ?? '' }}';
     </script>
 @endif
 @stop

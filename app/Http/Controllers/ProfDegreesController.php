@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\FamilyDetail;
-use App\Employee;
-use App\ProfDegree;
+use App\Models\FamilyDetail;
+use App\Models\Employee;
+use App\Models\ProfDegree;
 use Illuminate\Http\Request;
 
 class ProfDegreesController extends Controller
@@ -97,7 +97,7 @@ class ProfDegreesController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->except('_method', '_token');
-        $profDegrees = ProfDegree::where('id', $id)->update($data);
+        $profDegrees = ProfDegree::whereKey($id)->update($data);
         if ($profDegrees) {
             $message = "You have successfully updated";
             return redirect()->route('profDegrees.index', [])

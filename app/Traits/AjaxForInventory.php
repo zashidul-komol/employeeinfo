@@ -1,11 +1,11 @@
 <?php
 namespace App\Traits;
-use App\Allocation;
-use App\DepotUser;
-use App\DfCode;
-use App\Item;
-use App\Stock;
-use App\StockTransfer;
+use App\Models\Allocation;
+use App\Models\DepotUser;
+use App\Models\DfCode;
+use App\Models\Item;
+use App\Models\Stock;
+use App\Models\StockTransfer;
 
 trait AjaxForInventory {
 
@@ -107,7 +107,7 @@ trait AjaxForInventory {
 
     public function getItems($param = 'with_serial_dF') {
 
-        $isExecutiveGroup = \App\Role::where('id', auth()->user()->role_id)->value('can_apply');
+        $isExecutiveGroup = \App\Models\Role::where('id', auth()->user()->role_id)->value('can_apply');
 
         $query = Item::with([
             'size' => function ($q) {

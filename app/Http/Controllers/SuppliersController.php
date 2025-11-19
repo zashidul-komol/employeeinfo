@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Supplier;
-use App\Department;
-use App\Employee;
+use App\Models\Supplier;
+use App\Models\Department;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 
 class SuppliersController extends Controller {
@@ -40,7 +40,7 @@ class SuppliersController extends Controller {
 
 			$item = Item::findOrFail($id);
 
-			$settlements = \App\Settlement::where('item_id', $item->id)->first();
+			$settlements = \App\Models\Settlement::where('item_id', $item->id)->first();
 
 			$dfproblems = DfProblem::with([
 				'complain_types' => function ($q) {
@@ -125,11 +125,11 @@ class SuppliersController extends Controller {
 	 */
 	public function update(Request $request, $id) {
 		$data = $request->except('_method', '_token');
-		$request->validate([
+		$validated = $request->validate([
 			'name' => 'required|unique:suppliers,name,' . $id,
 		]);
 
-		$suppliers = Supplier::where('id', $id)->update($data);
+		$suppliers = Supplier::whereKey($id)->update($validated);
 		if ($suppliers) {
 			$message = "You have successfully updated";
 			return redirect()->route('suppliers.index', [])

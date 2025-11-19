@@ -40,21 +40,26 @@
                         @foreach ($depots as $data)
                             <tr>
                                 <td>{{$i}}</td>
-                                <td>{{$data->division->name or ''}}</td>
-                                <td>{{$data->district->name or ''}}</td>
-                                <td>{{$data->thana->name or ''}}</td>
-                                <td>{{$data->region->name or ''}}</td>
-                                <td>{{$data->area->name or ''}}</td>
-                                <td>{{$data->name or ''}}</td>
-                                 <td>{{$data->code or ''}}</td>
-                                <td>{{$data->address or ''}}</td>
+                                <td>{{$data->division->name ?? ''}}</td>
+                                <td>{{$data->district->name ?? ''}}</td>
+                                <td>{{$data->thana->name ?? ''}}</td>
+                                <td>{{$data->region->name ?? ''}}</td>
+                                <td>{{$data->area->name ?? ''}}</td>
+                                <td>{{$data->name ?? ''}}</td>
+                                 <td>{{$data->code ?? ''}}</td>
+                                <td>{{$data->address ?? ''}}</td>
                                 <td class="checkbox-custom checkbox-success">
                                 	{{Form::checkbox('has_incharge',null, $data->has_incharge,array('id'=>'has_incharge','disabled' ,'readonly'))}}
                                 	{{Form::label('', '', array('for'=>"has_incharge",'class'=>"check"))}}
                                 </td>
                                 <td>
                                     {!!  Html::decode(link_to_route('depots.edit', '<span aria-hidden="true" class="fa fa-edit fa-x"></span>', array($data->id)))!!}
-                                    {!! Form::delete(route('depots.destroy',array($data->id))) !!}
+
+                                    <form action="{{ route('depots.destroy', $data->id) }}" method="POST" class="d-inline">
+                              @csrf
+                              @method('DELETE')
+                              <button class="btn btn-sm btn-danger" onclick="return confirm('Delete this depot?')">Delete</button>
+                          </form>
                                 </td>
                             </tr>
                             @php ($i=$i+1)

@@ -1,7 +1,7 @@
 <?php
 namespace App\Repositories\Models;
 
-use App\Brand;
+use App\Models\Brand;
 use App\Repositories\Repository;
 use App\Repositories\Traits\BrandWiseDF;
 use DB;

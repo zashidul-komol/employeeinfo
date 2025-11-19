@@ -14,9 +14,9 @@
                      <img class="img" src="{{ public_path().'/storage/images/'.$site_settings->logo }}" alt="logo">
                 </th>
                 <th width="90%">
-                    <h1 class="header uppercase">{{ $site_settings->site_title or '' }}</h1>
-                    <h3 class="sub-header">{{ $site_settings->address or '' }}</h3>
-                    <div class="tel">Tel : {{ $site_settings->phone or ''}}</div>
+                    <h1 class="header uppercase">{{ $site_settings->site_title ?? '' }}</h1>
+                    <h3 class="sub-header">{{ $site_settings->address ?? '' }}</h3>
+                    <div class="tel">Tel : {{ $site_settings->phone ?? ''}}</div>
                 </th>
             </tr>
             <tr>
@@ -28,7 +28,7 @@
                 <td colspan="2">
                     <table class="subtable">
                         <tr>
-                            <td width="70%"><span class="title" style="width: 10%">No: </span><span class="data no-border" style="width: 90%"><strong>{{ $reqisition->id or '' }}</strong></span></td>
+                            <td width="70%"><span class="title" style="width: 10%">No: </span><span class="data no-border" style="width: 90%"><strong>{{ $reqisition->id ?? '' }}</strong></span></td>
                             <td width="30%"><span class="title" style="width: 16%">Date: </span><span class="data" style="width: 84%">&nbsp;&nbsp;{{ Carbon\Carbon::now() }}</span></td>
                         </tr>
                     </table>
@@ -38,7 +38,7 @@
                 <td colspan="2">
                     <table class="subtable">
                         <tr>
-                            <td width="70%"><span class="title" style="width: 28%">Name of Retailer/Distributor: </span><span class="data" style="width: 72%">&nbsp;&nbsp;@if ($reqisition->shop){{ $reqisition->shop->outlet_name or '' }}@endif</span></td>
+                            <td width="70%"><span class="title" style="width: 28%">Name of Retailer/Distributor: </span><span class="data" style="width: 72%">&nbsp;&nbsp;@if ($reqisition->shop){{ $reqisition->shop->outlet_name ?? '' }}@endif</span></td>
                         </tr>
                     </table>
                 </td>
@@ -56,8 +56,8 @@
                 <td colspan="2">
                     <table class="subtable">
                         <tr>
-                            <td width="55%"><span class="title" style="width: 22%">Freezer Size: </span><span class="data" style="width: 78%">&nbsp;&nbsp;@if ($item->brand) {{ $item->brand->short_code or '' }}-@endif {{ $item->size->name or '' }}</span></td>
-                            <td width="45%"><span class="title" style="width: 29%">Freezer Code: </span><span class="data" style="width: 71%">&nbsp;&nbsp;{{ $item->serial_no or '' }}</span></td>
+                            <td width="55%"><span class="title" style="width: 22%">Freezer Size: </span><span class="data" style="width: 78%">&nbsp;&nbsp;@if ($item->brand) {{ $item->brand->short_code ?? '' }}-@endif {{ $item->size->name ?? '' }}</span></td>
+                            <td width="45%"><span class="title" style="width: 29%">Freezer Code: </span><span class="data" style="width: 71%">&nbsp;&nbsp;{{ $item->serial_no ?? '' }}</span></td>
                         </tr>
                     </table>
                 </td>

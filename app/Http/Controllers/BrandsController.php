@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Brand;
+use App\Models\Brand;
 use App\Exports\BrandExport;
 use Illuminate\Http\Request;
 
@@ -71,12 +71,12 @@ class BrandsController extends Controller {
      */
     public function update(Request $request, $id) {
         $data = $request->except('_method', '_token');
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|unique:brands,name,' . $id,
             'short_code' => 'required|unique:brands,short_code,' . $id,
         ]);
 
-        $brands = Brand::where('id', $id)->update($data);
+        $brands = Brand::whereKey($id)->update($validated);
         if ($brands) {
             $message = "You have successfully updated";
             return redirect()->route('brands.index', [])

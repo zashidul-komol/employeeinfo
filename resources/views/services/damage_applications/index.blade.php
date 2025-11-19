@@ -53,10 +53,10 @@
                           @foreach ($applications as $data)
                         <tr>
                           <td>{{$i}}</td>
-                          <td>{{$data->depot->name or ''}}</td>
-                           <td>{{$data->shop->outlet_name or ''}}</td>
-                          <td>{{$data->damage_type->name or ''}}</td>
-                          <td>{{$data->item->serial_no or ''}}</td>
+                          <td>{{$data->depot->name ?? ''}}</td>
+                           <td>{{$data->shop->outlet_name ?? ''}}</td>
+                          <td>{{$data->damage_type->name ?? ''}}</td>
+                          <td>{{$data->item->serial_no ?? ''}}</td>
                             @php
                               $month=(int)$data->settlement->inject_date->diffInMonths($data->created_at);
                             @endphp

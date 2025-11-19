@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Employee;
-use App\ChildDetail;
-use App\FamilyDetail;
-use App\Location;
-use App\Department;
-use App\Designation;
-use App\Organization;
-use App\Participation;
-use App\BusinessMeet;
-use App\OfficeLocation;
-use App\Region;
+use App\Models\Employee;
+use App\Models\ChildDetail;
+use App\Models\FamilyDetail;
+use App\Models\Location;
+use App\Models\Department;
+use App\Models\Designation;
+use App\Models\Organization;
+use App\Models\Participation;
+use App\Models\BusinessMeet;
+use App\Models\OfficeLocation;
+use App\Models\Region;
 use App\Exports\EmployeeExport;
 use App\Exports\ParticipantExport;
 use App\Exports\ChildParticipantExport;
@@ -31,7 +31,7 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        $user = \App\User::find(auth()->id());
+        $user = \App\Models\User::find(auth()->id());
         //dd($user->toArray());
         $Organization_id = $user['organization_id'];
         //dd($Organization_id);
@@ -343,12 +343,12 @@ class EmployeesController extends Controller
     {
         $data = $request->except('_method', '_token');
         //dd($data);
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|unique:employees,name,' . $id,
             'status' => 'required',
         ]);
 
-        $employees = Employee::where('id', $id)->update($data);
+        $employees = Employee::whereKey($id)->update($validated);
         if ($employees) {
             $message = "You have successfully updated";
             return redirect()->route('employees.index', [])
@@ -372,7 +372,7 @@ class EmployeesController extends Controller
         //dd($id);
 
 
-        $user = \App\User::find(auth()->id());
+        $user = \App\Models\User::find(auth()->id());
         //dd($user->toArray());
         $Organization_id = $user['organization_id'];
         //dd($Organization_id);
@@ -935,7 +935,7 @@ class EmployeesController extends Controller
 
     public function totalparticipantlist()
     {
-        $user = \App\User::find(auth()->id());
+        $user = \App\Models\User::find(auth()->id());
         //dd($user->toArray());
         $Organization_id = $user['organization_id'];
         //dd($Organization_id);

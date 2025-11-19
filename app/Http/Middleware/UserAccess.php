@@ -1,8 +1,8 @@
 <?php
 namespace App\Http\Middleware;
 
-use App\Permission;
-use App\RolePermission;
+use App\Models\Permission;
+use App\Models\RolePermission;
 use Closure;
 use Route;
 

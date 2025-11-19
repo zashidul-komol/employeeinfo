@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\DamageType;
+use App\Models\DamageType;
 use App\Exports\DamageTypeExport;
 use Illuminate\Http\Request;
 
@@ -70,11 +70,11 @@ class DamageTypesController extends Controller {
      */
     public function update(Request $request, $id) {
         $data = $request->except('_method', '_token');
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|unique:damage_types,name,' . $id,
         ]);
 
-        $damage_types = DamageType::where('id', $id)->update($data);
+        $damage_types = DamageType::whereKey($id)->update($validated);
         if ($damage_types) {
             $message = "You have successfully updated";
             return redirect()->route('damage_types.index', [])

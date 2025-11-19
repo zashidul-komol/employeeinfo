@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\ComplainType;
-use App\DamageType;
-use App\DfProblem;
-use App\Item;
-use App\Shop;
-use App\Technician;
+use App\Models\ComplainType;
+use App\Models\DamageType;
+use App\Models\DfProblem;
+use App\Models\Item;
+use App\Models\Shop;
+use App\Models\Technician;
 use App\Traits\DamageApplicationTrait;
 use App\Traits\SmsTrait;
 use Carbon\Carbon;
@@ -386,7 +386,7 @@ class ServicesController extends Controller {
 
 			$item = Item::findOrFail($id);
 
-			$settlements = \App\Settlement::where('item_id', $item->id)->first();
+			$settlements = \App\Models\Settlement::where('item_id', $item->id)->first();
 
 			$dfproblems = DfProblem::with([
 				'complain_types' => function ($q) {

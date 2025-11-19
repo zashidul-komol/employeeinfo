@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Traits;
-use App\Depot;
-use App\Item;
-use App\StockTransfer;
-use App\StockTransferDetail;
-use App\StockTransferLog;
+use App\Models\Depot;
+use App\Models\Item;
+use App\Models\StockTransfer;
+use App\Models\StockTransferDetail;
+use App\Models\StockTransferLog;
 use DB;
 use Illuminate\Http\Request;
 trait StockTransferTrait {

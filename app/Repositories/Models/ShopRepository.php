@@ -2,7 +2,7 @@
 namespace App\Repositories\Models;
 
 use App\Repositories\Repository;
-use App\Shop;
+use App\Models\Shop;
 use Illuminate\Database\Eloquent\Model;
 
 class ShopRepository extends Repository {

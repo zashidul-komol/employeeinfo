@@ -35,11 +35,11 @@
                         @foreach ($siblingDetails as $data)
                       <tr>
                         <td>{{$i}}</td>
-                        <td>{{$data->employees->name or ''}}</td>
-                        <td>{{$data->sibling_name or ''}}</td>
-                        <td>{{$data->occupation or ''}}</td>
-                        <td>{{$data->gender or ''}}</td>
-                        <td>{{$data->age or ''}}</td>
+                        <td>{{$data->employees->name ?? ''}}</td>
+                        <td>{{$data->sibling_name ?? ''}}</td>
+                        <td>{{$data->occupation ?? ''}}</td>
+                        <td>{{$data->gender ?? ''}}</td>
+                        <td>{{$data->age ?? ''}}</td>
                         <td>
                           {!!  Html::decode(link_to_route('siblingDetails.edit', '<span aria-hidden="true" class="fa fa-edit fa-x"></span>', array($data->id)))!!}
                           {!! Form::delete(route('siblingDetails.destroy',array($data->id))) !!}

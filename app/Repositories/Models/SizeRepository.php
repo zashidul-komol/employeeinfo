@@ -2,7 +2,7 @@
 namespace App\Repositories\Models;
 
 use App\Repositories\Repository;
-use App\Size;
+use App\Models\Size;
 use Illuminate\Database\Eloquent\Model;
 
 class SizeRepository extends Repository {

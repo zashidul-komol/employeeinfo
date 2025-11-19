@@ -1,28 +1,28 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Allocation;
-use App\Employee;
-use App\BusinessMeet;
-use App\Participation;
-use App\Location;
-use App\Designation;
-use App\JobExperiance;
-use App\User;
-use App\DamageApplication;
-use App\Depot;
-use App\DepotUser;
-use App\DfProblem;
-use App\DfReturn;
-use App\Item;
-use App\Requisition;
-use App\Role;
-use App\Shop;
-use App\Stock;
-use App\StockTransfer;
+use App\Models\Allocation;
+use App\Models\Employee;
+use App\Models\BusinessMeet;
+use App\Models\Participation;
+use App\Models\Location;
+use App\Models\Designation;
+use App\Models\JobExperiance;
+use App\Models\User;
+use App\Models\DamageApplication;
+use App\Models\Depot;
+use App\Models\DepotUser;
+use App\Models\DfProblem;
+use App\Models\DfReturn;
+use App\Models\Item;
+use App\Models\Requisition;
+use App\Models\Role;
+use App\Models\Shop;
+use App\Models\Stock;
+use App\Models\StockTransfer;
 use App\Traits\HasStageExists;
-use App\Zone;
-use App\Organization;
+use App\Models\Zone;
+use App\Models\Organization;
 use DB;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -561,7 +561,7 @@ class HomeController extends Controller {
 
 		//------------------Test Zashidul----------------------
 
-		$user_id = \App\User::find(auth()->id());
+		$user_id = \App\Models\User::find(auth()->id());
         $authUser = auth()->user()->id;
         $employee_ID_qry = User::where('id',$authUser)->get();
         $employees = Employee::with([
@@ -645,7 +645,7 @@ class HomeController extends Controller {
      */
     public function contactDirectories()
     {
-        $user = \App\User::find(auth()->id());
+        $user = \App\Models\User::find(auth()->id());
         //dd($user->toArray());
         $Organization_id = $user['organization_id'];
         //dd($Organization_id);
@@ -754,7 +754,7 @@ class HomeController extends Controller {
 
 	public function participantlist()
     {
-        $user = \App\User::find(auth()->id());
+        $user = \App\Models\User::find(auth()->id());
         //dd($user->toArray());
         $Organization_id = $user['organization_id'];
         //dd($Organization_id);

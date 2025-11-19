@@ -161,8 +161,8 @@ textarea:valid {
                     <tbody>
                         
                       <tr>
-                        <td>{{$employees[0]->name or ''}}</td>
-                        <td>{{$employees[0]->gender or ''}}</td>
+                        <td>{{$employees[0]->name ?? ''}}</td>
+                        <td>{{$employees[0]->gender ?? ''}}</td>
                         <td>@php
                               $employee_participation = '';
                               if(!empty($employees[0]->business_meets)){
@@ -195,7 +195,7 @@ textarea:valid {
                     <tbody>
                         
                         <tr>
-                        <td>{{$employees[0]->family_details->wife_name or ''}}</td>
+                        <td>{{$employees[0]->family_details->wife_name ?? ''}}</td>
                         <td></td>
                         <td>@php
                               $spouse_participation = '';

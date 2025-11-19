@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Traits;
-use App\Item;
-use App\Settlement;
+use App\Models\Item;
+use App\Models\Settlement;
 use Carbon\Carbon;
 
 trait SettlementCreateCloseData {

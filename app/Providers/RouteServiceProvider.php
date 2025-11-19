@@ -2,86 +2,49 @@
 
 namespace App\Providers;
 
+use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 
-class RouteServiceProvider extends ServiceProvider {
-	/**
-	 * This namespace is applied to your controller routes.
-	 *
-	 * In addition, it is set as the URL generator's root namespace.
-	 *
-	 * @var string
-	 */
-	protected $namespace = 'App\Http\Controllers';
+class RouteServiceProvider extends ServiceProvider
+{
+    /**
+     * The path to your application's "home" route.
+     *
+     * Typically, users are redirected here after authentication.
+     *
+     * @var string
+     */
+    public const HOME = '/home';
 
-	/**
-	 * Define your route model bindings, pattern filters, etc.
-	 *
-	 * @return void
-	 */
-	public function boot() {
-		//
+    /**
+     * Define your route model bindings, pattern filters, and other route configuration.
+     */
+    public function boot(): void
+    {
+        RateLimiter::for('api', function (Request $request) {
+            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+        });
 
-		parent::boot();
-	}
+        $this->routes(function () {
+            Route::middleware('api')
+                ->namespace($this->namespace)
+                ->prefix('api')
+                ->group(base_path('routes/api.php'));
 
-	/**
-	 * Define the routes for the application.
-	 *
-	 * @return void
-	 */
-	public function map() {
-		$this->mapApiRoutes();
-		$this->mapWebRoutes();
-		$this->mapReportRoutes();
-	}
-
-	/**
-	 * Define the "web" routes for the application.
-	 *
-	 * These routes all receive session state, CSRF protection, etc.
-	 *
-	 * @return void
-	 */
-	protected function mapWebRoutes() {
-		Route::group([
-			'middleware' => 'web',
-			'namespace' => $this->namespace,
-		], function ($router) {
-			require base_path('routes/web/inventory.php');
-			require base_path('routes/web/requisition.php');
-			require base_path('routes/web/service.php');
-			require base_path('routes/web/return.php');
-			require base_path('routes/web.php');
-		});
-
-	}
-
-	/**
-	 * Define the "api" routes for the application.
-	 *
-	 * These routes are typically stateless.
-	 *
-	 * @return void
-	 */
-	protected function mapApiRoutes() {
-		Route::prefix('api')
-			->middleware('api')
-			->namespace($this->namespace)
-			->group(base_path('routes/api.php'));
-	}
-
-	/**
-	 * Define the "Report" routes for the application.
-	 *
-	 * These routes all receive session state, CSRF protection, etc.
-	 *
-	 * @return void
-	 */
-	protected function mapReportRoutes() {
-		Route::middleware('web')
-			->namespace($this->namespace)
-			->group(base_path('routes/report.php'));
-	}
+            Route::middleware('web')
+                ->namespace($this->namespace)
+                ->group(function ($router) {
+                    require base_path('routes/web/inventory.php');
+                    require base_path('routes/web/requisition.php');
+                    require base_path('routes/web/return.php');
+                    require base_path('routes/web/service.php');
+                    require base_path('routes/report.php');
+                    require base_path('routes/web.php');
+                });
+                //->group(base_path('routes/web.php'));
+        });
+    }
 }

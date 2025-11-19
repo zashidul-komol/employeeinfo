@@ -18,7 +18,7 @@ if(localStorage.getItem('headerClassForHtml')){
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <meta name="authors" content="mipellim,abdulbaten1983@gmail.com">
 <meta name="csrf-token" content="{{ csrf_token() }}" />
-<title>{{ $site_settings->site_title or 'Dhaka Ice Cream Industries Ltd.' }}:: @yield('title','FDMS')</title>
+<title>{{ $site_settings->site_title ?? 'Dhaka Ice Cream Industries Ltd.' }}:: @yield('title','FDMS')</title>
 @include('common_pages.favicon')
 <!--load progress bar-->
 <script src="{{ asset('vendor/pace/pace.min.js') }}"></script>

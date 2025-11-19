@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Organization;
+use App\Models\Organization;
 use Illuminate\Http\Request;
 
 class OrganizationsController extends Controller {
@@ -73,13 +73,13 @@ class OrganizationsController extends Controller {
 	 */
 	public function update(Request $request, $id) {
 		$data = $request->except('_method', '_token');
-		$request->validate([
+		$validated = $request->validate([
 			'organization' => 'required|unique:organizations,organization,' . $id,
 			'short_name' => 'required|max:10|unique:organizations,short_name,' . $id,
 			'status' => 'required',
 		]);
 
-		$organizations = Organization::where('id', $id)->update($data);
+		$organizations = Organization::whereKey($id)->update($validated);
 		if ($organizations) {
 			$message = "You have successfully updated";
 			return redirect()->route('organizations.index', [])

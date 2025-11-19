@@ -80,14 +80,14 @@
 @endsection
 @section('vuescript')
 <script>
-    laravelObj.division_id='{{ $depots->division_id or '' }}';
-    laravelObj.districts = JSON.parse('{!! $districts or '' !!}');
-    laravelObj.district_id='{{ $depots->district_id or '' }}';
-    laravelObj.thanas =JSON.parse('{!! $thanas or '' !!}');
-    laravelObj.thana_id ='{{ $depots->thana_id or '' }}';
-    laravelObj.region_id='{{ $depots->region_id or '' }}';
-    laravelObj.areas=JSON.parse('{!! $areas or '' !!}');
-    laravelObj.area_id='{{ $depots->area_id or '' }}';
+    laravelObj.division_id='{{ $depots->division_id ?? '' }}';
+    laravelObj.districts = JSON.parse('{!! $districts ?? '' !!}');
+    laravelObj.district_id='{{ $depots->district_id ?? '' }}';
+    laravelObj.thanas =JSON.parse('{!! $thanas ?? '' !!}');
+    laravelObj.thana_id ='{{ $depots->thana_id ?? '' }}';
+    laravelObj.region_id='{{ $depots->region_id ?? '' }}';
+    laravelObj.areas=JSON.parse('{!! $areas ?? '' !!}');
+    laravelObj.area_id='{{ $depots->area_id ?? '' }}';
 </script>
 @stop
 @section('script')

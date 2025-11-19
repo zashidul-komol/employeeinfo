@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Traits;
-use App\User;
-use App\Sms;
+use App\Models\User;
+use App\Models\Sms;
 
 trait SmsTrait {
 /* common method  =============== start */

@@ -34,10 +34,10 @@
 	<tbody>
 		@foreach ($transferData as $key=>$ele)
 	 	<tr>
-			<td>{{ $ele->brand or '' }}</td>
-			<td>{{ $ele->size or '' }}</td>
+			<td>{{ $ele->brand ?? '' }}</td>
+			<td>{{ $ele->size ?? '' }}</td>
 			<td>{{ $ele->totalAvailabe+ ( !$ele->placed_qty? $ele->placed_qty:0)}}</td>
-			<td class="text-danger">{{ $ele->totalAvailabe or 0 }}</td>
+			<td class="text-danger">{{ $ele->totalAvailabe ?? 0 }}</td>
 			<td width="30%">
 				<input type="hidden" name="data[{{$key}}][stock_transfer_detail_id]" value="{{$ele->stock_transfer_detail_id}}">
 				<input type="hidden" name="data[{{$key}}][brand_id]" value="{{$ele->brand_id}}">

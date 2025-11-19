@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Traits;
-use App\DamageApplication;
-use App\DepotUser;
-use App\DfProblem;
-use App\Item;
+use App\Models\DamageApplication;
+use App\Models\DepotUser;
+use App\Models\DfProblem;
+use App\Models\Item;
 use App\Traits\HasStageExists;
 use App\Traits\SettlementCreateCloseData;
 use Illuminate\Http\Request;

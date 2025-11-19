@@ -35,13 +35,18 @@
                           @foreach ($sizes as $data)
                           <tr>
                             <td>{{$i}}</td>
-                          	<td>{{$data->name or ''}}</td>
-                          	<td>{{$data->rent_amount or ''}}</td>
-                            <td>{{$data->installment or ''}}</td>
+                          	<td>{{$data->name ?? ''}}</td>
+                          	<td>{{$data->rent_amount ?? ''}}</td>
+                            <td>{{$data->installment ?? ''}}</td>
                             <td>{{config('myconfig.availability')[$data->availability]}}</td>
                             <td>
                               {!!  Html::decode(link_to_route('sizes.edit', '<span aria-hidden="true" class="fa fa-edit fa-x"></span>', array($data->id)))!!}
-                              {!! Form::delete(route('sizes.destroy',array($data->id))) !!}
+
+                              <form action="{{ route('sizes.destroy', array($data->id)) }}" method="POST" class="d-inline">
+                              @csrf
+                              @method('DELETE')
+                              <button class="btn btn-sm btn-danger" onclick="return confirm('Delete this size?')">Delete</button>
+                          </form>
                             </td>
                           </tr>
                           @php ($i=$i+1)

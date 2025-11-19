@@ -2,7 +2,7 @@
 namespace App\Repositories\Models;
 
 use App\Repositories\Repository;
-use App\Technician;
+use App\Models\Technician;
 use Illuminate\Database\Eloquent\Model;
 
 class TechnicianRepository extends Repository {

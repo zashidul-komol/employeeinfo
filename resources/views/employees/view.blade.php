@@ -21,9 +21,9 @@
                 <div class="box-body box-profile">
                   <img class="profile-user-img img-responsive img-circle" src="{{asset('dist/img/Pic008.jpg')}}" alt="User profile picture">
 
-                  <h3 class="profile-username text-center">{{$user->name or ''}}</h3>
+                  <h3 class="profile-username text-center">{{$user->name ?? ''}}</h3>
 
-                  <p class="text-muted text-center">{{$user->designation->title or ''}}</p>
+                  <p class="text-muted text-center">{{$user->designation->title ?? ''}}</p>
 
                 </div>
             <!-- /.box-body -->
@@ -73,7 +73,7 @@
                                   <label for="inputName" class="col-sm-2 control-label">Name</label>
 
                               <div class="col-sm-10">
-                                <input class="form-control" value={{$user->name or ''}}>
+                                <input class="form-control" value={{$user->name ?? ''}}>
                                
                               </div>
                                 </div>

@@ -1,6 +1,6 @@
 <?php
 namespace App\Exports;
-use App\DfCode;
+use App\Models\DfCode;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;

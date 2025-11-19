@@ -93,7 +93,7 @@
     });
         //role delete options
       function callModal(selector){
-        var options='{!! $options or '' !!}';
+        var options='{!! $options ?? '' !!}';
         var my_obj = $('#del-form');
         var my_action = my_obj.attr('action');
         var my_id = selector;

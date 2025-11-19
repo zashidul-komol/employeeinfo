@@ -58,8 +58,8 @@ h2 span{
                     @endif
                 </th>
                 <th width="80%">
-                    <h2 class="header uppercase">{{$employees->name or '' }}</h2>
-                    <h3 class="sub-header">{{ $employees->designation->title or '' }}</h3>
+                    <h2 class="header uppercase">{{$employees->name ?? '' }}</h2>
+                    <h3 class="sub-header">{{ $employees->designation->title ?? '' }}</h3>
                     
                 </th>
             </tr>
@@ -89,8 +89,8 @@ h2 span{
                 <td colspan="2">
                     <table class="subtable">
                         <tr>
-                            <td width="55%"><span class="title" style="width: 30%">Full Name </span><span class="data no-border" style="width: 70%">:{{ $employees->name or '' }}</span></td>
-                            <td width="45%"><span class="title" style="width: 45%">Father Name</span><span class="data no-border" style="width: 55%">:&nbsp;&nbsp;{{ $employees->family_details->father_name or '' }}</span></td>
+                            <td width="55%"><span class="title" style="width: 30%">Full Name </span><span class="data no-border" style="width: 70%">:{{ $employees->name ?? '' }}</span></td>
+                            <td width="45%"><span class="title" style="width: 45%">Father Name</span><span class="data no-border" style="width: 55%">:&nbsp;&nbsp;{{ $employees->family_details->father_name ?? '' }}</span></td>
                         </tr>
                     </table>
                 </td>
@@ -99,8 +99,8 @@ h2 span{
                 <td colspan="2">
                     <table class="subtable">
                         <tr>
-                            <td width="55%"><span class="title" style="width: 30%">Company Name</span><span class="data no-border" style="width: 70%">:{{ $employees->organization->organization or '' }}</span></td>
-                            <td width="45%"><span class="title" style="width: 45%">Father's Occupation</span><span class="data no-border" style="width: 42%">:&nbsp;&nbsp;{{ $employees->family_details->father_occupation or '' }}</span><span class="data no-border" style="width: 13%">{{ $employees->family_details->father_live_status or '' }}</span></td>
+                            <td width="55%"><span class="title" style="width: 30%">Company Name</span><span class="data no-border" style="width: 70%">:{{ $employees->organization->organization ?? '' }}</span></td>
+                            <td width="45%"><span class="title" style="width: 45%">Father's Occupation</span><span class="data no-border" style="width: 42%">:&nbsp;&nbsp;{{ $employees->family_details->father_occupation ?? '' }}</span><span class="data no-border" style="width: 13%">{{ $employees->family_details->father_live_status ?? '' }}</span></td>
                         </tr>
                     </table>
                 </td>
@@ -109,8 +109,8 @@ h2 span{
                 <td colspan="2">
                     <table class="subtable">
                         <tr>
-                            <td width="55%"><span class="title" style="width: 30%">Department</span><span class="data no-border" style="width: 70%">:{{ $employees->department->name or '' }}</span></td>
-                            <td width="45%"><span class="title" style="width: 45%">Mother Name</span><span class="data no-border" style="width: 55%">:&nbsp;&nbsp;{{ $employees->family_details->mother_name or '' }}</span></td>
+                            <td width="55%"><span class="title" style="width: 30%">Department</span><span class="data no-border" style="width: 70%">:{{ $employees->department->name ?? '' }}</span></td>
+                            <td width="45%"><span class="title" style="width: 45%">Mother Name</span><span class="data no-border" style="width: 55%">:&nbsp;&nbsp;{{ $employees->family_details->mother_name ?? '' }}</span></td>
                         </tr>
                     </table>
                 </td>
@@ -119,8 +119,8 @@ h2 span{
                 <td colspan="2">
                     <table class="subtable">
                         <tr>
-                            <td width="55%"><span class="title" style="width: 30%">Designation</span><span class="data no-border" style="width: 70%">:{{ $employees->designation->title or '' }}</span></td>
-                            <td width="45%"><span class="title" style="width: 45%">Mother's Occupation</span><span class="data no-border" style="width: 42%">:&nbsp;&nbsp;{{ $employees->family_details->mother_occupation or '' }}</span><span class="data no-border" style="width: 13%">{{ $employees->family_details->mother_live_status or '' }}</span></td>
+                            <td width="55%"><span class="title" style="width: 30%">Designation</span><span class="data no-border" style="width: 70%">:{{ $employees->designation->title ?? '' }}</span></td>
+                            <td width="45%"><span class="title" style="width: 45%">Mother's Occupation</span><span class="data no-border" style="width: 42%">:&nbsp;&nbsp;{{ $employees->family_details->mother_occupation ?? '' }}</span><span class="data no-border" style="width: 13%">{{ $employees->family_details->mother_live_status ?? '' }}</span></td>
                         </tr>
                     </table>
                 </td>
@@ -129,8 +129,8 @@ h2 span{
                 <td colspan="2">
                     <table class="subtable">
                         <tr>
-                            <td width="55%"><span class="title" style="width: 30%">Current Location</span><span class="data no-border" style="width: 70%">:{{ $employees->office_location->name or '' }}</span></td>
-                            <td width="45%"><span class="title" style="width: 45%">Spouse Name</span><span class="data no-border" style="width: 55%">:&nbsp;&nbsp;{{ $employees->family_details->wife_name or '' }}</span></td>
+                            <td width="55%"><span class="title" style="width: 30%">Current Location</span><span class="data no-border" style="width: 70%">:{{ $employees->office_location->name ?? '' }}</span></td>
+                            <td width="45%"><span class="title" style="width: 45%">Spouse Name</span><span class="data no-border" style="width: 55%">:&nbsp;&nbsp;{{ $employees->family_details->wife_name ?? '' }}</span></td>
                         </tr>
                     </table>
                 </td>
@@ -139,9 +139,9 @@ h2 span{
                 <td colspan="2">
                     <table class="subtable">
                         <tr>
-                            <td width="55%"><span class="title" style="width: 30%">ID No </span><span class="data no-border" style="width: 25%">:{{ $employees->polar_id or '' }}</span>
-                            <span class="title" style="width: 25%">Gendar </span><span class="data no-border" style="width: 40%">:{{ $employees->gender or '' }}</span></td>
-                            <td width="45%"><span class="title" style="width: 45%">Spouse Occupation</span><span class="data no-border" style="width: 55%">:&nbsp;&nbsp;{{ $employees->family_details->wife_occupation or '' }}</span></td>
+                            <td width="55%"><span class="title" style="width: 30%">ID No </span><span class="data no-border" style="width: 25%">:{{ $employees->polar_id ?? '' }}</span>
+                            <span class="title" style="width: 25%">Gendar </span><span class="data no-border" style="width: 40%">:{{ $employees->gender ?? '' }}</span></td>
+                            <td width="45%"><span class="title" style="width: 45%">Spouse Occupation</span><span class="data no-border" style="width: 55%">:&nbsp;&nbsp;{{ $employees->family_details->wife_occupation ?? '' }}</span></td>
                         </tr>
                     </table>
                 </td>
@@ -150,8 +150,8 @@ h2 span{
                 <td colspan="2">
                     <table class="subtable">
                         <tr>
-                            <td width="55%"><span class="title" style="width: 30%">Mobile </span><span class="data no-border" style="width: 25%">:{{ $employees->mobile or '' }}</span>
-                            <span class="title" style="width: 25%">Grade </span><span class="data no-border" style="width: 40%">:{{ $employees->grade or '' }}</span></td>
+                            <td width="55%"><span class="title" style="width: 30%">Mobile </span><span class="data no-border" style="width: 25%">:{{ $employees->mobile ?? '' }}</span>
+                            <span class="title" style="width: 25%">Grade </span><span class="data no-border" style="width: 40%">:{{ $employees->grade ?? '' }}</span></td>
                             <td width="45%"><span class="title" style="width: 30%">Sibling's Information </span></td>
                         </tr>
                     </table>
@@ -161,8 +161,8 @@ h2 span{
                 <td colspan="2">
                     <table class="subtable">
                         <tr>
-                            <td width="55%"><span class="title" style="width: 30%">E-mail </span><span class="data no-border" style="width: 70%">:{{ $employees->email or '' }}</span></td>
-                            <td width="45%"><span class="title" style="width: 40%">No of Brother: </span><span class="data no-border" style="width:30%">&nbsp;&nbsp;{{ $employees->family_details->no_of_brothers or '' }}</span><span class="data no-border" style="width: 30%">Your Serial : {{ $employees->family_details->brother_position or '' }}</span></td>
+                            <td width="55%"><span class="title" style="width: 30%">E-mail </span><span class="data no-border" style="width: 70%">:{{ $employees->email ?? '' }}</span></td>
+                            <td width="45%"><span class="title" style="width: 40%">No of Brother: </span><span class="data no-border" style="width:30%">&nbsp;&nbsp;{{ $employees->family_details->no_of_brothers ?? '' }}</span><span class="data no-border" style="width: 30%">Your Serial : {{ $employees->family_details->brother_position ?? '' }}</span></td>
                         </tr>
                     </table>
                 </td>
@@ -171,8 +171,8 @@ h2 span{
                 <td colspan="2">
                     <table class="subtable">
                         <tr>
-                            <td width="55%"><span class="title" style="width: 30%">Height</span><span class="data no-border" style="width: 27%">:{{ $employees->height_feet or '' }}'{{ $employees->height_inch or '' }}"</span><span class="title" style="width: 10%">NID</span><span class="data no-border" style="width: 30%">:{{ $employees->nid or '' }}</td>
-                            <td width="45%"><span class="title" style="width: 40%">No of Sister: </span><span class="data no-border" style="width:30%">&nbsp;&nbsp;{{ $employees->family_details->no_of_sisters or '' }}</span><span class="data no-border" style="width: 30%">Your Serial : {{ $employees->family_details->sister_position or '' }}</span></td>
+                            <td width="55%"><span class="title" style="width: 30%">Height</span><span class="data no-border" style="width: 27%">:{{ $employees->height_feet ?? '' }}'{{ $employees->height_inch ?? '' }}"</span><span class="title" style="width: 10%">NID</span><span class="data no-border" style="width: 30%">:{{ $employees->nid ?? '' }}</td>
+                            <td width="45%"><span class="title" style="width: 40%">No of Sister: </span><span class="data no-border" style="width:30%">&nbsp;&nbsp;{{ $employees->family_details->no_of_sisters ?? '' }}</span><span class="data no-border" style="width: 30%">Your Serial : {{ $employees->family_details->sister_position ?? '' }}</span></td>
                         </tr>
                     </table>
                 </td>
@@ -181,8 +181,8 @@ h2 span{
                 <td colspan="2">
                     <table class="subtable">
                         <tr>
-                            <td width="55%"><span class="title" style="width: 30%">Passport</span><span class="data no-border" style="width: 27%">:{{ $employees->passportno or '' }}</span><span class="title" style="width: 10%">TIN</span><span class="data no-border" style="width: 30%">:{{ $employees->tin or '' }}</td>
-                            <td width="45%"><span class="title" style="width: 40%">Overall Your Serial: </span><span class="data no-border" style="width:30%">&nbsp;&nbsp;{{ $employees->family_details->overall_position or '' }}</span></td>
+                            <td width="55%"><span class="title" style="width: 30%">Passport</span><span class="data no-border" style="width: 27%">:{{ $employees->passportno ?? '' }}</span><span class="title" style="width: 10%">TIN</span><span class="data no-border" style="width: 30%">:{{ $employees->tin ?? '' }}</td>
+                            <td width="45%"><span class="title" style="width: 40%">Overall Your Serial: </span><span class="data no-border" style="width:30%">&nbsp;&nbsp;{{ $employees->family_details->overall_position ?? '' }}</span></td>
                         </tr>
                     </table>
                 </td>
@@ -191,9 +191,9 @@ h2 span{
                 <td colspan="2">
                     <table class="subtable">
                         <tr>
-                            <td width="55%"><span class="title" style="width: 30%">Maritial Status </span><span class="data no-border" style="width: 27%">:{{ $employees->maritial_status or '' }}</span>
-                            <span class="title" style="width: 25%">Blood Group </span><span class="data no-border" style="width: 15%">:{{ $employees->bloodgroup or '' }}</span></td>
-                            <td width="45%"><span class="title" style="width: 35%">Highest Degree</span><span class="data no-border" style="width: 65%">&nbsp;&nbsp;:{{ $employees->highest_education or '' }}</span></td>
+                            <td width="55%"><span class="title" style="width: 30%">Maritial Status </span><span class="data no-border" style="width: 27%">:{{ $employees->maritial_status ?? '' }}</span>
+                            <span class="title" style="width: 25%">Blood Group </span><span class="data no-border" style="width: 15%">:{{ $employees->bloodgroup ?? '' }}</span></td>
+                            <td width="45%"><span class="title" style="width: 35%">Highest Degree</span><span class="data no-border" style="width: 65%">&nbsp;&nbsp;:{{ $employees->highest_education ?? '' }}</span></td>
                         </tr>
                     </table>
                 </td>
@@ -202,8 +202,8 @@ h2 span{
                 <td colspan="2">
                     <table class="subtable">
                         <tr>
-                            <td width="55%"><span class="title" style="width: 30%">Birth Date </span><span class="data no-border" style="width: 70%">:{{ $employees->birthdate or '' }}</span></td>
-                            <td width="45%"><span class="title" style="width: 35%">Institution</span><span class="data no-border" style="width: 65%">&nbsp;&nbsp;:{{ $employees->institution or '' }}</span></td>
+                            <td width="55%"><span class="title" style="width: 30%">Birth Date </span><span class="data no-border" style="width: 70%">:{{ $employees->birthdate ?? '' }}</span></td>
+                            <td width="45%"><span class="title" style="width: 35%">Institution</span><span class="data no-border" style="width: 65%">&nbsp;&nbsp;:{{ $employees->institution ?? '' }}</span></td>
                         </tr>
                     </table>
                 </td>
@@ -212,7 +212,7 @@ h2 span{
                 <td colspan="2">
                     <table class="subtable">
                         <tr>
-                            <td width="55%"><span class="title" style="width: 30%">Joining Date</span><span class="data no-border" style="width: 70%">:{{ $employees->hiredate or '' }}</span></td>
+                            <td width="55%"><span class="title" style="width: 30%">Joining Date</span><span class="data no-border" style="width: 70%">:{{ $employees->hiredate ?? '' }}</span></td>
                             <td width="45%"><span class="title" style="width: 30%">Emergency Contact Information</span></td>
                         </tr>
                     </table>
@@ -223,7 +223,7 @@ h2 span{
                     <table class="subtable">
                         <tr>
                             <td width="55%"><span class="title" style="width: 40%">Age </span><span class="data no-border" style="width: 60%">:{{\Carbon\Carbon::parse($employees->birthdate)->diff(\Carbon\Carbon::now())->format('%y years, %m months and %d days')}}</span></td>
-                            <td width="45%"><span class="title" style="width: 30%">Name </span><span class="data no-border" style="width: 70%">&nbsp;&nbsp;:{{ $employees->emergency_contact_person or '' }}</span></td>
+                            <td width="45%"><span class="title" style="width: 30%">Name </span><span class="data no-border" style="width: 70%">&nbsp;&nbsp;:{{ $employees->emergency_contact_person ?? '' }}</span></td>
                         </tr>
                     </table>
                 </td>
@@ -233,7 +233,7 @@ h2 span{
                     <table class="subtable">
                         <tr>
                             <td width="55%"><span class="title" style="width: 40%">Length of Service in Polar </span><span class="data no-border" style="width: 60%">:{{\Carbon\Carbon::parse($employees->hiredate)->diff(\Carbon\Carbon::now())->format('%y years, %m months and %d days')}}</span></td>
-                            <td width="45%"><span class="title" style="width: 30%">Relationship</span><span class="data no-border" style="width: 70%">&nbsp;&nbsp;:{{ $employees->relationship or '' }}</span></td>
+                            <td width="45%"><span class="title" style="width: 30%">Relationship</span><span class="data no-border" style="width: 70%">&nbsp;&nbsp;:{{ $employees->relationship ?? '' }}</span></td>
                         </tr>
                     </table>
                 </td>
@@ -242,7 +242,7 @@ h2 span{
                 <td colspan="2">
                     <table class="subtable">
                         <tr>
-                            <td width="70%"><span class="title" style="width: 23%">Present Residential Address: </span><span class="data" style="width: 77%">&nbsp;&nbsp;@if ($employees->present_address){{ $employees->present_address or '' }}@endif</span></td>
+                            <td width="70%"><span class="title" style="width: 23%">Present Residential Address: </span><span class="data" style="width: 77%">&nbsp;&nbsp;@if ($employees->present_address){{ $employees->present_address ?? '' }}@endif</span></td>
                         </tr>
                     </table>
                 </td>
@@ -260,9 +260,9 @@ h2 span{
                 <td colspan="2">
                     <table class="subtable">
                         <tr>
-                            <td width="35%"><span class="title" style="width: 29%">Division: </span><span class="data" style="width: 71%">&nbsp;&nbsp;{{ $employees->division->name or '' }}</span></td>
-                            <td width="30%"><span class="title" style="width: 29%">District: </span><span class="data" style="width: 71%">&nbsp;&nbsp;{{ $employees->district->name or '' }}</span></td>
-                            <td width="35%"><span class="title" style="width: 29%">Thana: </span><span class="data" style="width: 71%">&nbsp;&nbsp;{{ $employees->thana->name or '' }}</span></td>
+                            <td width="35%"><span class="title" style="width: 29%">Division: </span><span class="data" style="width: 71%">&nbsp;&nbsp;{{ $employees->division->name ?? '' }}</span></td>
+                            <td width="30%"><span class="title" style="width: 29%">District: </span><span class="data" style="width: 71%">&nbsp;&nbsp;{{ $employees->district->name ?? '' }}</span></td>
+                            <td width="35%"><span class="title" style="width: 29%">Thana: </span><span class="data" style="width: 71%">&nbsp;&nbsp;{{ $employees->thana->name ?? '' }}</span></td>
                         </tr>
                     </table>
                 </td>
@@ -273,7 +273,7 @@ h2 span{
                         <tr>
                             <td width="70%">
                                 <span class="title" style="width: 9%">Address: </span>
-                                <span class="data" style="width: 91%">&nbsp;&nbsp;: {{ $employees->permanent_address or '' }}</span>
+                                <span class="data" style="width: 91%">&nbsp;&nbsp;: {{ $employees->permanent_address ?? '' }}</span>
                             </td>
                         </tr>
                     </table>
@@ -283,7 +283,7 @@ h2 span{
                 <td colspan="2">
                     <table class="subtable">
                         <tr>
-                            <td width="70%"><span class="title" style="width: 20%">Personal Interest / Hobby : </span><span class="data" style="width: 80%">&nbsp;&nbsp;@if ($employees->hobby){{ $employees->hobby or '' }}@endif</span></td>
+                            <td width="70%"><span class="title" style="width: 20%">Personal Interest / Hobby : </span><span class="data" style="width: 80%">&nbsp;&nbsp;@if ($employees->hobby){{ $employees->hobby ?? '' }}@endif</span></td>
                         </tr>
                     </table>
                 </td>
@@ -315,13 +315,13 @@ h2 span{
                         @php ($i=1)
                         @foreach ($employees->child_details as $data)
                       <tr>
-                        <td width="20%">{{$data->child_name or ''}}</td>
-                        <td width="10%">{{$data->date_of_birth or ''}}</td>
+                        <td width="20%">{{$data->child_name ?? ''}}</td>
+                        <td width="10%">{{$data->date_of_birth ?? ''}}</td>
                         <td width="23%">{{\Carbon\Carbon::parse($data->date_of_birth)->diff(\Carbon\Carbon::now())->format('%y years, %m months and %d days')}}</td>
-                        <td width="8%">{{$data->gender or ''}}</td>
-                        <td width="10%">{{$data->occupation or ''}}</td>
-                        <td width="9%">{{$data->class_name or ''}}</td>
-                        <td width="20%">{{$data->institution or ''}}</td>
+                        <td width="8%">{{$data->gender ?? ''}}</td>
+                        <td width="10%">{{$data->occupation ?? ''}}</td>
+                        <td width="9%">{{$data->class_name ?? ''}}</td>
+                        <td width="20%">{{$data->institution ?? ''}}</td>
                         
                       </tr>
                         @php ($i=$i+1)
@@ -362,19 +362,19 @@ h2 span{
                         @php ($i=1)
                         @foreach ($employees->job_experiances as $data)
                       <tr>
-                        <td width="27%">{{$data->name_company or ''}}</td>
-                        <td width="30%">{{$data->position or ''}}</td>
-                        <td width="9%">{{$data->start_date or ''}}</td>
-                        <td width="11%">{{$data->end_date or ''}}</td>
+                        <td width="27%">{{$data->name_company ?? ''}}</td>
+                        <td width="30%">{{$data->position ?? ''}}</td>
+                        <td width="9%">{{$data->start_date ?? ''}}</td>
+                        <td width="11%">{{$data->end_date ?? ''}}</td>
                         <td width="23%">{{\Carbon\Carbon::parse($data->start_date)->diff(\Carbon\Carbon::parse($data->end_date))->format('%y years, %m months and %d days')}}</td>
                       </tr>
                         @php ($i=$i+1)
                         @endforeach
                     </tbody>
                     <tr>
-                        <td>{{$employees->organization->organization or ''}}</td>
-                        <td>{{$employees->designation->title or ''}}</td>
-                        <td>{{$employees->hiredate or ''}}</td>
+                        <td>{{$employees->organization->organization ?? ''}}</td>
+                        <td>{{$employees->designation->title ?? ''}}</td>
+                        <td>{{$employees->hiredate ?? ''}}</td>
                         <td></td>
                         <td>{{\Carbon\Carbon::parse($employees->hiredate)->diff(\Carbon\Carbon::now())->format('%y years, %m months and %d days')}}</td>
                         <td></td>

@@ -27,21 +27,28 @@ return [
          * SQL: column LIKE "%k%e%y%w%o%r%d%"
          */
         'use_wildcards' => false,
+
+        /*
+         * Perform a search which starts with the given keyword.
+         * SQL: column LIKE "keyword%"
+         */
+        'starts_with' => false,
     ],
 
     /*
      * DataTables internal index id response column name.
      */
-    'index_column' => 'DT_Row_Index',
+    'index_column' => 'DT_RowIndex',
 
     /*
      * List of available builders for DataTables.
      * This is where you can register your custom dataTables builder.
      */
     'engines' => [
-        'eloquent'   => \Yajra\DataTables\EloquentDataTable::class,
-        'query'      => \Yajra\DataTables\QueryDataTable::class,
-        'collection' => \Yajra\DataTables\CollectionDataTable::class,
+        'eloquent' => Yajra\DataTables\EloquentDataTable::class,
+        'query' => Yajra\DataTables\QueryDataTable::class,
+        'collection' => Yajra\DataTables\CollectionDataTable::class,
+        'resource' => Yajra\DataTables\ApiResourceDataTable::class,
     ],
 
     /*
@@ -57,10 +64,10 @@ return [
     ],
 
     /*
-     * Nulls last sql pattern for Posgresql & Oracle.
-     * For MySQL, use '-%s %s'
+     * Nulls last sql pattern for PostgreSQL & Oracle.
+     * For MySQL, use 'CASE WHEN :column IS NULL THEN 1 ELSE 0 END, :column :direction'
      */
-    'nulls_last_sql' => '%s %s NULLS LAST',
+    'nulls_last_sql' => ':column :direction NULLS LAST',
 
     /*
      * User friendly message to be displayed on user if error occurs.
@@ -93,7 +100,7 @@ return [
         'raw' => ['action'],
 
         /*
-         * List of columns are are forbidden from being searched/sorted.
+         * List of columns are forbidden from being searched/sorted.
          */
         'blacklist' => ['password', 'remember_token'],
 
@@ -108,8 +115,13 @@ return [
      * JsonResponse header and options config.
      */
     'json' => [
-        'header'  => [],
+        'header' => [],
         'options' => 0,
     ],
 
+    /*
+     * Default condition to determine if a parameter is a callback or not.
+     * Callbacks needs to start by those terms, or they will be cast to string.
+     */
+    'callback' => ['$', '$.', 'function'],
 ];

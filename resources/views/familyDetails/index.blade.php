@@ -35,13 +35,18 @@
                         @foreach ($familyDetails as $data)
                       <tr>
                         <td>{{$i}}</td>
-                        <td>{{$data->employees->name or ''}}</td>
-                        <td>{{$data->father_name or ''}}</td>
-                        <td>{{$data->mother_name or ''}}</td>
-                        <td>{{$data->wife_name or ''}}</td>
+                        <td>{{$data->employees->name ?? ''}}</td>
+                        <td>{{$data->father_name ?? ''}}</td>
+                        <td>{{$data->mother_name ?? ''}}</td>
+                        <td>{{$data->wife_name ?? ''}}</td>
                         <td>
                           {!!  Html::decode(link_to_route('familyDetails.edit', '<span aria-hidden="true" class="fa fa-edit fa-x"></span>', array($data->id)))!!}
                           {!! Form::delete(route('familyDetails.destroy',array($data->id))) !!}
+                          <form action="{{ route('familyDetails.destroy', $data->id) }}" method="POST" class="d-inline">
+                              @csrf
+                              @method('DELETE')
+                              <button class="btn btn-sm btn-danger" onclick="return confirm('Delete this familyDetail?')">Delete</button>
+                          </form>
                         </td>
                       </tr>
                         @php ($i=$i+1)

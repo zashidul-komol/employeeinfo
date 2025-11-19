@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Traits;
-use App\Document;
+use App\Models\Document;
 //use Intervention\Image\Facades\Image;
 
 trait DocumentsUpload {

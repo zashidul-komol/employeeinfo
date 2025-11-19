@@ -27,9 +27,9 @@
                     @endif
                     {!! $errors->first('avatar', '<p class="text-danger">:message</p>' ) !!}
 
-                    <h5 class="profile-username text-center">{{$employees->name or ''}}</h5>
+                    <h5 class="profile-username text-center">{{$employees->name ?? ''}}</h5>
 
-                    <p class="text-muted text-center">{{$employees->designation->title or ''}}</p>
+                    <p class="text-muted text-center">{{$employees->designation->title ?? ''}}</p>
 
                   </div>
             <!-- /.box-body -->
@@ -284,11 +284,11 @@
     </div>
 @section('vuescript')
 <script>
-    laravelObj.division_id='{{ $employees[0]->division_id or '' }}';
-    laravelObj.districts =JSON.parse('{!! $districts or '' !!}');
-    laravelObj.district_id='{{ $employees[0]->district_id or '' }}';
-    laravelObj.thanas =JSON.parse('{!! $thanas or '' !!}');
-    laravelObj.thana_id ='{{ $employees[0]->thana_id or '' }}';
+    laravelObj.division_id='{{ $employees[0]->division_id ?? '' }}';
+    laravelObj.districts =JSON.parse('{!! $districts ?? '' !!}');
+    laravelObj.district_id='{{ $employees[0]->district_id ?? '' }}';
+    laravelObj.thanas =JSON.parse('{!! $thanas ?? '' !!}');
+    laravelObj.thana_id ='{{ $employees[0]->thana_id ?? '' }}';
 </script>
 @stop
     <div class="col-sm-5">
@@ -676,15 +676,15 @@
                         @php ($i=1)
                         @foreach ($employees->child_details as $data)
                         <tr>
-                        <td>{{$data->child_name or ''}}</td>
-                        <td>{{$data->date_of_birth or ''}}</td>
+                        <td>{{$data->child_name ?? ''}}</td>
+                        <td>{{$data->date_of_birth ?? ''}}</td>
 
                         <td>{{\Carbon\Carbon::parse($data->date_of_birth)->diff(\Carbon\Carbon::now())->format('%y years, %m months and %d days')}}</td>
-                        <td>{{$data->gender or ''}}</td>
-                        <td>{{$data->occupation or ''}}</td>
-                        <td>{{$data->class_name or ''}}</td>
-                        <td>{{$data->education or ''}}</td>
-                        <td>{{$data->institution or ''}}</td>
+                        <td>{{$data->gender ?? ''}}</td>
+                        <td>{{$data->occupation ?? ''}}</td>
+                        <td>{{$data->class_name ?? ''}}</td>
+                        <td>{{$data->education ?? ''}}</td>
+                        <td>{{$data->institution ?? ''}}</td>
                       </tr>
                      
                         @php ($i=$i+1)
@@ -720,19 +720,19 @@
                         @php ($i=1)
                         @foreach ($employees->job_experiances as $data)
                       <tr>
-                        <td>{{$data->name_company or ''}}</td>
-                        <td>{{$data->position or ''}}</td>
-                        <td>{{$data->start_date or ''}}</td>
-                        <td>{{$data->end_date or ''}}</td>
+                        <td>{{$data->name_company ?? ''}}</td>
+                        <td>{{$data->position ?? ''}}</td>
+                        <td>{{$data->start_date ?? ''}}</td>
+                        <td>{{$data->end_date ?? ''}}</td>
                         <td>{{\Carbon\Carbon::parse($data->start_date)->diff(\Carbon\Carbon::parse($data->end_date))->format('%y years, %m months and %d days')}}</td>
                       </tr>
                       
                         @php ($i=$i+1)
                         @endforeach
                       <tr>
-                        <td>{{$employees->organization->organization or ''}}</td>
-                        <td>{{$employees['designation']['title'] or ''}}</td>
-                        <td>{{$employees->hiredate or ''}}</td>
+                        <td>{{$employees->organization->organization ?? ''}}</td>
+                        <td>{{$employees['designation']['title'] ?? ''}}</td>
+                        <td>{{$employees->hiredate ?? ''}}</td>
                         <td></td>
                         <td>{{\Carbon\Carbon::parse($employees->hiredate)->diff(\Carbon\Carbon::now())->format('%y years, %m months and %d days')}}</td>
                       </tr>

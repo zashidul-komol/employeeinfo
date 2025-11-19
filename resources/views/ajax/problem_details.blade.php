@@ -5,57 +5,57 @@
 	</tr>
 	<tr>
 		<th>Token </th>
-		<td>{{ $dfproblems->token or '' }}</td>
+		<td>{{ $dfproblems->token ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Daily Serial</th>
-		<td>{{ $dfproblems->daily_serial or '' }}</td>
+		<td>{{ $dfproblems->daily_serial ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>DF Code</th>
-		<td class="text-capitalize">{{ $dfproblems->df_code or '' }}</td>
+		<td class="text-capitalize">{{ $dfproblems->df_code ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>DF Size</th>
-		<td>{{ $dfproblems->df_size or '' }}</td>
+		<td>{{ $dfproblems->df_size ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Region</th>
-		<td>{{ $dfproblems->region->name or '' }}</td>
+		<td>{{ $dfproblems->region->name ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Depot</th>
-		<td>{{ $dfproblems->depot->name or '' }}</td>
+		<td>{{ $dfproblems->depot->name ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Distributor</th>
-		<td>{{ $dfproblems->distributor->outlet_name or '' }}</td>
+		<td>{{ $dfproblems->distributor->outlet_name ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Outlet</th>
-		<td>{{ $dfproblems->outlet_name or '' }}</td>
+		<td>{{ $dfproblems->outlet_name ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Proprietor</th>
-		<td>{{ $dfproblems->proprietor_name or '' }}</td>
+		<td>{{ $dfproblems->proprietor_name ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Outlet Mobile</th>
-		<td>{{ $dfproblems->mobile or '' }}</td>
+		<td>{{ $dfproblems->mobile ?? '' }}</td>
 	</tr>
 	@if ($dfproblems->technician)
 		<tr>
 			<th>Technician</th>
-			<td>{{ $dfproblems->technician->name or '' }}</td>
+			<td>{{ $dfproblems->technician->name ?? '' }}</td>
 		</tr>
 		<tr>
 			<th>Technician Mobile</th>
-			<td>{{ $dfproblems->technician->mobile or '' }}</td>
+			<td>{{ $dfproblems->technician->mobile ?? '' }}</td>
 		</tr>
 	@endif
 	<tr>
 		<th>Address</th>
-		<td>{{ $dfproblems->address or '' }}</td>
+		<td>{{ $dfproblems->address ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Received Date</th>
@@ -93,7 +93,7 @@
 		</tr>
 		<tr>
 			<th>Work Description</th>
-			<td>{{ $dfproblems->work_description or '' }}</td>
+			<td>{{ $dfproblems->work_description ?? '' }}</td>
 		</tr>
 	@endif
 
@@ -109,6 +109,6 @@
 	</tr>
 	<tr>
 		<th>Comments</th>
-		<td>{{ $dfproblems->comments or '' }}</td>
+		<td>{{ $dfproblems->comments ?? '' }}</td>
 	</tr>
 </table>

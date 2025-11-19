@@ -40,15 +40,19 @@
                           <tr>
                             <td>{{$i}}</td>
                             @if ($param=='1')
-                            	<td>{{$data->parent->name or ''}}</td>
+                            	<td>{{$data->parent->name ?? ''}}</td>
                             @endif
                             <td>{{$data->name}}</td>
                             @if (!$param)
-                              <td>{{$data->code or ''}}</td>
+                              <td>{{$data->code ?? ''}}</td>
                             @endif
                             <td>
                               {!!  Html::decode(link_to_route('zones.edit', '<span aria-hidden="true" class="fa fa-edit fa-x"></span>', array($data->id,$param?$param:'')))!!}
-                              {!! Form::delete(route('zones.destroy',array($data->id,'level'=>$param))) !!}
+                              <form action="{{ route('zones.destroy', array($data->id,'level'=>$param)) }}" method="POST" class="d-inline">
+                              @csrf
+                              @method('DELETE')
+                              <button class="btn btn-sm btn-danger" onclick="return confirm('Delete this technician?')">Delete</button>
+                          </form>
                             </td>
                           </tr>
                           @php ($i=$i+1)

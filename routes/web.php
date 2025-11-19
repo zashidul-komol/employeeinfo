@@ -1,5 +1,30 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AjaxController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\SiteSettingsController;
+use App\Http\Controllers\RolesController;
+use App\Http\Controllers\LocationsController;
+use App\Http\Controllers\ZonesController;
+use App\Http\Controllers\BrandsController;
+use App\Http\Controllers\SizesController;
+use App\Http\Controllers\DamageTypesController;
+use App\Http\Controllers\DepotsController;
+use App\Http\Controllers\DesignationsController;
+use App\Http\Controllers\DepartmentsController;
+use App\Http\Controllers\OfficeLocationsController;
+use App\Http\Controllers\RegionsController;
+use App\Http\Controllers\OrganizationsController;
+use App\Http\Controllers\StagingsController;
+use App\Http\Controllers\SmsController;
+use App\Http\Controllers\UploadsController;
+use App\Http\Controllers\SettlementsController;
+use App\Http\Controllers\SmsPromotionalsController;
+use App\Http\Controllers\DistributorsController;
+
 /*
  * |--------------------------------------------------------------------------
  * | Web Routes
@@ -11,273 +36,157 @@
  * |
  */
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/', 'HomeController@index')->name('dashboard');
-    //Route::get('/', 'HomeController@contactDirectories')->name('contactdirectories');
-    Route::get('/home', 'HomeController@index');
-    //Route::get('/home', 'HomeController@contactDirectories');
+    Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+    //Route::get('/', [HomeController::class, 'contactDirectories'])->name('contactdirectories');
+    Route::get('/home', [HomeController::class, 'index']);
+    //Route::get('/home', [HomeController::class, 'contactDirectories']);
 
-    Route::get('dashboard/Job-crud', [
-        'as' => 'dashboards.Job-crud',
-        'uses' => 'HomeController@store',
-    ]);
-    Route::get('dashboard/updateEmployee', [
-        'as' => 'dashboards.index',
-        'uses' => 'HomeController@index',
-    ]);
-    Route::get('dashboard/contactDirectories', [
-        'as' => 'dashboards.contactdirectories',
-        'uses' => 'HomeController@contactDirectories',
-    ]);
-    Route::any('dashboard/BmParticipation/', [
-        'as' => 'dashboards.bmparticipation',
-        'uses' => 'HomeController@BmParticipation',
-    ]);
+    Route::get('dashboard/Job-crud', [HomeController::class, 'store'])->name('dashboards.Job-crud');
+    Route::get('dashboard/updateEmployee', [HomeController::class, 'index'])->name('dashboards.index');
+    Route::get('dashboard/contactDirectories', [HomeController::class, 'contactDirectories'])->name('dashboards.contactdirectories');
+    Route::any('dashboard/BmParticipation/', [HomeController::class, 'BmParticipation'])->name('dashboards.bmparticipation');
 
-    Route::get('dashboard/ParticipantList', [
-        'as' => 'dashboards.participantlist',
-        'uses' => 'HomeController@participantlist',
-    ]);
+    Route::get('dashboard/ParticipantList', [HomeController::class, 'participantlist'])->name('dashboards.participantlist');
 
-    Route::match(array('GET', 'POST'), 'update-bmparticipant-entry', [
-        'as' => 'bmparticipant.updateBMparticipant',
-        'uses' => 'HomeController@updateBMparticipant',
-    ]);
+    Route::match(['GET', 'POST'], 'update-bmparticipant-entry', [HomeController::class, 'updateBMparticipant'])->name('bmparticipant.updateBMparticipant');
 
-    Route::match(array('GET', 'POST'), 'room-key-delivery', [
-        'as' => 'bmparticipant.roomKeyDelivery',
-        'uses' => 'HomeController@roomKeyDelivery',
-    ]);
+    Route::match(['GET', 'POST'], 'room-key-delivery', [HomeController::class, 'roomKeyDelivery'])->name('bmparticipant.roomKeyDelivery');
 
+    //Route::get('dashboards', [HomeController::class, 'index']);
 
-    //Route::get('dashboards', 'HomeController@index');
-
-
-    Route::post('example', 'HomeController@example')->name('example');
+    Route::post('example', [HomeController::class, 'example'])->name('example');
 
     // start for template all page , it should be remove for production
-    Route::get('pages/{name}', 'HomeController@pages')->name('template');
+    Route::get('pages/{name}', [HomeController::class, 'pages'])->name('template');
     // end for template all page , it should be remove for production
 
     /* =====================Ajax Route Start================== */
 
-    Route::get('get-item-details', 'AjaxController@getItemDetailsBySeraial')->name('ajax.items.getItemDetailsBySeraial');
-    Route::get('get-bm-details', 'AjaxController@getBMParticipantDetails')->name('ajax.bm.getBMParticipantDetails');
+    Route::get('get-item-details', [AjaxController::class, 'getItemDetailsBySeraial'])->name('ajax.items.getItemDetailsBySeraial');
+    Route::get('get-bm-details', [AjaxController::class, 'getBMParticipantDetails'])->name('ajax.bm.getBMParticipantDetails');
 
-    Route::get('get-key-delivery', 'AjaxController@getBMKeyDelivery')->name('ajax.key.getBMKeyDelivery');
+    Route::get('get-key-delivery', [AjaxController::class, 'getBMKeyDelivery'])->name('ajax.key.getBMKeyDelivery');
 
-    Route::post('get-district', 'AjaxController@getDistricts');
-    Route::post('get-thanas', 'AjaxController@getThanas');
-    Route::post('get-areas', 'AjaxController@getAreas');
-    Route::get('stage-action-oparation/{id}/{functionName}/{stage}/{module?}', 'AjaxController@stageActionOparation')->name('ajax.stage.action');
-    Route::post('stage-action-oparation-save/{module?}', 'AjaxController@saveStageAction')->name('ajax.stage.saveAction');
+    Route::post('get-district', [AjaxController::class, 'getDistricts']);
+    Route::post('get-thanas', [AjaxController::class, 'getThanas']);
+    Route::post('get-areas', [AjaxController::class, 'getAreas']);
+    Route::get('stage-action-oparation/{id}/{functionName}/{stage}/{module?}', [AjaxController::class, 'stageActionOparation'])->name('ajax.stage.action');
+    Route::post('stage-action-oparation-save/{module?}', [AjaxController::class, 'saveStageAction'])->name('ajax.stage.saveAction');
 
-    Route::post('get-multi-district', 'AjaxController@getMultiDistricts')->name('ajax.getMultiDistricts');
-    Route::post('get-multi-thana', 'AjaxController@getMultiThanas')->name('ajax.getMultiThanas');
-    Route::post('get-multi-distributor', 'AjaxController@getMultiDistributor')->name('ajax.getMultiDistributor');
-    Route::post('get-region-wise-depots', 'AjaxController@getRegionWiseDepots')->name('ajax.getRegionWiseDepots');
-    Route::post('get-depot-codes', 'AjaxController@getDepotCodes')->name('ajax.getDepotCodes');
+    Route::post('get-multi-district', [AjaxController::class, 'getMultiDistricts'])->name('ajax.getMultiDistricts');
+    Route::post('get-multi-thana', [AjaxController::class, 'getMultiThanas'])->name('ajax.getMultiThanas');
+    Route::post('get-multi-distributor', [AjaxController::class, 'getMultiDistributor'])->name('ajax.getMultiDistributor');
+    Route::post('get-region-wise-depots', [AjaxController::class, 'getRegionWiseDepots'])->name('ajax.getRegionWiseDepots');
+    Route::post('get-depot-codes', [AjaxController::class, 'getDepotCodes'])->name('ajax.getDepotCodes');
 
-    Route::get('settlements-ajax/{param}/continue-list', 'AjaxController@continueList')->name('ajax.settlements.continueList');
-    Route::get('settlements-ajax/{param}/closed-list', 'AjaxController@closedList')->name('ajax.settlements.closedList');
+    Route::get('settlements-ajax/{param}/continue-list', [AjaxController::class, 'continueList'])->name('ajax.settlements.continueList');
+    Route::get('settlements-ajax/{param}/closed-list', [AjaxController::class, 'closedList'])->name('ajax.settlements.closedList');
 
-    Route::post('get-multi-technician', 'AjaxController@getMultiTechnician')->name('ajax.getMultiTechnician');
-    Route::post('profile-picture-upload', 'AjaxController@uploadProfilePicture')->name('ajax.uploadProfilePicture');
-    //Route::get('get-sms-promotionals/{param?}', 'AjaxController@getPromotionalSmsWithPaginate')->name('ajax.smsPromotionals.get');
-    Route::get('get-distributors', 'AjaxController@getDistributorsWithPaginate')->name('ajax.distributor.get');
+    Route::post('get-multi-technician', [AjaxController::class, 'getMultiTechnician'])->name('ajax.getMultiTechnician');
+    Route::post('profile-picture-upload', [AjaxController::class, 'uploadProfilePicture'])->name('ajax.uploadProfilePicture');
+    //Route::get('get-sms-promotionals/{param?}', [AjaxController::class, 'getPromotionalSmsWithPaginate'])->name('ajax.smsPromotionals.get');
+    Route::get('get-distributors', [AjaxController::class, 'getDistributorsWithPaginate'])->name('ajax.distributor.get');
     /* =====================Ajax route End==================== */
 });
 
-Route::get('logout', 'Auth\LoginController@logout');
+Route::get('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
 Auth::routes();
 
 Route::group(['middleware' => ['auth', 'auth.access']], function () {
 
-    Route::resource('site_settings', 'SiteSettingsController',
-        ['only' => ['edit', 'update']]);
-    Route::resource('roles', 'RolesController', ['except' => 'show']);
+    Route::resource('site_settings', SiteSettingsController::class)->only(['edit', 'update']);
+    Route::resource('roles', RolesController::class)->except(['show']);
 
     /*==============User start here==============*/
-    Route::get('/users', 'Auth\RegisterController@showUserLists')->name('users.index');
-    Route::get('/users/profile/{params?}', 'Auth\RegisterController@showUser')->name('users.show');
-    Route::get('/users/{user}/edit', 'Auth\RegisterController@editUser')->name('users.edit');
-    Route::put('/users/{user}', 'Auth\RegisterController@updateUser')->name('users.update');
-    Route::delete('/users/{user}', 'Auth\RegisterController@destroyUser')->name('users.destroy');
-    Route::any('/password/change-user-password/{user}', 'Auth\RegisterController@changeUserPassword')->name('password.changeUserPassword');
-    Route::any('/password/change', 'Auth\RegisterController@changePassword')->name('password.change');
-    Route::get('/users/list/download', 'Auth\RegisterController@download')->name('users.download');
+    Route::get('/users', [RegisterController::class, 'showUserLists'])->name('users.index');
+    Route::get('/users/profile/{params?}', [RegisterController::class, 'showUser'])->name('users.show');
+    Route::get('/users/{user}/edit', [RegisterController::class, 'editUser'])->name('users.edit');
+    Route::put('/users/{user}', [RegisterController::class, 'updateUser'])->name('users.update');
+    Route::delete('/users/{user}', [RegisterController::class, 'destroyUser'])->name('users.destroy');
+    Route::any('/password/change-user-password/{user}', [RegisterController::class, 'changeUserPassword'])->name('password.changeUserPassword');
+    Route::any('/password/change', [RegisterController::class, 'changePassword'])->name('password.change');
+    Route::get('/users/list/download', [RegisterController::class, 'download'])->name('users.download');
 
     /*==============User start here==============*/
 
     /*==============location start here==============*/
-    Route::get('locations/{param?}', [
-        'as' => 'locations.index',
-        'uses' => 'LocationsController@index',
-    ]);
-    Route::get('locations/create/{param?}', [
-        'as' => 'locations.create',
-        'uses' => 'LocationsController@create',
-    ]);
-    Route::get('locations/{location}/edit/{param?}', [
-        'as' => 'locations.edit',
-        'uses' => 'LocationsController@edit',
-    ]);
+    Route::get('locations/{param?}', [LocationsController::class, 'index'])->name('locations.index');
+    Route::get('locations/create/{param?}', [LocationsController::class, 'create'])->name('locations.create');
+    Route::get('locations/{location}/edit/{param?}', [LocationsController::class, 'edit'])->name('locations.edit');
 
-    Route::get("locations/download/{param}", array(
-        'uses' => 'LocationsController@Download',
-        'as' => 'locations.download',
-    ));
-    Route::resource('locations', 'LocationsController',
-        ['except' => ['index', 'show', 'create', 'edit']]);
+    Route::get("locations/download/{param}", [LocationsController::class, 'Download'])->name('locations.download');
+    Route::resource('locations', LocationsController::class)->except(['index', 'show', 'create', 'edit']);
 
     /*==========location end here=============*/
 
     /*==============zone start here=============*/
-    Route::get('zones/{param?}', [
-        'as' => 'zones.index',
-        'uses' => 'ZonesController@index',
-    ]);
-    Route::get('zones/create/{param?}', [
-        'as' => 'zones.create',
-        'uses' => 'ZonesController@create',
-    ]);
-    Route::get('zones/{zone}/edit/{param?}', [
-        'as' => 'zones.edit',
-        'uses' => 'ZonesController@edit',
-    ]);
+    Route::get('zones/{param?}', [ZonesController::class, 'index'])->name('zones.index');
+    Route::get('zones/create/{param?}', [ZonesController::class, 'create'])->name('zones.create');
+    Route::get('zones/{zone}/edit/{param?}', [ZonesController::class, 'edit'])->name('zones.edit');
 
-    Route::get("zones/download/{param}", array(
-        'uses' => 'ZonesController@Download',
-        'as' => 'zones.download',
-    ));
-    Route::resource('zones', 'ZonesController',
-        ['except' => ['index', 'show', 'create', 'edit']]);
+    Route::get("zones/download/{param}", [ZonesController::class, 'Download'])->name('zones.download');
+    Route::resource('zones', ZonesController::class)->except(['index', 'show', 'create', 'edit']);
     /*============zone end here========================*/
 
-    Route::get('brands/download', [
-        'as' => 'brands.download',
-        'uses' => 'BrandsController@download',
-    ]);
-    Route::resource('brands', 'BrandsController',
-        ['except' => ['show']]);
+    Route::get('brands/download', [BrandsController::class, 'download'])->name('brands.download');
+    Route::resource('brands', BrandsController::class)->except(['show']);
 
-    Route::get('sizes/download', [
-        'as' => 'sizes.download',
-        'uses' => 'SizesController@download',
-    ]);
-    Route::resource('sizes', 'SizesController',
-        ['except' => ['show']]);
+    Route::get('sizes/download', [SizesController::class, 'download'])->name('sizes.download');
+    Route::resource('sizes', SizesController::class)->except(['show']);
 
-    Route::get('damage_types/download', [
-        'as' => 'damage_types.download',
-        'uses' => 'DamageTypesController@download',
-    ]);
-    Route::resource('damage_types', 'DamageTypesController',
-        ['except' => ['show']]);
+    Route::get('damage_types/download', [DamageTypesController::class, 'download'])->name('damage_types.download');
+    Route::resource('damage_types', DamageTypesController::class)->except(['show']);
 
-    Route::match(['get', 'put'], "depots/hold-df-qty", array(
-        'uses' => 'DepotsController@holdDFQty',
-        'as' => 'depots.holdDFQty',
-    ));
-    Route::get("depots/download", array(
-        'uses' => 'DepotsController@Download',
-        'as' => 'depots.download',
-    ));
-    Route::resource('depots', 'DepotsController',
-        ['except' => ['show']]);
+    Route::match(['get', 'put'], "depots/hold-df-qty", [DepotsController::class, 'holdDFQty'])->name('depots.holdDFQty');
+    Route::get("depots/download", [DepotsController::class, 'Download'])->name('depots.download');
+    Route::resource('depots', DepotsController::class)->except(['show']);
 
     /*============designations start here========================*/
-    Route::any('designations-sorting', [
-        'as' => 'designations.sort',
-        'uses' => 'DesignationsController@sort',
-    ]);
-    Route::get('designations/download', [
-        'as' => 'designations.download',
-        'uses' => 'DesignationsController@download',
-    ]);
-    Route::resource('designations', 'DesignationsController',
-        ['except' => ['show']]);
+    Route::any('designations-sorting', [DesignationsController::class, 'sort'])->name('designations.sort');
+    Route::get('designations/download', [DesignationsController::class, 'download'])->name('designations.download');
+    Route::resource('designations', DesignationsController::class)->except(['show']);
     /*============designations end here========================*/
 
     /*============departments start here========================*/
-    Route::resource('departments', 'DepartmentsController',
-        ['except' => ['show']]);
+    Route::resource('departments', DepartmentsController::class)->except(['show']);
 
-    Route::get('departments/download', [
-        'as' => 'departments.download',
-        'uses' => 'DepartmentsController@download',
-    ]);
+    Route::get('departments/download', [DepartmentsController::class, 'download'])->name('departments.download');
     
     /*============departments end here========================*/
 
     /*============Office locations start here========================*/
-    Route::resource('officelocations', 'OfficeLocationsController',
-        ['except' => ['show']]);
+    Route::resource('officelocations', OfficeLocationsController::class)->except(['show']);
 
-    Route::get('officelocations/download', [
-        'as' => 'officelocations.download',
-        'uses' => 'OfficeLocationsController@download',
-    ]);
+    Route::get('officelocations/download', [OfficeLocationsController::class, 'download'])->name('officelocations.download');
 
     /*============Office locations end here========================*/
 
     /*============Region start here========================*/
-    Route::resource('regions', 'RegionsController',
-        ['except' => ['show']]);
+    Route::resource('regions', RegionsController::class)->except(['show']);
 
-    Route::get('regions/download', [
-        'as' => 'regions.download',
-        'uses' => 'RegionsController@download',
-    ]);
+    Route::get('regions/download', [RegionsController::class, 'download'])->name('regions.download');
 
     /*============Region end here========================*/
 
     /*============Company/Organization start here========================*/
-    Route::resource('organizations', 'OrganizationsController',
-        ['except' => ['show']]);
+    Route::resource('organizations', OrganizationsController::class)->except(['show']);
     
-    Route::get('organizations/download', [
-        'as' => 'organizations.download',
-        'uses' => 'OrganizationsController@download',
-    ]);
+    Route::get('organizations/download', [OrganizationsController::class, 'download'])->name('organizations.download');
     
     /*============Company/Organization end here========================*/
 
     /*
     ============staging start here========================
     */
-    Route::get('stages/{modules}', [
-        'as' => 'stages.index',
-        'uses' => 'StagingsController@index',
-    ]);
-    Route::get('stages/{modules}/create', [
-        'as' => 'stages.create',
-        'uses' => 'StagingsController@create',
-    ]);
-    Route::post('stages/{modules}', [
-        'as' => 'stages.store',
-        'uses' => 'StagingsController@store',
-    ]);
-    Route::get('stages/{modules}/edit/{stage}', [
-        'as' => 'stages.edit',
-        'uses' => 'StagingsController@edit',
-    ]);
-    Route::put('stages/{modules}/{stage}', [
-        'as' => 'stages.update',
-        'uses' => 'StagingsController@update',
-    ]);
-    Route::delete('stages/{modules}/{stages}', [
-        'as' => 'stages.destroy',
-        'uses' => 'StagingsController@destroy',
-    ]);
-    Route::delete('stage-untag/{modules}/{stageDetail}/{stage}', [
-        'as' => 'stage.details.untag',
-        'uses' => 'StagingsController@untag',
-    ]);
+    Route::get('stages/{modules}', [StagingsController::class, 'index'])->name('stages.index');
+    Route::get('stages/{modules}/create', [StagingsController::class, 'create'])->name('stages.create');
+    Route::post('stages/{modules}', [StagingsController::class, 'store'])->name('stages.store');
+    Route::get('stages/{modules}/edit/{stage}', [StagingsController::class, 'edit'])->name('stages.edit');
+    Route::put('stages/{modules}/{stage}', [StagingsController::class, 'update'])->name('stages.update');
+    Route::delete('stages/{modules}/{stages}', [StagingsController::class, 'destroy'])->name('stages.destroy');
+    Route::delete('stage-untag/{modules}/{stageDetail}/{stage}', [StagingsController::class, 'untag'])->name('stage.details.untag');
 
-    Route::any('stage-sorting/{modules}', [
-        'as' => 'stages.sort',
-        'uses' => 'StagingsController@sort',
-    ]);
+    Route::any('stage-sorting/{modules}', [StagingsController::class, 'sort'])->name('stages.sort');
     /*
     ============staging end here========================
      */
@@ -285,15 +194,9 @@ Route::group(['middleware' => ['auth', 'auth.access']], function () {
     ============sms start here========================
      */
     
-    Route::get('sms', [
-        'as' => 'sms.index',
-        'uses' => 'SmsController@index',
-    ]);
+    Route::get('sms', [SmsController::class, 'index'])->name('sms.index');
 
-    Route::match(['get', 'put'], "sms/{params}/edit", array(
-        'as' => 'sms.edit',
-        'uses' => 'SmsController@edit',
-    ));
+    Route::match(['get', 'put'], "sms/{params}/edit", [SmsController::class, 'edit'])->name('sms.edit');
     
     /*
     ============sms end here========================
@@ -301,14 +204,8 @@ Route::group(['middleware' => ['auth', 'auth.access']], function () {
     /*
     ============ Uploads start here=============
      */
-    Route::any('uploads/shops/{distributor?}', [
-        'as' => 'uploads.shops',
-        'uses' => 'UploadsController@shops',
-    ]);
-    Route::any('uploads/inventory', [
-        'as' => 'uploads.inventory',
-        'uses' => 'UploadsController@generateInventory',
-    ]);
+    Route::any('uploads/shops/{distributor?}', [UploadsController::class, 'shops'])->name('uploads.shops');
+    Route::any('uploads/inventory', [UploadsController::class, 'generateInventory'])->name('uploads.inventory');
 
     /*
     ============ Uploads end here=============
@@ -317,83 +214,40 @@ Route::group(['middleware' => ['auth', 'auth.access']], function () {
     /*
     ============ Settlement start here=============
      */
-    Route::get('settlements/{param}/continue-list', [
-        'as' => 'settlements.continueList',
-        'uses' => 'SettlementsController@continueSettlementList',
-    ]);
-    Route::get('settlements/{param}/closed-list', [
-        'as' => 'settlements.closedList',
-        'uses' => 'SettlementsController@closedSettlementList',
-    ]);
+    Route::get('settlements/{param}/continue-list', [SettlementsController::class, 'continueSettlementList'])->name('settlements.continueList');
+    Route::get('settlements/{param}/closed-list', [SettlementsController::class, 'closedSettlementList'])->name('settlements.closedList');
 
-    Route::post('settlements/pay-to-outlet', [
-        'as' => 'settlements.payToOutlet',
-        'uses' => 'SettlementsController@payToOutlet',
-    ]);
+    Route::post('settlements/pay-to-outlet', [SettlementsController::class, 'payToOutlet'])->name('settlements.payToOutlet');
 
-    Route::get('settlements/download-money-receipt/{id}', [
-        'as' => 'settlements.downloadMoneyReceipt',
-        'uses' => 'SettlementsController@downloadMoneyReceipt',
-    ]);
+    Route::get('settlements/download-money-receipt/{id}', [SettlementsController::class, 'downloadMoneyReceipt'])->name('settlements.downloadMoneyReceipt');
     /*
     ============ Settlement end here=============
      */
 
     /*
     ============ Promotional SMS start here=============
-
-    
-     
     */
-    Route::post('sms_promotionals/create/{param}', [
-        'as' => 'smsPromotionals.create',
-        'uses' => 'SmsPromotionalsController@create',
-    ]);
-    Route::get('sms_promotionals/sendSms/{param}', [
-        'as' => 'smsPromotionals.send',
-        'uses' => 'SmsPromotionalsController@send',
-    ]);
+    Route::post('sms_promotionals/create/{param}', [SmsPromotionalsController::class, 'create'])->name('smsPromotionals.create');
+    Route::get('sms_promotionals/sendSms/{param}', [SmsPromotionalsController::class, 'send'])->name('smsPromotionals.send');
     /*
-    Route::get('sms-promotionals/{group}', [
-        'as' => 'smsPromotionals.index',
-        'uses' => 'SmsPromotionalsController@index',
-    ]);
+    Route::get('sms-promotionals/{group}', [SmsPromotionalsController::class, 'index'])->name('smsPromotionals.index');
     
-    Route::match(['GET', 'POST'], 'sms-promotionals/{group}/send', [
-        'as' => 'smsPromotionals.send',
-        'uses' => 'SmsPromotionalsController@send',
-    ]);
-    Route::match(['GET', 'POST'], 'sms-promotionals/{id}/re-send', [
-        'as' => 'smsPromotionals.reSend',
-        'uses' => 'SmsPromotionalsController@reSend',
-    ]);
+    Route::match(['GET', 'POST'], 'sms-promotionals/{group}/send', [SmsPromotionalsController::class, 'send'])->name('smsPromotionals.send');
+    Route::match(['GET', 'POST'], 'sms-promotionals/{id}/re-send', [SmsPromotionalsController::class, 'reSend'])->name('smsPromotionals.reSend');
     */
     /*
     ============ Promotional SMS end here=============
      */
-    
-
 
     //====distributor start here=====
 
-    Route::get('distributor/download', [
-        'as' => 'distributor.download',
-        'uses' => 'DistributorsController@download',
-    ]);
+    Route::get('distributor/download', [DistributorsController::class, 'download'])->name('distributor.download');
 
-    Route::get('distributor/shops/{param}', [
-        'as' => 'distributor.shops',
-        'uses' => 'DistributorsController@distributorShopList',
-    ]);
+    Route::get('distributor/shops/{param}', [DistributorsController::class, 'distributorShopList'])->name('distributor.shops');
 
-    Route::any('distributors-profile', [
-        'as' => 'distributors.showProfile',
-        'uses' => 'DistributorsController@showProfile',
-    ]);
+    Route::any('distributors-profile', [DistributorsController::class, 'showProfile'])->name('distributors.showProfile');
 
-    Route::resource('distributors', 'DistributorsController',
-        ['except' => ['show']]);
+    Route::resource('distributors', DistributorsController::class)->except(['show']);
 
     //====distributor start here=====
-
 });

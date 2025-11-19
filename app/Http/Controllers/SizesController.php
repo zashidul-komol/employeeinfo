@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Exports\SizeExport;
-use App\Size;
+use App\Models\Size;
 use Illuminate\Http\Request;
 
 class SizesController extends Controller {
@@ -72,13 +72,13 @@ class SizesController extends Controller {
      */
     public function update(Request $request, $id) {
         $data = $request->except('_method', '_token');
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|numeric|unique:sizes,name,' . $id,
             'rent_amount' => 'required|numeric',
             'installment' => 'required|numeric',
         ]);
 
-        $sizes = Size::where('id', $id)->update($data);
+        $sizes = Size::whereKey($id)->update($validated);
         if ($sizes) {
             $message = "You have successfully updated";
             return redirect()->route('sizes.index', [])

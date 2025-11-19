@@ -272,15 +272,15 @@
 @endsection
 @section('vuescript')
 <script>
-    laravelObj.division_id='{{ $shops->division_id or '' }}';
-    laravelObj.districts =JSON.parse('{!! $districts or '' !!}');
-    laravelObj.district_id='{{ $shops->district_id or '' }}';
-    laravelObj.thanas =JSON.parse('{!! $thanas or '' !!}');
-    laravelObj.thana_id ='{{ $shops->thana_id or '' }}';
-    laravelObj.region_id='{{ $shops->region_id or '' }}';
-    laravelObj.areas=JSON.parse('{!! $areas or '' !!}');
-    laravelObj.area_id='{{ $shops->area_id or '' }}';
-    laravelObj.isDistributor='{{ $shops->is_distributor or '0' }}';
+    laravelObj.division_id='{{ $shops->division_id ?? '' }}';
+    laravelObj.districts =JSON.parse('{!! $districts ?? '' !!}');
+    laravelObj.district_id='{{ $shops->district_id ?? '' }}';
+    laravelObj.thanas =JSON.parse('{!! $thanas ?? '' !!}');
+    laravelObj.thana_id ='{{ $shops->thana_id ?? '' }}';
+    laravelObj.region_id='{{ $shops->region_id ?? '' }}';
+    laravelObj.areas=JSON.parse('{!! $areas ?? '' !!}');
+    laravelObj.area_id='{{ $shops->area_id ?? '' }}';
+    laravelObj.isDistributor='{{ $shops->is_distributor ?? '0' }}';
 </script>
 @stop
 @component('common_pages.selectize')
@@ -288,7 +288,7 @@
     @include('common_pages.max_length')
     <script type="text/javascript">
         $('.datepicker').datepicker({ format: "yyyy-mm-dd",todayHighlight: true,autoclose:true});
-        //get shops or distributor
+        //get shops ?? distributor
         function getExecutiveDepotShop(depotId){
         	$('#shop-list').html('');
         	$.ajax({

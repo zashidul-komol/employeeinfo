@@ -34,9 +34,9 @@ textarea:valid {
                     @endif
                     {!! $errors->first('avatar', '<p class="text-danger">:message</p>' ) !!}
 
-                    <h5 class="profile-username text-center">{{$employees[0]->name or ''}}</h5>
+                    <h5 class="profile-username text-center">{{$employees[0]->name ?? ''}}</h5>
 
-                    <p class="text-muted text-center">{{$employees[0]['designation']['title'] or ''}}</p>
+                    <p class="text-muted text-center">{{$employees[0]['designation']['title'] ?? ''}}</p>
 
                   </div>
             <!-- /.box-body -->
@@ -286,11 +286,11 @@ textarea:valid {
     </div>
 @section('vuescript')
 <script>
-    laravelObj.division_id='{{ $employees[0]->division_id or '' }}';
-    laravelObj.districts =JSON.parse('{!! $districts or '' !!}');
-    laravelObj.district_id='{{ $employees[0]->district_id or '' }}';
-    laravelObj.thanas =JSON.parse('{!! $thanas or '' !!}');
-    laravelObj.thana_id ='{{ $employees[0]->thana_id or '' }}';
+    laravelObj.division_id='{{ $employees[0]->division_id ?? '' }}';
+    laravelObj.districts =JSON.parse('{!! $districts ?? '' !!}');
+    laravelObj.district_id='{{ $employees[0]->district_id ?? '' }}';
+    laravelObj.thanas =JSON.parse('{!! $thanas ?? '' !!}');
+    laravelObj.thana_id ='{{ $employees[0]->thana_id ?? '' }}';
 </script>
 @stop
     <div class="col-sm-5">
@@ -719,15 +719,15 @@ textarea:valid {
                         @php ($i=1)
                         @foreach ($employees[0]->child_details as $data)
                         <tr>
-                        <td>{{$data->child_name or ''}}</td>
-                        <td>{{$data->date_of_birth or ''}}</td>
+                        <td>{{$data->child_name ?? ''}}</td>
+                        <td>{{$data->date_of_birth ?? ''}}</td>
 
                         <td>{{\Carbon\Carbon::parse($data->date_of_birth)->diff(\Carbon\Carbon::now())->format('%y years, %m months and %d days')}}</td>
-                        <td>{{$data->gender or ''}}</td>
-                        <td>{{$data->occupation or ''}}</td>
-                        <td>{{$data->class_name or ''}}</td>
-                        <td>{{$data->education or ''}}</td>
-                        <td>{{$data->institution or ''}}</td>
+                        <td>{{$data->gender ?? ''}}</td>
+                        <td>{{$data->occupation ?? ''}}</td>
+                        <td>{{$data->class_name ?? ''}}</td>
+                        <td>{{$data->education ?? ''}}</td>
+                        <td>{{$data->institution ?? ''}}</td>
                         <td>
                           {!!  Html::decode(link_to_route('childDetails.edit', '<span aria-hidden="true" class="fa fa-edit fa-x"></span>', array($data->id)))!!}
                           {!! Form::delete(route('childDetails.destroy',array($data->id))) !!}
@@ -840,10 +840,10 @@ textarea:valid {
                         @php ($i=1)
                         @foreach ($employees[0]->job_experiances as $data)
                       <tr>
-                        <td>{{$data->name_company or ''}}</td>
-                        <td>{{$data->position or ''}}</td>
-                        <td>{{$data->start_date or ''}}</td>
-                        <td>{{$data->end_date or ''}}</td>
+                        <td>{{$data->name_company ?? ''}}</td>
+                        <td>{{$data->position ?? ''}}</td>
+                        <td>{{$data->start_date ?? ''}}</td>
+                        <td>{{$data->end_date ?? ''}}</td>
                         <td>{{\Carbon\Carbon::parse($data->start_date)->diff(\Carbon\Carbon::parse($data->end_date))->format('%y years, %m months and %d days')}}</td>
                         <td>
                           {!!  Html::decode(link_to_route('jobExperiances.edit', '<span aria-hidden="true" class="fa fa-edit fa-x"></span>', array($data->id)))!!}
@@ -855,9 +855,9 @@ textarea:valid {
                         @php ($i=$i+1)
                         @endforeach
                       <tr>
-                        <td>{{$employees[0]->organization->organization or ''}}</td>
-                        <td>{{$employees[0]['designation']['title'] or ''}}</td>
-                        <td>{{$employees[0]->hiredate or ''}}</td>
+                        <td>{{$employees[0]->organization->organization ?? ''}}</td>
+                        <td>{{$employees[0]['designation']['title'] ?? ''}}</td>
+                        <td>{{$employees[0]->hiredate ?? ''}}</td>
                         <td></td>
                         <td>{{\Carbon\Carbon::parse($employees[0]->hiredate)->diff(\Carbon\Carbon::now())->format('%y years, %m months and %d days')}}</td>
                         <td></td>
@@ -944,7 +944,7 @@ textarea:valid {
 
         $('.datepicker').datepicker({ format: "yyyy-mm-dd",todayHighlight: true,autoclose:true});
 
-        //get shops or distributor
+        //get shops ?? distributor
         function getExecutiveDepotShop(depotId){
           $('#shop-list').html('');
           $.ajax({

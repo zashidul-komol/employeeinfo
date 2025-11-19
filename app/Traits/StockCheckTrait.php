@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Traits;
-use App\Shop;
-use App\Item;
+use App\Models\Shop;
+use App\Models\Item;
 trait StockCheckTrait {
 
     public function checkAvailableStock($size_id,$shop_id=null,$depotId = null){

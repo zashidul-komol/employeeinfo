@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Depot;
-use App\Designation;
-use App\OfficeLocation;
-use App\SmsPromotional;
-use App\User;
-use App\Employee;
+use App\Models\Depot;
+use App\Models\Designation;
+use App\Models\OfficeLocation;
+use App\Models\SmsPromotional;
+use App\Models\User;
+use App\Models\Employee;
 use App\Traits\SmsTrait;
 use Illuminate\Http\Request;
-use App\Shop;
-use App\Participation;
+use App\Models\Shop;
+use App\Models\Participation;
 
 class SmsPromotionalsController extends Controller
 {

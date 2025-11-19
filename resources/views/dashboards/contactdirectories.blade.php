@@ -36,11 +36,11 @@
                         @foreach ($employees as $data)
                       <tr>
                         <td>{{$i}}</td>
-                        <td>{{$data->name or ''}}</td>
-                        <td>{{$data->designation->title or ''}}</td>
-                        <td>{{$data->department->name or ''}}</td>
-                        <td>{{$data->mobile or ''}}</td>
-                        <td>{{$data->email or ''}}</td>
+                        <td>{{$data->name ?? ''}}</td>
+                        <td>{{$data->designation->title ?? ''}}</td>
+                        <td>{{$data->department->name ?? ''}}</td>
+                        <td>{{$data->mobile ?? ''}}</td>
+                        <td>{{$data->email ?? ''}}</td>
                         <td>
                           <a class="fa fa-eye fa-x" style="cursor:pointer" onclick="showModal({{ $data->id }})"></a> 
                                                                                                      

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\RolePermission;
-use App\SiteSetting;
+use App\Models\RolePermission;
+use App\Models\SiteSetting;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;

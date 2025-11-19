@@ -1,24 +1,24 @@
 <?php
 namespace App\Http\Controllers;
 
-use App\DepotUser;
-use App\Designation;
-use App\DfReturn;
-use App\Document;
-use App\Item;
-use App\PhysicalVisit;
-use App\Requisition;
-use App\Role;
-use App\Settlement;
-use App\Shop;
-use App\Size;
-use App\Stage;
+use App\Models\DepotUser;
+use App\Models\Designation;
+use App\Models\DfReturn;
+use App\Models\Document;
+use App\Models\Item;
+use App\Models\PhysicalVisit;
+use App\Models\Requisition;
+use App\Models\Role;
+use App\Models\Settlement;
+use App\Models\Shop;
+use App\Models\Size;
+use App\Models\Stage;
 use App\Traits\DocumentsUpload;
 use App\Traits\HasStageExists;
 use App\Traits\SettlementCreateCloseData;
 use App\Traits\SmsTrait;
 use App\Traits\StockCheckTrait;
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class RequisitionsController extends Controller {
@@ -394,7 +394,7 @@ class RequisitionsController extends Controller {
 			->findOrFail($id);
 
 		if ($requisitions->type == 'replace') {
-			$itemIds = \App\Settlement::where('shop_id', $requisitions->shop_id)
+			$itemIds = \App\Models\Settlement::where('shop_id', $requisitions->shop_id)
 				->where('status', '<>', 'closed')
 				->pluck('item_id');
 			$currentdfs = Item::whereIn('id', $itemIds)->pluck('serial_no', 'id');
@@ -430,7 +430,7 @@ class RequisitionsController extends Controller {
 
 		if ($requisitions->status == 'draft') {
 
-			$dfreturns = \App\DfReturn::select('df_returns.id', 'items.serial_no', 'shops.outlet_name', 'items.size_id')
+			$dfreturns = \App\Models\DfReturn::select('df_returns.id', 'items.serial_no', 'shops.outlet_name', 'items.size_id')
 				->join('items', 'items.id', '=', 'df_returns.current_df')
 				->join('shops', 'shops.id', '=', 'df_returns.shop_id')
 				->where('to_shop', $requisitions->shop_id)
@@ -821,7 +821,7 @@ class RequisitionsController extends Controller {
 			->findOrFail($id);
 
 		if ($requisitions->type == 'replace') {
-			$itemIds = \App\Settlement::where('shop_id', $requisitions->shop_id)
+			$itemIds = \App\Models\Settlement::where('shop_id', $requisitions->shop_id)
 				->where('status', '<>', 'closed')
 				->pluck('item_id');
 			$currentdfs = Item::whereIn('id', $itemIds)->pluck('serial_no', 'id');
@@ -849,7 +849,7 @@ class RequisitionsController extends Controller {
 			}
 		}
 
-		$dfreturns = \App\DfReturn::select('df_returns.id', 'items.serial_no', 'shops.outlet_name', 'items.size_id')
+		$dfreturns = \App\Models\DfReturn::select('df_returns.id', 'items.serial_no', 'shops.outlet_name', 'items.size_id')
 			->join('items', 'items.id', '=', 'df_returns.current_df')
 			->join('shops', 'shops.id', '=', 'df_returns.shop_id')
 			->where('to_shop', $requisitions->shop_id)

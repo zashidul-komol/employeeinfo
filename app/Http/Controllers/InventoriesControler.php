@@ -1,21 +1,21 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Allocation;
-use App\AllocationDetail;
-use App\Brand;
-use App\Country;
-use App\Depot;
-use App\DfCode;
-use App\DfProblem;
+use App\Models\Allocation;
+use App\Models\AllocationDetail;
+use App\Models\Brand;
+use App\Models\Country;
+use App\Models\Depot;
+use App\Models\DfCode;
+use App\Models\DfProblem;
 use App\Exports\AllocationExport;
 use App\Exports\DFCodeExport;
 use App\Exports\ItemsExport;
-use App\Item;
-use App\Size;
-use App\Stock;
-use App\StockDetail;
-use App\Supplier;
+use App\Models\Item;
+use App\Models\Size;
+use App\Models\Stock;
+use App\Models\StockDetail;
+use App\Models\Supplier;
 use App\Traits\StockTransferTrait;
 use Carbon\Carbon;
 use Excel;
@@ -466,7 +466,7 @@ class InventoriesControler extends Controller {
 
 	public function itemIndex($param = '') {
 
-		$isExecutiveGroup = \App\Role::where('id', auth()->user()->role_id)->value('can_apply');
+		$isExecutiveGroup = \App\Models\Role::where('id', auth()->user()->role_id)->value('can_apply');
 		if ($param == '' AND $isExecutiveGroup) {
 			$param = 'injected_dF';
 

@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\FamilyDetail;
-use App\Employee;
-use App\CertificationCourse;
+use App\Models\FamilyDetail;
+use App\Models\Employee;
+use App\Models\CertificationCourse;
 use Illuminate\Http\Request;
 
 class CertificationCoursesController extends Controller
@@ -96,7 +96,7 @@ class CertificationCoursesController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->except('_method', '_token');
-        $certificationCourses = CertificationCourse::where('id', $id)->update($data);
+        $certificationCourses = CertificationCourse::whereKey($id)->update($data);
         if ($certificationCourses) {
             $message = "You have successfully updated";
             return redirect()->route('certificationCourses.index', [])

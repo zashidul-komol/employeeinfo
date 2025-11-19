@@ -1,10 +1,10 @@
 <?php
 namespace App\Exports;
-use App\Depot;
-use App\Designation;
-use App\Department;
-use App\Role;
-use App\User;
+use App\Models\Depot;
+use App\Models\Designation;
+use App\Models\Department;
+use App\Models\Role;
+use App\Models\User;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;

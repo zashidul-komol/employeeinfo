@@ -11,40 +11,40 @@
 	@if ($requisition->type=='replace')
 	<tr>
 		<th>Current DF Serial</th>
-		<td>{{ $requisition->currentdf->serial_no or '' }}</td>
+		<td>{{ $requisition->currentdf->serial_no ?? '' }}</td>
 	</tr>
 	@endif
 	<tr>
 		<th>Reference</th>
-		<td>{{ $requisition->reference_id or '' }}</td>
+		<td>{{ $requisition->reference_id ?? '' }}</td>
 	</tr>
 	@if($requisition->user_id!=auth()->user()->id)
 	<tr>
 		<th>Sender</th>
-		<td>{{ $requisition->user->name or '' }}</td>
+		<td>{{ $requisition->user->name ?? '' }}</td>
 	</tr>
 	@endif
 	@if($requisition->created_by)
 	<tr>
 		<th>Creator</th>
-		<td>{{ $requisition->creator->name or '' }}</td>
+		<td>{{ $requisition->creator->name ?? '' }}</td>
 	</tr>
 	@endif
 	<tr>
 		<th>Outlet Name</th>
-		<td>{{$requisition->shop->outlet_name or ''}}</td>
+		<td>{{$requisition->shop->outlet_name ?? ''}}</td>
 	</tr>
 	<tr>
 		<th>Shop Address</th>
-		<td>{{$requisition->shop->address or ''}}</td>
+		<td>{{$requisition->shop->address ?? ''}}</td>
 	</tr>
 	<tr>
 		<th>Required DF Size</th>
-		<td>DF-{{$requisition->size->name or ''}}</td>
+		<td>DF-{{$requisition->size->name ?? ''}}</td>
 	</tr>
 	<tr>
 		<th>Mobile Number</th>
-		<td>{{$requisition->shop->mobile or ''}}</td>
+		<td>{{$requisition->shop->mobile ?? ''}}</td>
 	</tr>
 	<tr>
 		<th>Payment Mode</th>
@@ -59,12 +59,12 @@
 	</tr>
 	<tr>
 		<th>Payable Amount</th>
-		<td><strong class="text-danger">{{$requisition->receive_amount or '0'}}</strong></td>
+		<td><strong class="text-danger">{{$requisition->receive_amount ?? '0'}}</strong></td>
 	</tr>
 	@if ($requisition->payment_methods && $requisition->payment_methods == 'bkash')
 	<tr>
 		<th>Paid Amount</th>
-		<td><strong class="text-danger">{{$requisition->total or '0'}}</strong></td>
+		<td><strong class="text-danger">{{$requisition->total ?? '0'}}</strong></td>
 	</tr>
 	@endif
 	<tr>
@@ -84,7 +84,7 @@
 	</tr>
 	<tr>
 		<th>Distance From Dist. Point</th>
-		<td>{{$requisition->distance_from_dist or ''}} km.</td>
+		<td>{{$requisition->distance_from_dist ?? ''}} km.</td>
 	</tr>
 	<tr>
 		<th>Market Category</th>
@@ -96,22 +96,22 @@
 	</tr>
 	<tr>
 		<th>Visibility Of DF</th>
-		<td>{{$requisition->visibility_of_df or ''}}</td>
+		<td>{{$requisition->visibility_of_df ?? ''}}</td>
 	</tr>
 	<tr>
 		<th>Estemated Sales</th>
-		<td>{{$requisition->shop->estimated_sales or ''}}</td>
+		<td>{{$requisition->shop->estimated_sales ?? ''}}</td>
 	</tr>
 	<tr>
 		<th>Stage</th>
-		<td>{{$requisition->stage or '0'}}</td>
+		<td>{{$requisition->stage ?? '0'}}</td>
 	</tr>
 	@if($requisition->action_by)
 	<tr>
 		<th>Last Action By</th>
 		<td>
 			@if ($requisition->action_by!=auth()->user()->id)
-               {{ $requisition->stager->name or '' }}
+               {{ $requisition->stager->name ?? '' }}
             @else
                 Self
             @endif
@@ -128,7 +128,7 @@
 					<span class="badge x-danger">No</span>
 				@endif
 				@if ($requisition->doc_verified_by)
-	            	By: <span>{{ $requisition->document_verifier->name or '' }}</span>
+	            	By: <span>{{ $requisition->document_verifier->name ?? '' }}</span>
 	            @endif
 			</td>
 		</tr>
@@ -141,7 +141,7 @@
 	            	<span class="badge x-danger">No</span>
 	            @endif
 	            @if ($requisition->payment_verrified_by)
-	            	By: <span>{{ $requisition->payment_verifier->name or '' }}</span>
+	            	By: <span>{{ $requisition->payment_verifier->name ?? '' }}</span>
 	            @endif
 			</td>
 		</tr>
@@ -165,13 +165,13 @@
 					</tr>
 					<tr>
 						<th>Last Three Months AVG DF Sales</th>
-						<td>{{ $requisition->last_three_months_avg_sales or '0' }}</td>
-						<td>{{ $requisition->last_three_months_avg_sales_real or '0' }}</td>
+						<td>{{ $requisition->last_three_months_avg_sales ?? '0' }}</td>
+						<td>{{ $requisition->last_three_months_avg_sales_real ?? '0' }}</td>
 					</tr>
 					<tr>
 						<th>Yearly Average DF Sales</th>
-						<td>{{ $requisition->average_sales or '0' }}</td>
-						<td>{{ $requisition->average_sales_real or '0' }}</td>
+						<td>{{ $requisition->average_sales ?? '0' }}</td>
+						<td>{{ $requisition->average_sales_real ?? '0' }}</td>
 					</tr>
 				</table>
 			</td>
@@ -181,7 +181,7 @@
 			<td>
 	            @if ($requisition->validate_by)
 	            	<span class="badge x-success">yes</span>
-	            	By: <span>{{ $requisition->validator->name or '' }}</span>
+	            	By: <span>{{ $requisition->validator->name ?? '' }}</span>
 	            @else
 	            	<span class="badge x-danger">No</span>
 	            @endif
@@ -191,7 +191,7 @@
 		@if ($requisition->item)
 		<tr>
 			<th>DF-Code</th>
-			<td>{{ $requisition->item->serial_no or '' }}</td>
+			<td>{{ $requisition->item->serial_no ?? '' }}</td>
 		</tr>
 		@endif
 		<tr>
@@ -254,7 +254,7 @@
                     <span>{{ $ele->updated_at->diffForHumans() }}</span>
                 </div>
                 <div class="comment-content">
-                    {{ $ele->comments or '' }}
+                    {{ $ele->comments ?? '' }}
                 </div>
             </div>
         </div>

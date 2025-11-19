@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Designation;
-use App\Sms;
+use App\Models\Designation;
+use App\Models\Sms;
 use Illuminate\Http\Request;
 
 class SmsController extends Controller {

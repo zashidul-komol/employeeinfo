@@ -47,12 +47,12 @@
 
                       <tr>
                         <td>{{$i}}</td>
-                        <td>{{$data->employees->name or ''}}</td>
-                        <td>{{$data->employees->designation->title or ''}}</td>
-                        <td>{{$data->employees->office_location->name or ''}}</td>
-                        <td><a href="{{ asset('storage/Employee_nid/'.$data->employee_nid) }}" target="_blank">{{$data->employee_nid or ''}}</td>
-                        <td><a href="{{ asset('storage/Spouse_nid/'.$data->spouse_nid) }}" target="_blank">{{$data->spouse_nid or ''}}</td>    
-                        <td>{{$data->tshirt or ''}}</td>
+                        <td>{{$data->employees->name ?? ''}}</td>
+                        <td>{{$data->employees->designation->title ?? ''}}</td>
+                        <td>{{$data->employees->office_location->name ?? ''}}</td>
+                        <td><a href="{{ asset('storage/Employee_nid/'.$data->employee_nid) }}" target="_blank">{{$data->employee_nid ?? ''}}</td>
+                        <td><a href="{{ asset('storage/Spouse_nid/'.$data->spouse_nid) }}" target="_blank">{{$data->spouse_nid ?? ''}}</td>    
+                        <td>{{$data->tshirt ?? ''}}</td>
                         <td>{{$data->room_one.','.$data->room_two}}</td>
                         <td>{{$data->room_one_key.','.$data->room_two_key}}</td>
                         <td>

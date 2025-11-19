@@ -1,7 +1,7 @@
 <?php
 namespace App\Exports;
-use App\Allocation;
-use App\Stock;
+use App\Models\Allocation;
+use App\Models\Stock;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;

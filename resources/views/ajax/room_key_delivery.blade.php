@@ -25,9 +25,9 @@
                     @endif
                     {!! $errors->first('avatar', '<p class="text-danger">:message</p>' ) !!}
 
-                    <h5 class="profile-username text-center">{{$roomKeydeliveries[0]->employees->name or ''}}</h5>
+                    <h5 class="profile-username text-center">{{$roomKeydeliveries[0]->employees->name ?? ''}}</h5>
 
-                    <p class="text-muted text-center">{{$roomKeydeliveries[0]->employees->designation->title or ''}}</p>
+                    <p class="text-muted text-center">{{$roomKeydeliveries[0]->employees->designation->title ?? ''}}</p>
 
                   </div>
             <!-- /.box-body -->

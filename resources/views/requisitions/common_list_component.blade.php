@@ -47,16 +47,16 @@
 
             @endif
         </td>
-        {{-- <td>{{ $data->reference_id or '' }}</td> --}}
+        {{-- <td>{{ $data->reference_id ?? '' }}</td> --}}
         @if (!$isExecutive)
-            <td>{{ $data->user->name or '' }}</td>
+            <td>{{ $data->user->name ?? '' }}</td>
         @endif
-        <td>{{ $data->creator->name or '' }}</td>
-        <td>{{ $data->depot->name or '' }}</td>
-        <td>{!! $data->distributor->outlet_name or '' !!}</td>
-        <td><a style="cursor: pointer;" onclick="getShopDetails('{{ $data->shop->id or '0' }}')">{!! $data->shop->outlet_name or '' !!}</a></td>
-        <td>DF-{{$data->size->name or ''}}</td>
-        <td>{{$data->shop->mobile or ''}}</td>
+        <td>{{ $data->creator->name ?? '' }}</td>
+        <td>{{ $data->depot->name ?? '' }}</td>
+        <td>{!! $data->distributor->outlet_name ?? '' !!}</td>
+        <td><a style="cursor: pointer;" onclick="getShopDetails('{{ $data->shop->id ?? '0' }}')">{!! $data->shop->outlet_name ?? '' !!}</a></td>
+        <td>DF-{{$data->size->name ?? ''}}</td>
+        <td>{{$data->shop->mobile ?? ''}}</td>
         <td>
             {{config('myconfig.payment_modes')[$data->payment_modes]}}
             @if ($data->payment_modes != 'without_rent')
@@ -66,7 +66,7 @@
         @if ($param !='draft')
         <td>
             @if ($data->action_by!=$authUserId)
-               {{ $data->stager->name or '' }}
+               {{ $data->stager->name ?? '' }}
             @else
                 Self
             @endif

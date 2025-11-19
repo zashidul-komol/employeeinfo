@@ -2,7 +2,7 @@
 namespace App\Repositories\Models;
 
 use App\Repositories\Repository;
-use App\Stock;
+use App\Models\Stock;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 

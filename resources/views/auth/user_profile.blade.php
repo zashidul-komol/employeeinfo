@@ -30,7 +30,7 @@
 
             <div class="user-header-info">
                 <h2 class="user-name">{{ $user->username }}</h2>
-                <h5 class="user-position">{{ $user->designation->title or '' }} ({{ $user->designation->short_name or '' }})</h5>
+                <h5 class="user-position">{{ $user->designation->title ?? '' }} ({{ $user->designation->short_name ?? '' }})</h5>
                 {{-- <div class="user-social-media">
                     <span class="text-lg"><a href="#" class="fa fa-twitter-square"></a> <a href="#" class="fa fa-facebook-square"></a> <a href="#" class="fa fa-linkedin-square"></a> <a href="#" class="fa fa-google-plus-square"></a></span>
                 </div> --}}

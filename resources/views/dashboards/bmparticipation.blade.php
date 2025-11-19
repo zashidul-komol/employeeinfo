@@ -199,8 +199,8 @@ textarea:valid {
                     <tbody>
                         
                       <tr>
-                        <td>{{$employees[0]->name or ''}}</td>
-                        <td>{{$employees[0]->gender or ''}}</td>
+                        <td>{{$employees[0]->name ?? ''}}</td>
+                        <td>{{$employees[0]->gender ?? ''}}</td>
                         <td>@php
                               $tshirt = '';
                               if(!empty($employees[0]->business_meets)){
@@ -391,7 +391,7 @@ textarea:valid {
 
         $('.datepicker').datepicker({ format: "yyyy-mm-dd",todayHighlight: true,autoclose:true});
 
-        //get shops or distributor
+        //get shops ?? distributor
         function getExecutiveDepotShop(depotId){
           $('#shop-list').html('');
           $.ajax({

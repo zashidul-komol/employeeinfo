@@ -2,18 +2,18 @@
 	@if ($stocks->supplier)
 		<tr>
 			<th>Supplier</th>
-			<td>{{ $stocks->supplier->name or '' }}</td>
+			<td>{{ $stocks->supplier->name ?? '' }}</td>
 		</tr>
 	@endif
 	@if ($stocks->country)
 		<tr>
 			<th>Origin</th>
-			<td>{{ $stocks->country->country_name or '' }}</td>
+			<td>{{ $stocks->country->country_name ?? '' }}</td>
 		</tr>
 	@endif
 	<tr>
 		<th>Invoice No.</th>
-		<td>{{ $stocks->invoice_no or '' }}</td>
+		<td>{{ $stocks->invoice_no ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Invoice Date</th>
@@ -25,7 +25,7 @@
 	</tr>
 	<tr>
 		<th>LC No.</th>
-		<td>{{ $stocks->lc_no or '' }}</td>
+		<td>{{ $stocks->lc_no ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>LC Date</th>
@@ -37,15 +37,15 @@
 	</tr>
 	<tr>
 		<th>No of Type</th>
-		<td>{{ $stocks->no_of_type or '0' }}</td>
+		<td>{{ $stocks->no_of_type ?? '0' }}</td>
 	</tr>
 	<tr>
 		<th>Total Item</th>
-		<td>{{ $stocks->total_item or '0' }}</td>
+		<td>{{ $stocks->total_item ?? '0' }}</td>
 	</tr>
 	<tr>
 		<th>Currency</th>
-		<td>{{ $stocks->currency or '' }}</td>
+		<td>{{ $stocks->currency ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Is Opening</th>
@@ -73,17 +73,17 @@
 			<tr>
 				<td>
 					@if ($ele->brand)
-						{{ $ele->brand->short_code or '' }}
+						{{ $ele->brand->short_code ?? '' }}
 					@endif
 				</td>
 				<td>
 					@if ($ele->size)
-						{{ $ele->size->name or '' }}
+						{{ $ele->size->name ?? '' }}
 					@endif
 				</td>
-				<td>{{ $ele->qty or '0' }}</td>
-				<td>{{ $ele->receive_qty or '0' }}</td>
-				<td>{{ $ele->unit_price or '0' }}</td>
+				<td>{{ $ele->qty ?? '0' }}</td>
+				<td>{{ $ele->receive_qty ?? '0' }}</td>
+				<td>{{ $ele->unit_price ?? '0' }}</td>
 			</tr>
 		@endforeach
 

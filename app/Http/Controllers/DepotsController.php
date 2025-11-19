@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Depot;
-use App\DepotUser;
+use App\Models\Depot;
+use App\Models\DepotUser;
 use App\Exports\DepotExport;
-use App\Location;
-use App\Requisition;
-use App\User;
-use App\Zone;
+use App\Models\Location;
+use App\Models\Requisition;
+use App\Models\User;
+use App\Models\Zone;
 use Illuminate\Http\Request;
 
 class DepotsController extends Controller {

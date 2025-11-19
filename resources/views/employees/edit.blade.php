@@ -261,11 +261,11 @@
 @endsection
 @section('vuescript')
 <script>
-    laravelObj.division_id='{{ $employees[0]->division_id or '' }}';
-    laravelObj.districts =JSON.parse('{!! $districts or '' !!}');
-    laravelObj.district_id='{{ $employees[0]->district_id or '' }}';
-    laravelObj.thanas =JSON.parse('{!! $thanas or '' !!}');
-    laravelObj.thana_id ='{{ $employees[0]->thana_id or '' }}';
+    laravelObj.division_id='{{ $employees[0]->division_id ?? '' }}';
+    laravelObj.districts =JSON.parse('{!! $districts ?? '' !!}');
+    laravelObj.district_id='{{ $employees[0]->district_id ?? '' }}';
+    laravelObj.thanas =JSON.parse('{!! $thanas ?? '' !!}');
+    laravelObj.thana_id ='{{ $employees[0]->thana_id ?? '' }}';
 </script>
 @stop
 @component('common_pages.selectize')
@@ -275,7 +275,7 @@
 
         $('.datepicker').datepicker({ format: "yyyy-mm-dd",todayHighlight: true,autoclose:true});
 
-        //get shops or distributor
+        //get shops ?? distributor
         
     </script>
     @slot('css')

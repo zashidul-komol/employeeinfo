@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\FamilyDetail;
-use App\Employee;
-use App\ChildDetail;
-use App\Relationship;
+use App\Models\FamilyDetail;
+use App\Models\Employee;
+use App\Models\ChildDetail;
+use App\Models\Relationship;
 use Illuminate\Http\Request;
 use Validator;
 use Carbon\Carbon;
@@ -55,7 +55,7 @@ class RelationshipsController extends Controller
     public function store(Request $request)
     {
         //dd($request);
-        $user = \App\User::find(auth()->id());
+        $user = \App\Models\User::find(auth()->id());
         $Emp_id['employee_id'] = $user['employee_id'];
 
         $rules = array(
@@ -146,10 +146,10 @@ class RelationshipsController extends Controller
     {
         $data = $request->except('_method', '_token');
 
-        $user = \App\User::find(auth()->id());
+        $user = \App\Models\User::find(auth()->id());
         $Emp_id['employee_id'] = $user['employee_id'];
         
-        $childDetails = ChildDetail::where('id', $id)->update($data);
+        $childDetails = ChildDetail::whereKey($id)->update($data);
         if ($childDetails) {
             $updated_at = Carbon::now();
             Employee::where('id',$Emp_id['employee_id'])->update(['updated_at' => $updated_at]);

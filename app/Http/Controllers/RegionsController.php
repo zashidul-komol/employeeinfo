@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Region;
+use App\Models\Region;
 use Illuminate\Http\Request;
 
 class RegionsController extends Controller
@@ -87,12 +87,12 @@ class RegionsController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->except('_method', '_token');
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|unique:regions,name,' . $id,
             'status' => 'required',
         ]);
 
-        $regions = Region::where('id', $id)->update($data);
+        $regions = Region::whereKey($id)->update($validated);
         if ($regions) {
             $message = "You have successfully updated";
             return redirect()->route('regions.index', [])

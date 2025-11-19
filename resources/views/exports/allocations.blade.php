@@ -45,14 +45,14 @@
   @endphp
   <tr>
     <td style="background-color: #E5FFCC;" height="100">{{ $loop->iteration }}</td>
-    <td style="background-color: #E5FFCC;border: 5px solid #000000;" height="100">{{ $val->depot->user->name or '' }}</td>
+    <td style="background-color: #E5FFCC;border: 5px solid #000000;" height="100">{{ $val->depot->user->name ?? '' }}</td>
     @foreach ($merged as $ke=>$vl)
        <td style="background-color: #E5FFCC;" height="100">{{ $vl }}</td>
     @endforeach
   </tr>
   <tr>
     <td>&nbsp;</td>
-    <td>{{ $val->depot->user->designation->title or '' }} </td>
+    <td>{{ $val->depot->user->designation->title ?? '' }} </td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
@@ -61,7 +61,7 @@
   </tr>
   <tr>
     <td>&nbsp;</td>
-    <td>{{ $val->depot->address or '' }}</td>
+    <td>{{ $val->depot->address ?? '' }}</td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
@@ -70,7 +70,7 @@
   </tr>
   <tr>
     <td>&nbsp;</td>
-    <td>Phone: {{ $val->depot->user->mobile or '' }}</td>
+    <td>Phone: {{ $val->depot->user->mobile ?? '' }}</td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
@@ -79,7 +79,7 @@
   </tr>
   <tr>
     <td>&nbsp;</td>
-    <td>Email: {{ $val->depot->user->email or '' }}</td>
+    <td>Email: {{ $val->depot->user->email ?? '' }}</td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
     <td>&nbsp;</td>

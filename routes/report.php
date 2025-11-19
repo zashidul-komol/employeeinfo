@@ -1,35 +1,39 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Report\InventoryReportsController;
+use App\Http\Controllers\Report\ServiceReportsController;
+
 Route::group(['prefix' => 'report', 'middleware' => ['auth']], function () {
 
-    Route::any('inventory/{param?}', 'Report\InventoryReportsController@index')->name('inventoryreports.index');
+    Route::any('inventory/{param?}', [InventoryReportsController::class, 'index'])->name('inventoryreports.index');
 
-    Route::any('depot-df-status', 'Report\InventoryReportsController@getDepotDFStatus')->name('inventoryreports.getDepotDFStatus');
+    Route::any('depot-df-status', [InventoryReportsController::class, 'getDepotDFStatus'])->name('inventoryreports.getDepotDFStatus');
 
-    Route::any('size-wise-df-status/{param?}', 'Report\InventoryReportsController@getSizeWiseDFStatus')->name('inventoryreports.getSizeWiseDFStatus');
+    Route::any('size-wise-df-status/{param?}', [InventoryReportsController::class, 'getSizeWiseDFStatus'])->name('inventoryreports.getSizeWiseDFStatus');
 
-    Route::any('size-wise-distributor-df-status/{param?}', 'Report\InventoryReportsController@getSizeWiseDistributorDFStatus')->name('inventoryreports.getSizeWiseDistributorDFStatus');
+    Route::any('size-wise-distributor-df-status/{param?}', [InventoryReportsController::class, 'getSizeWiseDistributorDFStatus'])->name('inventoryreports.getSizeWiseDistributorDFStatus');
 
-    Route::any('brand-wise-df-status/{param?}', 'Report\InventoryReportsController@getBrandWiseDFStatus')->name('inventoryreports.getBrandWiseDFStatus');
+    Route::any('brand-wise-df-status/{param?}', [InventoryReportsController::class, 'getBrandWiseDFStatus'])->name('inventoryreports.getBrandWiseDFStatus');
 
-    Route::any('migration/{year}', 'Report\InventoryReportsController@migration')->name('inventoryreports.migration');
+    Route::any('migration/{year}', [InventoryReportsController::class, 'migration'])->name('inventoryreports.migration');
 
     //Service Module Start
 
-    Route::any('service', 'Report\ServiceReportsController@index')->name('servicereports.index');
+    Route::any('service', [ServiceReportsController::class, 'index'])->name('servicereports.index');
 
-    Route::any('df-wise-complain/{param?}', 'Report\ServiceReportsController@dfWiseComplain')->name('servicereports.dfWiseComplain');
+    Route::any('df-wise-complain/{param?}', [ServiceReportsController::class, 'dfWiseComplain'])->name('servicereports.dfWiseComplain');
 
-    Route::any('size-wise-complain/{param?}', 'Report\ServiceReportsController@sizeWiseComplain')->name('servicereports.sizeWiseComplain');
+    Route::any('size-wise-complain/{param?}', [ServiceReportsController::class, 'sizeWiseComplain'])->name('servicereports.sizeWiseComplain');
 
-    Route::any('type-wise-complain/{param?}', 'Report\ServiceReportsController@typeWiseComplain')->name('servicereports.typeWiseComplain');
+    Route::any('type-wise-complain/{param?}', [ServiceReportsController::class, 'typeWiseComplain'])->name('servicereports.typeWiseComplain');
 
-    Route::any('date-wise-complain/{param?}', 'Report\ServiceReportsController@dateWiseComplain')->name('servicereports.dateWiseComplain');
+    Route::any('date-wise-complain/{param?}', [ServiceReportsController::class, 'dateWiseComplain'])->name('servicereports.dateWiseComplain');
 
-    Route::any('long-pending-complain', 'Report\ServiceReportsController@longPendingComplain')->name('servicereports.longPendingComplain');
+    Route::any('long-pending-complain', [ServiceReportsController::class, 'longPendingComplain'])->name('servicereports.longPendingComplain');
 
-    Route::any('job-card-complain', 'Report\ServiceReportsController@jobCardComplain')->name('servicereports.jobCardComplain');
+    Route::any('job-card-complain', [ServiceReportsController::class, 'jobCardComplain'])->name('servicereports.jobCardComplain');
 
-    Route::any('damaged-report-lists', 'Report\ServiceReportsController@damagedLists')->name('servicereports.damagedLists');
+    Route::any('damaged-report-lists', [ServiceReportsController::class, 'damagedLists'])->name('servicereports.damagedLists');
 
 });

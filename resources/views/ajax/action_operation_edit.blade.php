@@ -1,23 +1,23 @@
 <table class="table table-condensed">
 	<tr>
 		<th>Invoice</th>
-		<td>{{ $allocations->stock->invoice_no or '' }}</td>
+		<td>{{ $allocations->stock->invoice_no ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Depot</th>
-		<td>{{ $allocations->depot->name or '' }}</td>
+		<td>{{ $allocations->depot->name ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Number of Item</th>
-		<td>{{ $allocations->no_of_item or '0' }}</td>
+		<td>{{ $allocations->no_of_item ?? '0' }}</td>
 	</tr>
 	<tr>
 		<th>Total Quantity</th>
-		<td>{{ $allocations->total_qty or '0' }}</td>
+		<td>{{ $allocations->total_qty ?? '0' }}</td>
 	</tr>
 	<tr>
 		<th>Status</th>
-		<td>{{ $allocations->status or '' }}</td>
+		<td>{{ $allocations->status ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Allocation Time</th>
@@ -41,15 +41,15 @@
 			<tr>
 				<td>
 					@if ($ele->stock_detail->brand)
-						{{ $ele->stock_detail->brand->short_code or '' }}
+						{{ $ele->stock_detail->brand->short_code ?? '' }}
 					@endif
 				</td>
 				<td>
 					@if ($ele->stock_detail->size)
-						{{ $ele->stock_detail->size->name or '' }}
+						{{ $ele->stock_detail->size->name ?? '' }}
 					@endif
 				</td>
-				<td>{{ $ele->qty or '0' }}</td>
+				<td>{{ $ele->qty ?? '0' }}</td>
 			</tr>
 		@endforeach
 

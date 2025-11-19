@@ -32,25 +32,25 @@
       <tr>
         <td>{{$i}}</td>
         @if (!$isExecutive)
-            <td>{{ $data->user->name or '' }}</td>
+            <td>{{ $data->user->name ?? '' }}</td>
         @endif
-        <td>{{ $data->creator->name or '' }}</td>
-      	<td>{{$data->shop->outlet_name or ''}}</td>
-        <td>{{$data->shop->address or ''}}</td>
-        <td>DF-{{$data->size->name or ''}}</td>
-        <td>{{$data->shop->mobile or ''}}</td>
+        <td>{{ $data->creator->name ?? '' }}</td>
+      	<td>{{$data->shop->outlet_name ?? ''}}</td>
+        <td>{{$data->shop->address ?? ''}}</td>
+        <td>DF-{{$data->size->name ?? ''}}</td>
+        <td>{{$data->shop->mobile ?? ''}}</td>
         <td>{{config('myconfig.payment_modes')[$data->payment_modes]}}</td>
-        <td>{{$data->receive_amount or '0'}}</td>
+        <td>{{$data->receive_amount ?? '0'}}</td>
         <td>@if ($data->other_company_df=='no') NO @else {{ $data->other_company_df}}@endif</td>
         <td>{{config('myconfig.boolArr')[$data->exclusive_outlet]}}</td>
-        <td>{{$data->distance_from_dist or ''}} km.</td>
+        <td>{{$data->distance_from_dist ?? ''}} km.</td>
         <td>{{config('myconfig.shop_category')[$data->shop->category]}}</td>
-        <td>{{$data->visibility_of_df or ''}}</td>
-        <td>{{$data->shop->estimated_sales or ''}}</td>
-        <td>{{$data->stage or '0'}}</td>
+        <td>{{$data->visibility_of_df ?? ''}}</td>
+        <td>{{$data->shop->estimated_sales ?? ''}}</td>
+        <td>{{$data->stage ?? '0'}}</td>
         <td>
             @if ($data->action_by!=auth()->user()->id)
-               {{ $data->stager->name or '' }}
+               {{ $data->stager->name ?? '' }}
             @else
                 Self
             @endif

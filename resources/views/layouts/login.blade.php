@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="authors" content="mipellim,abdulbaten1983@gmail.com">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>{{ $site_settings->site_title or 'Dhaka Ice Cream Industries Ltd.' }}</title>
+    <title>{{ $site_settings->site_title ?? 'Dhaka Ice Cream Industries Ltd.' }}</title>
     @include('common_pages.favicon')
     <!--BASIC css-->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -32,7 +32,7 @@
     </style>
 </head>
 
-<body class="{{$bodyClassName or ''}}">
+<body class="{{$bodyClassName ?? ''}}">
     <div class="img-bg" id="app">
         <div class="left-img">
             <img src="{{ asset('storage/images/item-1.png')}}" alt="">

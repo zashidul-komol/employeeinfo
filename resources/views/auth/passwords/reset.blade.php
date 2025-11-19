@@ -7,7 +7,7 @@
 
     <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
        <span class="input-with-icon">
-            <input id="email" type="email" class="form-control" name="email" value="{{ $email or old('email') }}" placeholder="Email Address" required autofocus >
+            <input id="email" type="email" class="form-control" name="email" value="{{ $email ?? old('email') }}" placeholder="Email Address" required autofocus >
             <i class="fa fa-envelope"></i>
         </span>
          @if ($errors->has('email'))

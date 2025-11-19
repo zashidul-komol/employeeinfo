@@ -1,8 +1,8 @@
 <?php
 namespace App\Repositories\Models;
 
-use App\ComplainType;
-use App\DfProblem;
+use App\Models\ComplainType;
+use App\Models\DfProblem;
 use App\Repositories\Repository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;

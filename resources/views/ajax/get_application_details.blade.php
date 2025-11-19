@@ -1,19 +1,19 @@
 <table class="table table-condensed">
 	<tr>
 		<th>Depot Type</th>
-		<td>{{ $applications->depot->name or '' }}</td>
+		<td>{{ $applications->depot->name ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Outlet Name</th>
-		<td>{{ $applications->shop->outlet_name or '' }}</td>
+		<td>{{ $applications->shop->outlet_name ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Damage Type</th>
-		<td>{{ $applications->damage_type->name or '' }}</td>
+		<td>{{ $applications->damage_type->name ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>DF Code</th>
-		<td>{{ $applications->item->serial_no or '' }}</td>
+		<td>{{ $applications->item->serial_no ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Inject Date</th>
@@ -28,14 +28,14 @@
 	</tr>
 	<tr>
 		<th>Payment Status</th>
-		<td>{{ $applications->settlement->receive_amount or '0' }} Tk.</td>
+		<td>{{ $applications->settlement->receive_amount ?? '0' }} Tk.</td>
 	</tr>
 	<tr>
 		<th>Sattlement Status</th>
 		@if ($applications->settlement->status=='continue')
 			<td class="text-danger">Pending</td>
 		@else
-			<td class="text-capitalize text-danger">{{ $applications->settlement->status or '' }}</td>
+			<td class="text-capitalize text-danger">{{ $applications->settlement->status ?? '' }}</td>
 		@endif
 
 	</tr>

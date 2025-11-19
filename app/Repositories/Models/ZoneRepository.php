@@ -2,7 +2,7 @@
 namespace App\Repositories\Models;
 
 use App\Repositories\Repository;
-use App\Zone;
+use App\Models\Zone;
 use Illuminate\Database\Eloquent\Model;
 
 class ZoneRepository extends Repository {

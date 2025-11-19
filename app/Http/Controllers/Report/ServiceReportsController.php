@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Report;
 
-use App\DamageType;
+use App\Models\DamageType;
 use App\Exports\ComplainExport;
 use App\Http\Controllers\Controller;
-use App\ProblemType;
+use App\Models\ProblemType;
 use App\Repositories\Models\DamageApplicationRepository;
 use App\Repositories\Models\DepotRepository;
 use App\Repositories\Models\DfProblemRepository;

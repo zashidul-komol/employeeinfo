@@ -48,7 +48,7 @@
                     <div class="form-group{{ $errors->has('user_id') ? ' has-error' : '' }}">
 						{{Form::label('Sales Executive:',null,array('class' => 'control-label col-sm-2 require'))}}
 						<div class="col-md-6 pt-sm">
-                             <strong>{!! $requisitions->user->name or '' !!}({!! $requisitions->user->designation->short_name or '' !!})</strong>
+                             <strong>{!! $requisitions->user->name ?? '' !!}({!! $requisitions->user->designation->short_name ?? '' !!})</strong>
 						</div>
 					</div>
                     @endif

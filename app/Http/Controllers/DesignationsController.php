@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Designation;
+use App\Models\Designation;
 use App\Exports\DesignationExport;
 use Illuminate\Http\Request;
 
@@ -72,13 +72,13 @@ class DesignationsController extends Controller {
 	 */
 	public function update(Request $request, $id) {
 		$data = $request->except('_method', '_token');
-		$request->validate([
+		$validated = $request->validate([
 			'title' => 'required|unique:designations,title,' . $id,
 			'short_name' => 'required|max:10|unique:designations,short_name,' . $id,
 			'status' => 'required',
 		]);
 
-		$designations = Designation::where('id', $id)->update($data);
+		$designations = Designation::whereKey($id)->update($validated);
 		if ($designations) {
 			$message = "You have successfully updated";
 			return redirect()->route('designations.index', [])

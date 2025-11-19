@@ -20,9 +20,9 @@
                      <img class="img" src="{{ public_path().'/storage/images/'.$site_settings->logo }}" alt="logo">
                 </th>
                 <th width="90%">
-                    <h1 class="header uppercase">{{ $site_settings->site_title or '' }}</h1>
-                    <h3 class="sub-header">{{ $site_settings->address or '' }}</h3>
-                    <div class="tel">Tel : {{ $site_settings->phone or ''}}</div>
+                    <h1 class="header uppercase">{{ $site_settings->site_title ?? '' }}</h1>
+                    <h3 class="sub-header">{{ $site_settings->address ?? '' }}</h3>
+                    <div class="tel">Tel : {{ $site_settings->phone ?? ''}}</div>
                 </th>
             </tr>
             <tr>
@@ -36,7 +36,7 @@
                         <tr>
                             <td width="70%">
                                 <span class="title" style="width: 15%">SL. No. : </span>
-                                <span class="data no-border" style="width: 85%"><strong>{{ $datas->id or '' }}</strong></span>
+                                <span class="data no-border" style="width: 85%"><strong>{{ $datas->id ?? '' }}</strong></span>
                             </td>
                             <td width="30%"><span class="title" style="width: 16%">Date: </span><span class="data" style="width: 84%">&nbsp;&nbsp;{{ Carbon\Carbon::now()->format('M d, Y') }}</span></td>
                         </tr>
@@ -47,7 +47,7 @@
                 <td colspan="2">
                     <table class="subtable">
                         <tr>
-                            <td width="70%"><span class="title" style="width: 18%">Name of Customer: </span><span class="data" style="width: 82%">&nbsp;&nbsp;{{ $datas->outlet_name or '' }}</span></td>
+                            <td width="70%"><span class="title" style="width: 18%">Name of Customer: </span><span class="data" style="width: 82%">&nbsp;&nbsp;{{ $datas->outlet_name ?? '' }}</span></td>
                         </tr>
                     </table>
                 </td>
@@ -65,8 +65,8 @@
                 <td colspan="2">
                     <table class="subtable">
                         <tr>
-                            <td width="55%"><span class="title" style="width: 22%">Freezer Size: </span><span class="data" style="width: 78%">&nbsp;&nbsp;{{ $datas->size or '' }}</span></td>
-                            <td width="45%"><span class="title" style="width: 29%">Freezer Code: </span><span class="data" style="width: 71%">&nbsp;&nbsp;{{ $datas->serial_no or '' }}</span></td>
+                            <td width="55%"><span class="title" style="width: 22%">Freezer Size: </span><span class="data" style="width: 78%">&nbsp;&nbsp;{{ $datas->size ?? '' }}</span></td>
+                            <td width="45%"><span class="title" style="width: 29%">Freezer Code: </span><span class="data" style="width: 71%">&nbsp;&nbsp;{{ $datas->serial_no ?? '' }}</span></td>
                         </tr>
                     </table>
                 </td>
@@ -76,8 +76,8 @@
                 <td colspan="2">
                     <table class="subtable">
                         <tr>
-                            <td width="55%"><span class="title" style="width: 12%">Depot: </span><span class="data" style="width: 88%">&nbsp;&nbsp;{{ $datas->name or '' }}</span></td>
-                            <td width="45%"><span class="title" style="width: 25%">Distributor: </span><span class="data" style="width: 75%">&nbsp;&nbsp;{{ $datas->distributor_name or '' }}</span></td>
+                            <td width="55%"><span class="title" style="width: 12%">Depot: </span><span class="data" style="width: 88%">&nbsp;&nbsp;{{ $datas->name ?? '' }}</span></td>
+                            <td width="45%"><span class="title" style="width: 25%">Distributor: </span><span class="data" style="width: 75%">&nbsp;&nbsp;{{ $datas->distributor_name ?? '' }}</span></td>
                         </tr>
                     </table>
                 </td>
@@ -97,8 +97,8 @@
                 <td colspan="2">
                     <table class="subtable">
                         <tr>
-                            <td width="50%"><span class="title" style="width: 35%">Received Amount: </span><span class="data" style="width: 65%">&nbsp;&nbsp;TK. {{ $datas->receive_amount or '0' }}/-</span></td>
-                            <td width="50%"><span class="title" style="width: 26%">Paid Amount: </span><span class="data" style="width: 74%">&nbsp;&nbsp;TK. {{ $datas->paid_amount or '0' }}/-</span></td>
+                            <td width="50%"><span class="title" style="width: 35%">Received Amount: </span><span class="data" style="width: 65%">&nbsp;&nbsp;TK. {{ $datas->receive_amount ?? '0' }}/-</span></td>
+                            <td width="50%"><span class="title" style="width: 26%">Paid Amount: </span><span class="data" style="width: 74%">&nbsp;&nbsp;TK. {{ $datas->paid_amount ?? '0' }}/-</span></td>
                         </tr>
                     </table>
                 </td>

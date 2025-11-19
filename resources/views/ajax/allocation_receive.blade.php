@@ -2,7 +2,7 @@
 	<table class="table table-condensed">
 		<tr>
 			<th>Invoice No.:</th>
-			<td>{{ $allocations->stock->invoice_no or '' }}</td>
+			<td>{{ $allocations->stock->invoice_no ?? '' }}</td>
 		</tr>
 		<tr>
 			<th>Invoice Date:</th>
@@ -10,7 +10,7 @@
 		</tr>
 		<tr>
 			<th>Depot:</th>
-			<td>{{ $allocations->depot->name or '' }}</td>
+			<td>{{ $allocations->depot->name ?? '' }}</td>
 		</tr>
 	</table>
 </div>
@@ -39,7 +39,7 @@
             	<input type="hidden" name="data[{{$loop->iteration}}][stock_detail_id]" value="{{$dval->stock_detail_id}}">
 	 			@if ($dval->stock_detail->brand)
 	 				<input type="hidden" name="data[{{$loop->iteration}}][brand_id]" value="{{$dval->stock_detail->brand->id}}">
-					{{ $dval->stock_detail->brand->short_code or '' }}-
+					{{ $dval->stock_detail->brand->short_code ?? '' }}-
 				@endif
 				{{$dval->stock_detail->size->name}}
 	 		</td>

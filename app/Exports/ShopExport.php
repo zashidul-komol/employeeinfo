@@ -1,7 +1,7 @@
 <?php
 namespace App\Exports;
-use App\DistributorUser;
-use App\Shop;
+use App\Models\DistributorUser;
+use App\Models\Shop;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;

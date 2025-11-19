@@ -1,7 +1,7 @@
 <?php
 namespace App\Exports;
 
-use App\Location;
+use App\Models\Location;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;

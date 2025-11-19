@@ -1,7 +1,7 @@
 <?php
 namespace App\Repositories\Models;
 
-use App\Item;
+use App\Models\Item;
 use App\Repositories\Repository;
 use DB;
 use Illuminate\Database\Eloquent\Model;

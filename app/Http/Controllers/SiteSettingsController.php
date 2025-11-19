@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\SiteSetting;
+use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Redirect;
@@ -58,7 +58,7 @@ class SiteSettingsController extends Controller {
 		}
 		//dd($data);
 		unset($data['old_image']);
-		$site_settings_data = SiteSetting::where('id', $id)->update($data);
+		$site_settings_data = SiteSetting::whereKey($id)->update($data);
 
 		if ($site_settings_data) {
 			if ($imageName != null) {

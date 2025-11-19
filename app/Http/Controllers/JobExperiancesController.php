@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\FamilyDetail;
-use App\Employee;
-use App\User;
-use App\JobExperiance;
+use App\Models\FamilyDetail;
+use App\Models\Employee;
+use App\Models\User;
+use App\Models\JobExperiance;
 use Illuminate\Http\Request;
 use Validator;
 use Carbon\Carbon;
@@ -57,7 +57,7 @@ class JobExperiancesController extends Controller
      */
     public function store(Request $request)
     {
-        $user = \App\User::find(auth()->id());
+        $user = \App\Models\User::find(auth()->id());
         $Emp_id['employee_id'] = $user['employee_id'];
 
         $rules = array(
@@ -199,9 +199,9 @@ class JobExperiancesController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->except('_method', '_token');
-        $jobExperiances = JobExperiance::where('id', $id)->update($data);
+        $jobExperiances = JobExperiance::whereKey($id)->update($data);
 
-        $user = \App\User::find(auth()->id());
+        $user = \App\Models\User::find(auth()->id());
         $Emp_id['employee_id'] = $user['employee_id'];
 
         if ($jobExperiances) {

@@ -1,6 +1,6 @@
 <?php
 namespace App\Exports;
-use App\Designation;
+use App\Models\Designation;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;

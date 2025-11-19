@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Relationship;
-use App\Organization;
+use App\Models\Relationship;
+use App\Models\Organization;
 
 use Illuminate\Http\Request;
 

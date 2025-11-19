@@ -14,9 +14,9 @@
                      <img class="img" src="{{ public_path().'/storage/images/'.$site_settings->logo }}" alt="logo">
                 </th>
                 <th width="90%">
-                    <h1 class="header uppercase">{{ $site_settings->site_title or '' }}</h1>
-                    <h3 class="sub-header">{{ $site_settings->address or '' }}</h3>
-                    <div class="tel">Tel : {{ $site_settings->phone or ''}}</div>
+                    <h1 class="header uppercase">{{ $site_settings->site_title ?? '' }}</h1>
+                    <h3 class="sub-header">{{ $site_settings->address ?? '' }}</h3>
+                    <div class="tel">Tel : {{ $site_settings->phone ?? ''}}</div>
                 </th>
             </tr>
             <tr>

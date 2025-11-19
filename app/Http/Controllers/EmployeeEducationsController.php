@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\FamilyDetail;
-use App\Employee;
-use App\EmployeeEducation;
+use App\Models\FamilyDetail;
+use App\Models\Employee;
+use App\Models\EmployeeEducation;
 use Illuminate\Http\Request;
 
 class EmployeeEducationsController extends Controller
@@ -97,7 +97,7 @@ class EmployeeEducationsController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->except('_method', '_token');
-        $employeeEducations = EmployeeEducation::where('id', $id)->update($data);
+        $employeeEducations = EmployeeEducation::whereKey($id)->update($data);
         if ($employeeEducations) {
             $message = "You have successfully updated";
             return redirect()->route('employeeEducations.index', [])

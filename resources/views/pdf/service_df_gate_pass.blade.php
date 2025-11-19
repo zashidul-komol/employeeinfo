@@ -14,9 +14,9 @@
                      <img class="img" src="{{ public_path().'/storage/images/'.$site_settings->logo }}" alt="logo">
                 </th>
                 <th width="90%">
-                    <h1 class="header uppercase">{{ $site_settings->site_title or '' }}</h1>
-                    <h3 class="sub-header">{{ $site_settings->address or '' }}</h3>
-                    <div class="tel">Tel : {{ $site_settings->phone or ''}}</div>
+                    <h1 class="header uppercase">{{ $site_settings->site_title ?? '' }}</h1>
+                    <h3 class="sub-header">{{ $site_settings->address ?? '' }}</h3>
+                    <div class="tel">Tel : {{ $site_settings->phone ?? ''}}</div>
                 </th>
             </tr>
             <tr>
@@ -38,7 +38,7 @@
                 <td colspan="2">
                     <table class="subtable">
                         <tr>
-                            <td width="70%"><span class="title" style="width: 19%">Name of Retailer/Distributor: </span><span class="data" style="width: 81%">&nbsp;&nbsp;{{$dfproblemObj->outlet_name or ''}}</span></td>
+                            <td width="70%"><span class="title" style="width: 19%">Name of Retailer/Distributor: </span><span class="data" style="width: 81%">&nbsp;&nbsp;{{$dfproblemObj->outlet_name ?? ''}}</span></td>
                         </tr>
                     </table>
                 </td>
@@ -47,7 +47,7 @@
                 <td colspan="2">
                     <table class="subtable">
                         <tr>
-                            <td width="70%"><span class="title" style="width: 6%">Address: </span><span class="data" style="width: 94%">&nbsp;&nbsp;{{$dfproblemObj->address or ''}}</span></td>
+                            <td width="70%"><span class="title" style="width: 6%">Address: </span><span class="data" style="width: 94%">&nbsp;&nbsp;{{$dfproblemObj->address ?? ''}}</span></td>
                         </tr>
                     </table>
                 </td>
@@ -110,7 +110,7 @@
                 <td colspan="2">
                     <table class="subtable">
                         <tr>
-                            <td width="70%"><span class="title" style="width: 24%">Received By Retailer Name: </span><span class="data" style="width: 76%">{{$dfproblemObj->proprietor_name or ''}}</span></td>
+                            <td width="70%"><span class="title" style="width: 24%">Received By Retailer Name: </span><span class="data" style="width: 76%">{{$dfproblemObj->proprietor_name ?? ''}}</span></td>
                             <td width="30%"><span class="title" style="width: 22%">Signature: </span><span class="data" style="width: 78%">&nbsp;&nbsp;</span></td>
                         </tr>
                     </table>

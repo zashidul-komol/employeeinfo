@@ -1,6 +1,6 @@
 <?php
 namespace App\Exports;
-use App\Item;
+use App\Models\Item;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;

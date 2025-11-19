@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\FamilyDetail;
-use App\Employee;
+use App\Models\FamilyDetail;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Exports\FamilyDetailExport;
 use App\Traits\PhpExcelFormater;
@@ -99,7 +99,7 @@ class FamilyDetailsController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->except('_method', '_token');
-        $familyDetails = FamilyDetail::where('id', $id)->update($data);
+        $familyDetails = FamilyDetail::whereKey($id)->update($data);
         if ($familyDetails) {
             $message = "You have successfully updated";
             return redirect()->route('familyDetails.index', [])

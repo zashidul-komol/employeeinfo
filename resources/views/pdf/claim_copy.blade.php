@@ -87,8 +87,8 @@ h2 span{
             	@endphp
 
             	<div class="{{$titleCss}}">{{$title}}</div>
-                <h1>{{ $site_settings->site_title or '' }}</h1>
-                <span>{{ $site_settings->address or '' }}</span>
+                <h1>{{ $site_settings->site_title ?? '' }}</h1>
+                <span>{{ $site_settings->address ?? '' }}</span>
                 <h2>Freeze Service Department <span>SI. No.- {{$dfProblem->token}}</span></h2>
             </td>
         </tr>

@@ -1,66 +1,66 @@
 <table class="table table-condensed">
 	<tr>
 		<th>Outlet Name </th>
-		<td>{{ $shop->outlet_name or '' }}</td>
+		<td>{{ $shop->outlet_name ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Proprietor Name</th>
-		<td>{{ $shop->proprietor_name or '' }}</td>
+		<td>{{ $shop->proprietor_name ?? '' }}</td>
 	</tr>
 	@if ($shop->distributor)
 		<tr>
 			<th>Distributor</th>
-			<td>{{ $shop->distributor->outlet_name or '' }}</td>
+			<td>{{ $shop->distributor->outlet_name ?? '' }}</td>
 		</tr>
 	@endif
 	<tr>
 		<th>Mobile</th>
-		<td>{{ $shop->mobile or '' }}</td>
+		<td>{{ $shop->mobile ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>NID</th>
-		<td>{{ $shop->nid or '' }}</td>
+		<td>{{ $shop->nid ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Trade Lincense</th>
-		<td>{{ $shop->trade_license or '' }}</td>
+		<td>{{ $shop->trade_license ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Shop Address</th>
-		<td>{{ $shop->address or '' }}</td>
+		<td>{{ $shop->address ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Shop Location</th>
-		<td>{{ $shop->thana->name or '' }},{{ $shop->district->name or '' }},{{ $shop->division->name or '' }}</td>
+		<td>{{ $shop->thana->name ?? '' }},{{ $shop->district->name ?? '' }},{{ $shop->division->name ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Shop Zone</th>
 		<td>
 		@if ($shop->area)
-			{{ $shop->area->name or '' }},
+			{{ $shop->area->name ?? '' }},
 		@endif
-			{{ $shop->region->name or '' }}
+			{{ $shop->region->name ?? '' }}
 		</td>
 	</tr>
 	<tr>
 		<th>Depot</th>
-		<td>{{ $shop->depot->name or '' }}</td>
+		<td>{{ $shop->depot->name ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Present Address</th>
-		<td>{{ $shop->present_address or '' }}</td>
+		<td>{{ $shop->present_address ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Permanent Address</th>
-		<td>{{ $shop->parmanent_address or '' }}</td>
+		<td>{{ $shop->parmanent_address ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Shop Created</th>
-		<td>{{ $shop->created_at or '' }}</td>
+		<td>{{ $shop->created_at ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Status</th>
-		<td class="text-capitalize">{{ $shop->status or '' }}</td>
+		<td class="text-capitalize">{{ $shop->status ?? '' }}</td>
 	</tr>
 	@if($shop->items->count())
 		<tr class="bg-info">

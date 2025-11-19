@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Depot;
-use App\Employee;
-use App\DepotUser;
-use App\Designation;
-use App\DistributorUser;
-use App\Organization;
+use App\Models\Depot;
+use App\Models\Employee;
+use App\Models\DepotUser;
+use App\Models\Designation;
+use App\Models\DistributorUser;
+use App\Models\Organization;
 use App\Exports\UserExport;
 use App\Http\Controllers\Controller;
-use App\Role;
-use App\User;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
@@ -95,7 +95,7 @@ class RegisterController extends Controller {
 	 * Create a new user instance after a valid registration.
 	 *
 	 * @param  array  $data
-	 * @return \App\User
+	 * @return \App\Models\User
 	 */
 	protected function create(array $data) {
 		//dd($data);

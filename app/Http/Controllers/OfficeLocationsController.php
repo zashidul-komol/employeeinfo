@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\OfficeLocation;
+use App\Models\OfficeLocation;
 use Illuminate\Http\Request;
 
 class OfficeLocationsController extends Controller
@@ -89,13 +89,13 @@ class OfficeLocationsController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->except('_method', '_token');
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required|unique:office_locations,name,' . $id,
             'address' => 'required|max:100|unique:office_locations,address,' . $id,
             'status' => 'required',
         ]);
 
-        $officelocations = OfficeLocation::where('id', $id)->update($data);
+        $officelocations = OfficeLocation::whereKey($id)->update($validated);
         if ($officelocations) {
             $message = "You have successfully updated";
             return redirect()->route('officelocations.index', [])

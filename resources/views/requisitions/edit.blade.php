@@ -61,14 +61,14 @@
 						<div class="col-md-6 pt-sm">
 			                {{-- {{Form::select('user_id',[''=>'Please Select ..']+$salesExecutives,null,array('class' => 'form-control select2','data-placeholder'=>'Please Select..'))}}
 			                {!! $errors->first('user_id', '<p class="text-danger">:message</p>' ) !!} --}}
-                             <strong>{!! $requisitions->user->name or '' !!}({!! $requisitions->user->designation->short_name or '' !!})</strong>
+                             <strong>{!! $requisitions->user->name ?? '' !!}({!! $requisitions->user->designation->short_name ?? '' !!})</strong>
 						</div>
 					</div>
                     @endif
                     <div class="form-group">
                         {{Form::label('Distributor: ',null,array('class' => 'control-label col-sm-2'))}}
                         <div class="col-md-6 pt-sm">
-                             <strong>{!! $requisitions->shop->distributor->outlet_name or '' !!}</strong>
+                             <strong>{!! $requisitions->shop->distributor->outlet_name ?? '' !!}</strong>
                         </div>
                     </div>
 					<div class="form-group">

@@ -1,7 +1,7 @@
 <?php
 namespace App\Repositories\Models;
 
-use App\Allocation;
+use App\Models\Allocation;
 use App\Repositories\Repository;
 use DB;
 use Illuminate\Database\Eloquent\Model;

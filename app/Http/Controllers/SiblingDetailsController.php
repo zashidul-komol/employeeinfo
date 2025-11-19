@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\FamilyDetail;
-use App\Employee;
-use App\SiblingDetail;
+use App\Models\FamilyDetail;
+use App\Models\Employee;
+use App\Models\SiblingDetail;
 use Illuminate\Http\Request;
 
 class SiblingDetailsController extends Controller
@@ -97,7 +97,7 @@ class SiblingDetailsController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->except('_method', '_token');
-        $siblingDetails = SiblingDetail::where('id', $id)->update($data);
+        $siblingDetails = SiblingDetail::whereKey($id)->update($data);
         if ($siblingDetails) {
             $message = "You have successfully updated";
             return redirect()->route('siblingDetails.index', [])

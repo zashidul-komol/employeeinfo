@@ -38,12 +38,16 @@
                         @foreach ($designations as $data)
                       <tr>
                         <td>{{$i}}</td>
-                      	<td>{{$data->title or ''}}</td>
-                        <td>{{$data->short_name or ''}}</td>
+                      	<td>{{$data->title ?? ''}}</td>
+                        <td>{{$data->short_name ?? ''}}</td>
                       	<td>{{config('myconfig.status')[$data->status] }}</td>
                         <td>
                           {!!  Html::decode(link_to_route('designations.edit', '<span aria-hidden="true" class="fa fa-edit fa-x"></span>', array($data->id)))!!}
-                          {!! Form::delete(route('designations.destroy',array($data->id))) !!}
+                          <form action="{{ route('designations.destroy', $data->id) }}" method="POST" class="d-inline">
+                              @csrf
+                              @method('DELETE')
+                              <button class="btn btn-sm btn-danger" onclick="return confirm('Delete this designation?')">Delete</button>
+                          </form>
                         </td>
                       </tr>
                         @php ($i=$i+1)

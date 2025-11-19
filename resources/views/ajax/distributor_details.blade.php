@@ -1,56 +1,56 @@
 <table class="table table-condensed">
 	<tr>
 		<th>Outlet Name </th>
-		<td>{{ $shop->outlet_name or '' }}</td>
+		<td>{{ $shop->outlet_name ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Proprietor Name</th>
-		<td>{{ $shop->proprietor_name or '' }}</td>
+		<td>{{ $shop->proprietor_name ?? '' }}</td>
 	</tr>
 	@if ($shop->distributor)
 		<tr>
 			<th>Distributor</th>
-			<td>{{ $shop->distributor->outlet_name or '' }}</td>
+			<td>{{ $shop->distributor->outlet_name ?? '' }}</td>
 		</tr>
 	@endif
 	<tr>
 		<th>Mobile</th>
-		<td>{{ $shop->mobile or '' }}</td>
+		<td>{{ $shop->mobile ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>NID</th>
-		<td>{{ $shop->nid or '' }}</td>
+		<td>{{ $shop->nid ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Trade Lincense</th>
-		<td>{{ $shop->trade_license or '' }}</td>
+		<td>{{ $shop->trade_license ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Shop Address</th>
-		<td>{{ $shop->address or '' }}</td>
+		<td>{{ $shop->address ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Shop Location</th>
-		<td>{{ $shop->thana->name or '' }},{{ $shop->district->name or '' }},{{ $shop->division->name or '' }}</td>
+		<td>{{ $shop->thana->name ?? '' }},{{ $shop->district->name ?? '' }},{{ $shop->division->name ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Shop Zone</th>
 		<td>
 		@if ($shop->area)
-			{{ $shop->area->name or '' }},
+			{{ $shop->area->name ?? '' }},
 		@endif
-			{{ $shop->region->name or '' }}
+			{{ $shop->region->name ?? '' }}
 		</td>
 	</tr>
 	<tr>
 		<th>Depot</th>
-		<td>{{ $shop->depot->name or '' }}</td>
+		<td>{{ $shop->depot->name ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Present Address</th>
 		<td>
 			@if($shop->present_address)
-				{{ $shop->present_address or '' }}
+				{{ $shop->present_address ?? '' }}
 			@else
 				Not Exists
 			@endif
@@ -60,7 +60,7 @@
 		<th>Permanent Address</th>
 		<td>
 			@if(isset($shop->parmanent_address))
-				{{ $shop->parmanent_address or '' }}
+				{{ $shop->parmanent_address ?? '' }}
 			@else
 				Not Exists
 			@endif
@@ -68,7 +68,7 @@
 	</tr>
 	<tr>
 		<th>Birthday</th>
-		<td>{{ $shop->detail->birthday or '' }}</td>
+		<td>{{ $shop->detail->birthday ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Age</th>
@@ -82,46 +82,46 @@
 	</tr>
 	<tr>
 		<th>Business Startday</th>
-		<td>{{ $shop->detail->business_startday or '' }}</td>
+		<td>{{ $shop->detail->business_startday ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Marital Status</th>
-		<td>{{ $shop->detail->marital_status or '' }}</td>
+		<td>{{ $shop->detail->marital_status ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Marriage Day</th>
-		<td>{{ $shop->detail->marriage_day or '' }}</td>
+		<td>{{ $shop->detail->marriage_day ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Spouse Name</th>
-		<td>{{ $shop->detail->spouse_name or '' }}</td>
+		<td>{{ $shop->detail->spouse_name ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Spouse Birthday</th>
-		<td>{{ $shop->detail->spouse_birthday or '' }}</td>
+		<td>{{ $shop->detail->spouse_birthday ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Father Name</th>
-		<td>{{ $shop->detail->father_name or '' }}</td>
+		<td>{{ $shop->detail->father_name ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Mother Name</th>
-		<td>{{ $shop->detail->mother_name or '' }}</td>
+		<td>{{ $shop->detail->mother_name ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>No. of Son</th>
-		<td>{{ $shop->detail->son or '' }}</td>
+		<td>{{ $shop->detail->son ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>No. of Daughter</th>
-		<td>{{ $shop->detail->daughter or '' }}</td>
+		<td>{{ $shop->detail->daughter ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Shop Created</th>
-		<td>{{ $shop->created_at or '' }}</td>
+		<td>{{ $shop->created_at ?? '' }}</td>
 	</tr>
 	<tr>
 		<th>Status</th>
-		<td class="text-capitalize">{{ $shop->status or '' }}</td>
+		<td class="text-capitalize">{{ $shop->status ?? '' }}</td>
 	</tr>
 </table>

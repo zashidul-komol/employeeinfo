@@ -37,15 +37,15 @@
                     <tbody>
                       @foreach ($dfreturns as $data)
                         <tr>
-                        	<td>{{$data->shop->outlet_name or ''}}</td>
-                          <td>{{$data->depot->name or ''}}</td>
-                          <td>{{$data->currentdf->serial_no or ''}}</td>
+                        	<td>{{$data->shop->outlet_name ?? ''}}</td>
+                          <td>{{$data->depot->name ?? ''}}</td>
+                          <td>{{$data->currentdf->serial_no ?? ''}}</td>
                           <td>{{$data->return_reason}}</td>
-                          <td>{{$data->stager->name or ''}}</td>
+                          <td>{{$data->stager->name ?? ''}}</td>
                           <td>{{$data->withdrawal_date->toFormattedDateString()}}</td>
                           <td>
                             @if ($data->to_outlet)
-                              {{$data->to_outlet->outlet_name or ''}}
+                              {{$data->to_outlet->outlet_name ?? ''}}
                              @endif
                              &nbsp;
                           </td>

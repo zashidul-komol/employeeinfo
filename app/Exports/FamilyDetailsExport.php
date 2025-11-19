@@ -1,7 +1,7 @@
 <?php
 namespace App\Exports;
-use App\Employee;
-use App\ChildDetail;
+use App\Models\Employee;
+use App\Models\ChildDetail;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;

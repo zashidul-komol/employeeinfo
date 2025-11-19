@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Traits;
-use App\Stage;
-use App\User;
+use App\Models\Stage;
+use App\Models\User;
 
 trait HasStageExists {
 

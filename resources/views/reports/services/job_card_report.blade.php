@@ -19,7 +19,7 @@
 			    	<tr>
 						<td>{{$loop->iteration}}</td>
 						<td>{{$report->technician->name}}</td>
-						<td>{{$report->technician->mobile or ''}}</td>
+						<td>{{$report->technician->mobile ?? ''}}</td>
 						<td>{{$report->depot->name}}</td>
 						<td>{{ date('F', mktime(0, 0, 0, $report->month, 10)) }}</td>
 						<td>{{$report->no_of_assigned}}</td>

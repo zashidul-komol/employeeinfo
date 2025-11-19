@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Settlement;
+use App\Models\Settlement;
 use App\Traits\SmsTrait;
 use Illuminate\Http\Request;
 

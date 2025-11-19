@@ -1,14 +1,14 @@
 <?php
 namespace App\Traits;
-use App\Bkash;
-use App\Brand;
-use App\DfReturn;
-use App\Document;
-use App\Item;
-use App\PhysicalVisit;
-use App\Requisition;
-use App\Shop;
-use App\Stage;
+use App\Models\Bkash;
+use App\Models\Brand;
+use App\Models\DfReturn;
+use App\Models\Document;
+use App\Models\Item;
+use App\Models\PhysicalVisit;
+use App\Models\Requisition;
+use App\Models\Shop;
+use App\Models\Stage;
 use App\Traits\BkashTrait;
 use App\Traits\SmsTrait;
 use App\Traits\StockCheckTrait;
@@ -597,7 +597,7 @@ trait AjaxForRequisition {
 
 	public function getCurrentDfs(Request $request) {
 		$shop_id = $request->get('shop_id');
-		$itemIds = \App\Settlement::where('shop_id', $shop_id)
+		$itemIds = \App\Models\Settlement::where('shop_id', $shop_id)
 			->where('status', 'continue')
 			->pluck('item_id');
 		$currentdfs = Item::whereIn('id', $itemIds)->pluck('serial_no', 'id');
@@ -608,7 +608,7 @@ trait AjaxForRequisition {
 		$shop_id = $request->get('shop_id');
 		$dfreturns = collect([]);
 		if ($shop_id) {
-			$dfreturns = \App\DfReturn::select('items.size_id')
+			$dfreturns = \App\Models\DfReturn::select('items.size_id')
 				->join('items', 'items.id', '=', 'df_returns.current_df')
 				->where('to_shop', $shop_id)
 				->where('df_returns.status', '<>', 'cancelled')
@@ -618,9 +618,9 @@ trait AjaxForRequisition {
 
 		if ($dfreturns->isNotEmpty()) {
 			$sizeIds = $dfreturns->pluck('size_id', 'size_id');
-			$sizes = \App\Size::whereIn('id', $sizeIds->values())->orderBy('name', 'asc')->pluck('name', 'id');
+			$sizes = \App\Models\Size::whereIn('id', $sizeIds->values())->orderBy('name', 'asc')->pluck('name', 'id');
 		} else {
-			$sizes = \App\Size::where('availability', 'yes')->orderBy('name', 'asc')->pluck('name', 'id');
+			$sizes = \App\Models\Size::where('availability', 'yes')->orderBy('name', 'asc')->pluck('name', 'id');
 		}
 		return $sizes;
 	}
@@ -630,7 +630,7 @@ trait AjaxForRequisition {
 		$size_id = $request->get('size_id');
 		$dfreturns = collect([]);
 		if ($shop_id && $size_id) {
-			$dfreturns = \App\DfReturn::select('df_returns.id', 'items.serial_no', 'shops.outlet_name')
+			$dfreturns = \App\Models\DfReturn::select('df_returns.id', 'items.serial_no', 'shops.outlet_name')
 				->join('items', 'items.id', '=', 'df_returns.current_df')
 				->join('shops', 'shops.id', '=', 'df_returns.shop_id')
 				->where('to_shop', $shop_id)

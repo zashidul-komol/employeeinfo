@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Exports\ZoneExport;
-use App\Zone;
+use App\Models\Zone;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -117,9 +117,9 @@ class ZonesController extends Controller {
      */
     public function update(Request $request, $id) {
         $data = $request->except('division_id', '_method', '_token');
-
+        $validated = $data;
         if ($data['level'] == '1') {
-            $request->validate([
+            $validated = $request->validate([
                 'name' => [
                     'required',
                     Rule::unique('zones')->where(function ($query) use ($request, $id) {
@@ -129,7 +129,7 @@ class ZonesController extends Controller {
                 'parent_id' => 'required|numeric',
             ]);
         } else {
-            $request->validate([
+            $validated = $request->validate([
                 'name' => [
                     'required',
                     Rule::unique('zones')->where(function ($query) use ($request, $id) {
@@ -141,7 +141,7 @@ class ZonesController extends Controller {
             ]);
         }
 
-        $zones = Zone::where('id', $id)->update($data);
+        $zones = Zone::whereKey($id)->update($validated);
         if ($zones) {
             $message = "You have successfully updated";
             return redirect()->route('zones.index', [$data['level'] ? $data['level'] : ''])

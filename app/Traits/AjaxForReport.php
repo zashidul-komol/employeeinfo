@@ -1,6 +1,6 @@
 <?php
 namespace App\Traits;
-use App\Location;
+use App\Models\Location;
 use App\Repositories\Models\DepotRepository;
 use App\Repositories\Models\TechnicianRepository;
 use Illuminate\Http\Request;
@@ -13,10 +13,10 @@ trait AjaxForReport {
             $divisionIds = $request->input('divisionIds');
             //return $multiple;
             if ($multiple) {
-                $locations = \App\Location::whereNull('parent_id')->whereIn('id', $divisionIds);
+                $locations = \App\Models\Location::whereNull('parent_id')->whereIn('id', $divisionIds);
             } else {
 
-                $locations = \App\Location::whereNull('parent_id')->where('id', $divisionIds);
+                $locations = \App\Models\Location::whereNull('parent_id')->where('id', $divisionIds);
             }
             $locations->with(['children' => function ($q) {
                 return $q->with('children');
@@ -34,10 +34,10 @@ trait AjaxForReport {
             $districtIds = $request->input('districtIds');
             //return $multiple;
             if ($multiple) {
-                $locations = \App\Location::whereIn('id', $districtIds);
+                $locations = \App\Models\Location::whereIn('id', $districtIds);
             } else {
 
-                $locations = \App\Location::where('id', $districtIds);
+                $locations = \App\Models\Location::where('id', $districtIds);
             }
             $locations->with(['children' => function ($q) {
                 return $q->with('children');

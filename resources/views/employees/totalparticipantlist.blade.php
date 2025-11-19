@@ -46,7 +46,7 @@
                         <td>{{$data->child_name}}</td>
                         <td>{{\Carbon\Carbon::parse($data->date_of_birth)->diff(\Carbon\Carbon::now())->format('%y years, %m months')}}</td>
                         <td>{{$data->gender}}</td> 
-                        <td><a href="{{ asset('storage/Child_nid/'.$data->child_photo) }}" target="_blank">{{$data->child_photo or ''}}</td>   
+                        <td><a href="{{ asset('storage/Child_nid/'.$data->child_photo) }}" target="_blank">{{$data->child_photo ?? ''}}</td>   
                       </tr>
                         @php ($i=$i+1)
                         @endforeach

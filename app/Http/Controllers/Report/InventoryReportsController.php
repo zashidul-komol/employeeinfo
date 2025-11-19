@@ -79,7 +79,7 @@ class InventoryReportsController extends Controller {
         $size = new SizeRepository;
         $sizes = $size->getAll()->pluck('name', 'id');
 
-        $depots = \App\Depot::pluck('name', 'id');
+        $depots = \App\Models\Depot::pluck('name', 'id');
 
         $brandRepository = new BrandRepository;
         $brands = $brandRepository->all()->pluck('short_code', 'id');
@@ -306,7 +306,7 @@ class InventoryReportsController extends Controller {
 
         $authUserId = auth()->user()->id;
 
-        $divisionObj = \App\Location::whereNull('locations.parent_id')
+        $divisionObj = \App\Models\Location::whereNull('locations.parent_id')
             ->join('depots', 'depots.division_id', '=', 'locations.id')
             ->join('depot_users', 'depot_users.depot_id', '=', 'depots.id')
             ->select('locations.id', 'locations.name')
@@ -331,10 +331,10 @@ class InventoryReportsController extends Controller {
             //dd($brandSizes->toArray());
 
             if ($divisionIds) {
-                $locations = \App\Location::whereIn('id', $divisionIds)->whereNull('parent_id');
+                $locations = \App\Models\Location::whereIn('id', $divisionIds)->whereNull('parent_id');
             } else {
                 $divisionIDs = $divisionObj->pluck('id')->toArray();
-                $locations = \App\Location::whereIn('id', $divisionIDs)->whereNull('parent_id');
+                $locations = \App\Models\Location::whereIn('id', $divisionIDs)->whereNull('parent_id');
             }
 
             $locations->with(['children' => function ($q) use ($districtIds, $thanaIds) {

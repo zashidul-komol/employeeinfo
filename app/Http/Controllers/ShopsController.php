@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Depot;
-use App\DepotUser;
-use App\DistributorUser;
-use App\Document;
+use App\Models\Depot;
+use App\Models\DepotUser;
+use App\Models\DistributorUser;
+use App\Models\Document;
 use App\Exports\ShopExport;
-use App\Location;
-use App\Requisition;
-use App\Shop;
+use App\Models\Location;
+use App\Models\Requisition;
+use App\Models\Shop;
 use App\Traits\DocumentsUpload;
-use App\Zone;
+use App\Models\Zone;
 use Illuminate\Http\Request;
 
 class ShopsController extends Controller {

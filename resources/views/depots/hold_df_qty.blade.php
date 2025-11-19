@@ -23,7 +23,7 @@
 		                            {{Form::number("qty[".$element->id."]",$element->df_hold_qty?:null,array('class' => 'form-control','oninput'=>'javascript: if (this.value > this.maxLength) this.value = this.maxLength;','maxlength'=>255))}}
 		                        </div>
 		                        <div class="col-md-4">
-		                        	Available DF: {{ $element->available_qty_count or '0' }}
+		                        	Available DF: {{ $element->available_qty_count ?? '0' }}
 		                        </div>
 		                    </div>
                     	@endforeach

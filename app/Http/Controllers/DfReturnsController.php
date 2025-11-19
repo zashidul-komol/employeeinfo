@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\DfReturn;
-use App\Role;
-use App\Shop;
+use App\Models\DfReturn;
+use App\Models\Role;
+use App\Models\Shop;
 use App\Traits\HasStageExists;
 use App\Traits\SettlementCreateCloseData;
 use Carbon\Carbon;

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Exports\LocationExport;
-use App\Location;
+use App\Models\Location;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -121,9 +121,9 @@ class LocationsController extends Controller {
      */
     public function update(Request $request, $id) {
         $data = $request->except('division_id', '_method', '_token');
-
+        $validated = $data;
         if ($data['level'] == '2') {
-            $request->validate([
+            $validated = $request->validate([
                 'name' => [
                     'required',
                     Rule::unique('locations')->where(function ($query) use ($request, $id) {
@@ -133,7 +133,7 @@ class LocationsController extends Controller {
                 'parent_id' => 'required|numeric',
             ]);
         } elseif ($data['level'] == '1') {
-            $request->validate([
+            $validated = $request->validate([
                 'name' => [
                     'required',
                     Rule::unique('locations')->where(function ($query) use ($request, $id) {
@@ -143,7 +143,7 @@ class LocationsController extends Controller {
                 'parent_id' => 'required|numeric',
             ]);
         } else {
-            $request->validate([
+            $validated = $request->validate([
                 'name' => [
                     'required',
                     Rule::unique('locations')->where(function ($query) use ($request, $id) {
@@ -154,7 +154,7 @@ class LocationsController extends Controller {
             ]);
         }
 
-        $locations = Location::where('id', $id)->update($data);
+        $locations = Location::whereKey($id)->update($validated);
         if ($locations) {
             $message = "You have successfully updated";
             return redirect()->route('locations.index', [$data['level'] ? $data['level'] : ''])

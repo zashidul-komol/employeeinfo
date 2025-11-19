@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Depot;
-use App\DepotUser;
-use App\Technician;
+use App\Models\Depot;
+use App\Models\DepotUser;
+use App\Models\Technician;
 use Illuminate\Http\Request;
 
 class TechniciansController extends Controller {

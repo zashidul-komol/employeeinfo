@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Designation;
-use App\Role;
-use App\Stage;
-use App\StageDetail;
-use App\User;
+use App\Models\Designation;
+use App\Models\Role;
+use App\Models\Stage;
+use App\Models\StageDetail;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class StagingsController extends Controller {

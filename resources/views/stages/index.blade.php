@@ -51,7 +51,7 @@
                     @foreach($value['stage_details'] as $vl)
                       <tr>
                         <td class="text-center">{{$loop->iteration}}</td>
-                        <td>{{$vl->designation->short_name or ''}}</td>
+                        <td>{{$vl->designation->short_name ?? ''}}</td>
                         <td class="text-capitalize">
                         	@php
                         		$actionsArr = json_decode($vl->actions,true);
@@ -63,7 +63,12 @@
                         	@endif
                         </td>
                         <td class="text-center">
-                           	{!! Form::delete(route('stage.details.untag',array($module,$vl->id,$value->id)),'<i aria-hidden="true" class="fa fa-minus"></i>') !!}
+    
+                             <form action="{{ route('stage.details.untag', array($module,$vl->id,$value->id)) }}" method="POST" class="d-inline">
+                              @csrf
+                              @method('DELETE')
+                              <button class="btn btn-sm btn-danger" onclick="return confirm('Delete this size?')">Delete</button>
+                          </form>
                         </td>
                       </tr>
                      @endforeach

@@ -66,14 +66,14 @@
 										}
 									@endphp
 										<tr>
-											<td>{{ $ele->brand->short_code or '' }}</td>
-											<td>{{ $ele->size->name or '' }}</td>
-											<td>{{ $ele->total or 0 }}</td>
-											<td class="text-danger">{{ $ele->total or 0 }}</td>
+											<td>{{ $ele->brand->short_code ?? '' }}</td>
+											<td>{{ $ele->size->name ?? '' }}</td>
+											<td>{{ $ele->total ?? 0 }}</td>
+											<td class="text-danger">{{ $ele->total ?? 0 }}</td>
 											<td width="30%">
 												<input type="hidden" name="data[{{$key}}][brand_id]" value="{{$ele->brand->id}}">
 												<input type="hidden" name="data[{{$key}}][size_id]" value="{{$ele->size->id}}">
-												<input oninput="javascript: if (this.value > this.maxLength) this.value = this.maxLength" maxlength="{{ $ele->total or 0 }}" onchange="remainCheck(this)"  class="form-control" type="number" name="data[{{$key}}][qty]" value="{{$qty}}"></td>
+												<input oninput="javascript: if (this.value > this.maxLength) this.value = this.maxLength" maxlength="{{ $ele->total ?? 0 }}" onchange="remainCheck(this)"  class="form-control" type="number" name="data[{{$key}}][qty]" value="{{$qty}}"></td>
 										</tr>
 									@endforeach
 									</tbody>
