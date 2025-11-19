@@ -185,10 +185,20 @@ class EmployeesController extends Controller
         //dd($employees->toArray());
         //$employees = $employees->child_details[0];
         $divisions = Location::whereNull('parent_id')->pluck('name', 'id');
+
+        $divisionId = $employees[0]->division_id ?? null;
+		if ($divisionId && is_array($divisionId)) {
+			$divisionId = $divisionId[0];
+		}
+
+		$districtId = $employees[0]->district_id ?? null;
+		if ($districtId && is_array($districtId)) {
+			$districtId = $districtId[0];
+		}
         //dd($divisions->toArray());
-        $districts = Location::where('parent_id', $employees[0]->division_id[0])->pluck('name', 'id');
+        $districts = Location::where('parent_id', $divisionId)->pluck('name', 'id');
         //dd($districts);
-        $thanas = Location::where('parent_id', $employees[0]->district_id[0])->pluck('name', 'id');
+        $thanas = Location::where('parent_id', $districtId)->pluck('name', 'id');
         //dd($thanas);
         $departments = Department::pluck('name','id');
         $designations = Designation::pluck('title','id');

@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Traits;
-use App\DfReturn;
-use App\Requisition;
-use App\RequisitionLog;
-use App\Shop;
-use App\Stage;
+use App\Models\DfReturn;
+use App\Models\Requisition;
+use App\Models\RequisitionLog;
+use App\Models\Shop;
+use App\Models\Stage;
 use App\Traits\HasStageExists;
 use App\Traits\SettlementCreateCloseData;
 
