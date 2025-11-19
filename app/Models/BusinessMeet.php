@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\\Models\Participation;
-use App\\Models\Employee;
+use App\Models\Participation;
+use App\Models\Employee;
 
 use Illuminate\Database\Eloquent\Model;
 
