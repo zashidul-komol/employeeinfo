@@ -1,17 +1,37 @@
+# Node modules
 /node_modules
+
+# Hot reload & compiled assets
 /public/hot
+/public/js/app.js
+/public/css/app.css
 /public/storage
-/storage/*.key
+
+# Storage and keys
+/storage/*
+!.gitignore       # Keep the .gitignore file itself
+/storage/*.key    # Ignore key files inside storage
+
+# Vendor libraries
 /vendor
+
+# IDE / Editor files
 /.idea
+/.settings
+
+# Vagrant / Homestead
 /.vagrant
 Homestead.json
 Homestead.yaml
+
+# Logs and debug files
 npm-debug.log
 yarn-error.log
+
+# Environment files
 .env
+
+# Lock files
 composer.lock
 package-lock.json
-/public/js/app.js
-/public/css/app.css
-.settings
+yarn.lock
