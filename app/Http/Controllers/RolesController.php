@@ -164,7 +164,6 @@ class RolesController extends Controller {
         $allRoutes = Route::getRoutes();
         //dd($allRoutes);
         $controllers = array();
-        $controllers = array();
 		foreach ($allRoutes as $route) {
 			$action = $route->getAction();
 			if (array_key_exists('controller', $action)) {
