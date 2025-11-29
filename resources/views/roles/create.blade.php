@@ -76,7 +76,7 @@
 							<div class="action-wraper">
 								@foreach ($elements as $key2=>$element)
 								  <div class="checkbox actions" style="margin-left:20px;">
-								    <label><input name="{{ $key2 }}" class="{{ $key }}" type="checkbox" checked="true" value="{{ $key2 }}" onChange="permission_select_parent('{{ $key }}')"> {{ mystudy_case(snake_case($element)) }}</label>
+								    <label><input name="{{ $key2 }}" class="{{ $key }}" type="checkbox" checked="true" value="{{ $key2 }}" onChange="permission_select_parent('{{ $key }}')"> {{ mystudy_case(\Illuminate\Support\Str::snake($element)) }}</label>
 								  </div>
 								@endforeach
 							</div>

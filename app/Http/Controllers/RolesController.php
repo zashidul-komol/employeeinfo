@@ -164,20 +164,25 @@ class RolesController extends Controller {
         $allRoutes = Route::getRoutes();
         //dd($allRoutes);
         $controllers = array();
-        foreach ($allRoutes as $route) {
-            $action = $route->getAction();
-            if (array_key_exists('controller', $action)) {
-                $controllerAction = explode('@', $action['controller']);
-                $controllers[class_basename($controllerAction[0])][$controllerAction[1]] = $controllerAction[1];
-            }
-        }
+        $controllers = array();
+		foreach ($allRoutes as $route) {
+			$action = $route->getAction();
+			if (array_key_exists('controller', $action)) {
+				$controllerWithActions = class_basename($action['controller']);
+				// permission not need for this omitActionsArrList actions
 
-        // permission not need for this following controlles
-        foreach ($omitArrLists as $key => $value) {
-            if (array_key_exists($value, $controllers)) {
-                unset($controllers[$value]);
-            }
-        }
+				// skip specific actions
+				if (in_array($controllerWithActions, $omitArrLists)) {
+					continue;
+				}
+				if (strpos($controllerWithActions, '@') === false) {
+					continue; // nothing to explode, skip this route
+				}
+				[$Controller, $Action] = explode('@', $controllerWithActions, 2);
+
+				$controllers[$Controller][$Action] = $Action;
+			}
+		}
         //dd($controllers);
         foreach ($controllers as $key => $controller) {
             $data['name'] = $key;
