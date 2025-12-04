@@ -95,7 +95,7 @@ if(localStorage.getItem('headerClassForHtml')){
 		</div>
 	</div>
 
-	@if (env('APP_ENV') === 'local')
+	@if (env('APP_ENV') === 'locals')
 	<div class="row">
 		<div class="container-fluid">@php dump(DB::getQueryLog()); @endphp</div>
 	</div>

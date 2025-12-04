@@ -34,20 +34,14 @@
 
 <body class="{{$bodyClassName ?? ''}}">
     <div class="img-bg" id="app">
+        <div class="left-img">
+            <img src="{{ asset('storage/images/item-1.png')}}" alt="">
+        </div>
+        <div class="right-img">
+            <img src="{{ asset('storage/images/item-2.png')}}" alt="">
+        </div>
         <div class="login-box">
-            <div class="logo">
-                <a href="#">
-                    @if(!empty($site_settings->logo))
-                        @if(file_exists('storage/images/'.$site_settings->logo))
-                            <img alt="logo" class="" src="{{ asset('storage/images/'.$site_settings->logo) }}" />
-                        @else
-                            <img alt="logo" class="" src="{{ asset('storage/images/header-logo.png') }}" />
-                        @endif
-                    @else
-                        <img alt="logo" class="" src="{{ asset('storage/images/header-logo.png') }}" />
-                    @endif
-                </a>
-            </div>
+            
             <div class="admin-form">
                 @yield('content')
             </div>

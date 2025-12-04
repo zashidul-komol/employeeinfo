@@ -10,7 +10,7 @@ return [
 		'no' => 'No',
 	],
 	'menu' => [
-	    'configaration' => ['SiteSettingsController', 'LocationsController', 'ZonesController', 'BrandsController', 'SizesController', 'DepotsController', 'DesignationsController' , 'DepartmentsController', 'OfficeLocationsController', 'RegionsController','DamageTypesController', 'StagingsController','DistributorsController'],
+	    'configaration' => ['SiteSettingsController', 'LocationsController', 'ZonesController', 'BrandsController', 'SizesController', 'DepotsController', 'DesignationsController' , 'DepartmentsController', 'OfficeLocationsController', 'RegionsController','DamageTypesController', 'StagingsController','DistributorsController', 'OrganizationsController'],
 		'user' => ['RolesController', 'RegisterController'],
 	    'sms_promotionals' => ['SmsPromotionalsController'],
 	    'sms' => ['SmsController'],
