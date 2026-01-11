@@ -21,7 +21,7 @@
 
               <!-- Blank Page Start Here -->
               <div class="active tab-pane" id="personal">
-                  {{ Form::model($employees,array('route' => array('employees.update',$employees->id),'method' => 'PUT','enctype'=>'multipart/form-data','class'=>'form-horizontal')) }}
+                  {{ Form::model($employees[0],array('route' => array('employees.update',$employees[0]->id),'method' => 'PUT','enctype'=>'multipart/form-data','class'=>'form-horizontal')) }}
                       <div class="form-group">
                           <label for="inputName" class="col-sm-2 ">Name</label>
 
@@ -172,7 +172,7 @@
                           </div>
                           <label for="inputName" class="col-sm-2 ">Job Status</label>
                           <div class="col-xs-4">
-                              {{Form::select('job_status',[''=>'--Please Select Job status--']+['permanent'=>'Permanent', 'dailyworker'=>'Daily Basis Worker'],null,array('class' => 'form-control'))}}
+                              {{Form::select('job_status',[''=>'--Please Select Job status--']+['Permanent'=>'Permanent', 'Temporary'=>'Temporary'],null,array('class' => 'form-control select2'))}}
                           </div>
                       </div>
                       <div class="form-group">
@@ -182,27 +182,27 @@
                             {{Form::textarea('present_address',null,array('class' => 'form-control max-length','rows' => 3, 'cols' => 2,'maxlength'=>'150'))}}
                               {!! $errors->first('present_address', '<p class="text-danger">:message</p>' ) !!}
                           </div>
-                          <label for="inputName" class="col-sm-2 require">Division</label>
-                          <div class="col-xs-4">
-                                {{Form::select('division_id',$divisions,null,array('class' => 'form-control', '@change'=>'getDistricts'))}}
-                                {!! $errors->first('division_id', '<p class="text-danger">:message</p>' ) !!}
+                          <label for="inputName" class="col-sm-2 ">Division</label>
+                          <div class="col-sm-4">
+                            {{Form::select('division_id',[''=>'Please Select Division']+$divisions->toArray(),null,array('class' => 'form-control','v-model'=>'division_id', '@change'=>'getDistricts'))}}
+                            {!! $errors->first('division_id', '<p class="text-danger">:message</p>' ) !!}
                           </div>
-                          <label for="inputName" class="col-sm-2 require">District</label>
-                            <div class="col-xs-4">
-                               
-                                <select name="district_id" class="form-control col-sm-2" v-model="district_id" @change="getThanas">
-                                    <option v-for="(name,id) in districts" v-bind:value="id" v-text="name"></option>
-                                </select>
-                                {!! $errors->first('district_id', '<p class="text-danger">:message</p>' ) !!}
-                            </div>
-                            <label for="inputName" class="col-sm-2 require">Thana</label>
-                            <div class="col-xs-4">
-                              <select name="thana_id" v-model="thana_id" class="form-control col-sm-2">
-                                  <option value="">Please Select Thana</option>
-                                  <option v-for="(name,id) in thanas" v-bind:value="id" v-text="name"></option>
-                              </select>
-                              {!! $errors->first('thana_id', '<p class="text-danger">:message</p>' ) !!}
-                            </div>
+                        <label for="inputName" class="col-sm-2 ">District</label>
+                          <div class="col-sm-4">
+                            <select name="district_id" class="form-control col-sm-2" v-model="district_id" @change="getThanas">
+                                <option value="">Please Select District</option>
+                                <option v-for="(name,id) in districts" v-bind:value="id" v-text="name"></option>
+                            </select>
+                            {!! $errors->first('district_id', '<p class="text-danger">:message</p>' ) !!}
+                        </div>
+                        <label for="inputName" class="col-sm-2 ">Thana</label>
+                          <div class="col-sm-4">
+                            <select name="thana_id" v-model="thana_id" class="form-control col-sm-2">
+                                <option value="">Please Select Thana</option>
+                                <option v-for="(name,id) in thanas" v-bind:value="id" v-text="name"></option>
+                            </select>
+                            {!! $errors->first('thana_id', '<p class="text-danger">:message</p>' ) !!}
+                          </div>  
 
                       </div>
                       
@@ -239,6 +239,10 @@
                           <div class="col-xs-4">
                               {{Form::select('status',config('myconfig.status'),null,array('class' => 'form-control'))}}
                           </div>
+                          <label for="inputName" class="col-sm-2 ">Employee Type</label>
+                          <div class="col-xs-4">
+                              {{Form::select('employee_type',[''=>'--Please Select Employee Type--']+['Management'=>'Management', 'Non-Management'=>'Non-Management'],null,array('class' => 'form-control select2'))}}
+                          </div>
                       </div>
                       <div class="form-group">
                           <div class="col-sm-offset-2 col-sm-10">
@@ -257,48 +261,25 @@
 @endsection
 @section('vuescript')
 <script>
-    laravelObj.division_id='{{ old('division_id') }}';
-    laravelObj.district_id='{{ old('district_id') }}';
-    laravelObj.thana_id='{{ old('thana_id') }}';
+    laravelObj.division_id='{{ $employees[0]->division_id or '' }}';
+    laravelObj.districts =JSON.parse('{!! $districts or '' !!}');
+    laravelObj.district_id='{{ $employees[0]->district_id or '' }}';
+    laravelObj.thanas =JSON.parse('{!! $thanas or '' !!}');
+    laravelObj.thana_id ='{{ $employees[0]->thana_id or '' }}';
 </script>
 @stop
 @component('common_pages.selectize')
 @include('common_pages.max_length')
-
-     <script src="{{ asset('vendor/bootstrap_date-picker/js/bootstrap-datepicker.min.js') }}"></script>
+<script src="{{ asset('vendor/bootstrap_date-picker/js/bootstrap-datepicker.min.js') }}"></script>
     <script type="text/javascript">
 
         $('.datepicker').datepicker({ format: "yyyy-mm-dd",todayHighlight: true,autoclose:true});
 
         //get shops or distributor
-        function getExecutiveDepotShop(depotId){
-          $('#shop-list').html('');
-          $.ajax({
-              type: 'Get',
-              url:"{{ route('ajax.getShops') }}",
-              data:{depot_id:depotId,distributor:1}
-            }) .done(function(response) {
-             $('#shop-list').html(response);
-           //Select2 basic example
-             $.fn.select2.defaults.set( "theme", "bootstrap" );
-              $(".select2").select2({
-                 // placeholder: function(){
-                 //     $(this).data('placeholder');
-                 // },
-                 allowClear: true
-             });
-            if('{{old('shop_id')}}'){
-              $("#shop_id").val('{{old('shop_id')}}').change();
-            }
-
-          })
-          .fail(function(response) {
-          });
-        }
+        
     </script>
     @slot('css')
      <!--Date picker-->
      <link rel="stylesheet" href="{{ asset('vendor/bootstrap_date-picker/css/bootstrap-datepicker3.min.css') }}">
     @endslot
 @endcomponent
-

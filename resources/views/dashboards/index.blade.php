@@ -298,35 +298,6 @@ textarea:valid {
                           </div>
                           
                         </div>
-
-                        <h6 class="section-subtitle"><b></b></h6>
-                        <div class="form-group">
-                          <label for="inputName" class="col-sm-3 ">Any remarkable achievments in your job you would like to share</label>
-                          <div class="col-sm-9">
-                            {{Form::textarea('remarkable_achievments',null,array('class' => 'form-control max-length','rows' => 4, 'cols' => 2,'maxlength'=>'350'))}}
-                            {!! $errors->first('remarkable_achievments', '<p class="text-danger">:message</p>' ) !!}
-                          </div>
-                          
-                        </div>
-                        <div class="form-group">
-                          <label for="inputName" class="col-sm-3 ">As an individual professional, what are your major strengths.</label>
-                          <div class="col-sm-9">
-                            {{Form::textarea('major_strength',null,array('class' => 'form-control max-length','rows' => 4, 'cols' => 2,'maxlength'=>'350'))}}
-                            {!! $errors->first('major_strength', '<p class="text-danger">:message</p>' ) !!}
-                          </div>
-                          
-                        </div>
-                        <div class="form-group">
-                          <label for="inputName" class="col-sm-3 ">What are three core strength of your company for which you are working for</label>
-                          <div class="col-sm-9">
-                            {{Form::textarea('company_strength',null,array('class' => 'form-control max-length','rows' => 4, 'cols' => 2,'maxlength'=>'350'))}}
-                            {!! $errors->first('company_strength', '<p class="text-danger">:message</p>' ) !!}
-                          </div>
-                          
-                        </div>
-                        
-                       
-                 
                   <!-- /.form-horizontal -->
               </div>
 
@@ -751,45 +722,11 @@ textarea:valid {
                           </div>
                           
                         </div>
-                  <!-- /.form-horizontal -->
-              </div>
-
-              <!-- Blank Page End Here --> 
-            </div>
-        </div>
-    </div>
-
-    <div class="col-sm-5">
-        <h4 class="section-subtitle"><b></b></h4>
-        <input type="hidden" name="disclaimer" value="1" id="datatable-disclaimer">
-        <div class="panel">
-            <div class="panel-content">
-
-              <!-- Blank Page Start Here -->
-              <div class="active tab-pane" id="personal">
-                        <div class="form-group">
-                          <label for="inputName" class="col-sm-3">Childhood Memories</label>
-                          <div class="col-sm-8">
-                                {{Form::textarea('childhood_memories',null,array('class' => 'form-control max-length','rows' => 4, 'cols' => 2,'maxlength'=>'350'))}}
-                                {!! $errors->first('childhood_memories', '<p class="text-danger">:message</p>' ) !!}
-                            </div> 
-                          
-                        </div>
-                        <div class="form-group">
-                          <label for="inputName" class="col-sm-3">How this knowledge and company strength can be shared by other companies in the group in future</label>
-                          <div class="col-sm-8">
-                                {{Form::textarea('share_knowledge',null,array('class' => 'form-control max-length','rows' => 5, 'cols' => 2,'maxlength'=>'350'))}}
-                                {!! $errors->first('share_knowledge', '<p class="text-danger">:message</p>' ) !!}
-                            </div> 
-                          
-                        </div>
                         <div class="form-group">
                           <div class="col-sm-offset-5 col-sm-10">
                             <button type="submit" class="btn btn-primary"> Update</button>
                           </div>
                         </div>
-                           
-                 
                   <!-- /.form-horizontal -->
               </div>
 

@@ -367,10 +367,41 @@ class EmployeesController extends Controller
         $validated = $request->validate([
             'name' => 'required|unique:employees,name,' . $id,
             'status' => 'required',
+            'organization_id'=> 'required',
+            'dept_id' => 'required',
+            'desig_id' => 'required',
+            'polar_id' => 'required',
+            'office_loc_id' => 'required',
+            'hiredate' => 'required',
+            'birthdate' => 'required',
+            'mobile' => 'required',
+            'gender' => 'required',
+            'bloodgroup' => 'required',
+            'grade' => 'required',
+            'height_feet' => 'required',
+            'height_inch' => 'required',
+            'passportno' => 'required',
+            'tin' => 'required',
+            'emergency_contact_person' => 'required',
+            'nid' => 'required',
+            'relationship' => 'required',
+            'emergency_contact_no' => 'required',
+            'email' => 'required',
+            'maritial_status' => 'required',
+            'region_id' => 'required',
+            'job_status' => 'required',
+            'present_address' => 'required',
+            'division_id' => 'required',
+            'district_id' => 'required',
+            'thana_id' => 'required',
+            'highest_education' => 'required',
+            'permanent_address' => 'required',
+            'jobstartdate' => 'required',
+            'employee_type' => 'required',
 
         ]);
         //dd($validated);
-        $employees = Employee::whereKey($id)->update($data);
+        $employees = Employee::whereKey($id)->update($validated);
         if ($employees) {
             $message = "You have successfully updated";
             return redirect()->route('employees.index', [])
