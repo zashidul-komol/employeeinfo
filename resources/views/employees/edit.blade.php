@@ -268,9 +268,9 @@
 @endsection
 @section('vuescript')
 <script>
-    laravelObj.division_id='{{ old('division_id') }}';
-    laravelObj.district_id='{{ old('district_id') }}';
-    laravelObj.thana_id='{{ old('thana_id') }}';
+    laravelObj.division_id = '{{ old('division_id', $employee->division_id ?? '') }}';
+    laravelObj.district_id = '{{ old('district_id', $employee->district_id ?? '') }}';
+    laravelObj.thana_id    = '{{ old('thana_id', $employee->thana_id ?? '') }}';
 </script>
 @stop
 @component('common_pages.selectize')
