@@ -41,7 +41,10 @@
                           <tr>
                             <td>{{ $i }}</td>
                             <td>{{ $data->name ?? '' }}</td>
+<<<<<<< HEAD
                             <td>{{ $data->polar_id ?? '' }}</td>
+=======
+>>>>>>> 8ea9959 (Update)
                             <td>{{ $data->designation->title ?? '' }}</td>
                             <td>{{ $data->department->name ?? '' }}</td>
                             <td>{{ $data->office_location->name ?? '' }}</td>
