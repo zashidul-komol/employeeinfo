@@ -21,7 +21,7 @@
 
               <!-- Blank Page Start Here -->
               <div class="active tab-pane" id="personal">
-                  {{ Form::model($employees,array('route' => array('employees.update',$employees->id),'method' => 'PUT','enctype'=>'multipart/form-data','class'=>'form-horizontal')) }}
+                  {{ Form::model($employee,array('route' => array('employees.update',$employee->id),'method' => 'PUT','enctype'=>'multipart/form-data','class'=>'form-horizontal')) }}
                       <div class="form-group">
                           <label for="inputName" class="col-sm-2 ">Name</label>
 
