@@ -19,6 +19,17 @@
         <div class="panel">
             <div class="panel-content">
 
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <strong>Fix these errors:</strong>
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
               <!-- Blank Page Start Here -->
               <div class="active tab-pane" id="personal">
                   {{ Form::model($employee,array('route' => array('employees.update',$employee->id),'method' => 'PUT','enctype'=>'multipart/form-data','class'=>'form-horizontal')) }}
