@@ -19,6 +19,12 @@
 
         <div class="panel">
             <div class="panel-content">
+<<<<<<< HEAD
+=======
+                <div class="active tab-pane" id="personal">
+                    {{ Form::model($employees[0], ['route' => ['employees.update', $employees[0]->id], 'method' => 'PUT','enctype'=>'multipart/form-data','class'=>'form-horizontal']) }}
+
+>>>>>>> 4d8b34f (Save work before pull)
               <!-- Blank Page Start Here -->
               <div class="active tab-pane" id="personal">
                 {{ Form::model($employee, [
@@ -474,7 +480,11 @@ new Vue({
     }
 });
 </script>
+<<<<<<< HEAD
 <script>
+=======
+@stop
+>>>>>>> 4d8b34f (Save work before pull)
     var laravelObj = laravelObj || {};
     laravelObj.division_id='{{ $employee->division_id ?? '' }}';
     laravelObj.districts = {!! $districts ?? '[]' !!};
