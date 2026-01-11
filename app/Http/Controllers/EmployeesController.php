@@ -180,26 +180,24 @@ class EmployeesController extends Controller
 
     public function edit($id)
     {
-        $employees[0] = Employee::findOrFail($id);
-        //$employees = $employees[0];
-        //dd($employees->toArray());
-        //$employees = $employees->child_details[0];
-        $divisions = Location::whereNull('parent_id')->pluck('name', 'id');
+        $employee = Employee::findOrFail($id);
+        //dd($employee);
+        $divisionId = $employee->division_id ?? null;
+        $districtId = $employee->district_id ?? null;
 
-        $divisionId = $employees[0]->division_id ?? null;
-		if ($divisionId && is_array($divisionId)) {
-			$divisionId = $divisionId[0];
-		}
 
-		$districtId = $employees[0]->district_id ?? null;
-		if ($districtId && is_array($districtId)) {
-			$districtId = $districtId[0];
-		}
-        //dd($divisions->toArray());
-        $districts = Location::where('parent_id', $divisionId)->pluck('name', 'id');
-        //dd($districts);
-        $thanas = Location::where('parent_id', $districtId)->pluck('name', 'id');
+        $divisions = Location::whereNull('parent_id')
+            ->pluck('name', 'id');
+
+        $districts = $divisionId
+            ? Location::where('parent_id', $divisionId)->pluck('name', 'id')
+            : collect();
+
+        $thanas = $districtId
+            ? Location::where('parent_id', $districtId)->pluck('name', 'id')
+            : collect();
         //dd($thanas);
+
         $departments = Department::pluck('name','id');
         $designations = Designation::pluck('title','id');
         $officelocations = OfficeLocation::pluck('name','id');
@@ -207,7 +205,20 @@ class EmployeesController extends Controller
         $organizations = Organization::pluck('organization','id');
         //dd($officelocations->toArray());
         //return view('employees.create', compact('departments','designations','officelocations','regions'));
-        return view('employees.edit', compact('employees','departments','designations','officelocations','regions', 'divisions',  'organizations','districts', 'thanas'));
+        return view(
+            'employees.edit',
+            compact(
+                'employee',
+                'departments',
+                'designations',
+                'officelocations',
+                'regions',
+                'divisions',
+                'organizations',
+                'districts',
+                'thanas'
+            )
+        );
     }
 
     public function viewEmployee($id)
@@ -356,9 +367,10 @@ class EmployeesController extends Controller
         $validated = $request->validate([
             'name' => 'required|unique:employees,name,' . $id,
             'status' => 'required',
-        ]);
 
-        $employees = Employee::whereKey($id)->update($validated);
+        ]);
+        //dd($validated);
+        $employees = Employee::whereKey($id)->update($data);
         if ($employees) {
             $message = "You have successfully updated";
             return redirect()->route('employees.index', [])

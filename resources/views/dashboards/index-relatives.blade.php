@@ -301,7 +301,7 @@ textarea:valid {
 
                         <h6 class="section-subtitle"><b></b></h6>
                         <div class="form-group">
-                          <label for="inputName" class="col-sm-3 ">Any remarkable achievments in your job you would like to share</label>
+                          <label for="inputName" class="col-sm-3 ">Any remarkable achievments you would like to share</label>
                           <div class="col-sm-9">
                             {{Form::textarea('remarkable_achievments',null,array('class' => 'form-control max-length','rows' => 4, 'cols' => 2,'maxlength'=>'350'))}}
                             {!! $errors->first('remarkable_achievments', '<p class="text-danger">:message</p>' ) !!}
@@ -309,7 +309,7 @@ textarea:valid {
                           
                         </div>
                         <div class="form-group">
-                          <label for="inputName" class="col-sm-3 ">As an individual professional, what are your major strengths.</label>
+                          <label for="inputName" class="col-sm-3 ">Your major strength</label>
                           <div class="col-sm-9">
                             {{Form::textarea('major_strength',null,array('class' => 'form-control max-length','rows' => 4, 'cols' => 2,'maxlength'=>'350'))}}
                             {!! $errors->first('major_strength', '<p class="text-danger">:message</p>' ) !!}
@@ -317,7 +317,7 @@ textarea:valid {
                           
                         </div>
                         <div class="form-group">
-                          <label for="inputName" class="col-sm-3 ">What are three core strength of your company for which you are working for</label>
+                          <label for="inputName" class="col-sm-3 ">Your Company strength</label>
                           <div class="col-sm-9">
                             {{Form::textarea('company_strength',null,array('class' => 'form-control max-length','rows' => 4, 'cols' => 2,'maxlength'=>'350'))}}
                             {!! $errors->first('company_strength', '<p class="text-danger">:message</p>' ) !!}
@@ -609,19 +609,6 @@ textarea:valid {
                           </div>
                         </div>
                         <div class="form-group">                          
-                          <label for="inputName" class="col-sm-4 ">Spouse Education and Institution</label>
-                          <div class="col-xs-7">
-                            @php
-                              $spouseEducation = '';
-                              if(!empty($employees[0]->family_details)){
-                              $spouseEducation = $employees[0]->family_details->spouse_education;
-                            }
-                            @endphp
-                             {{Form::text('spouse_education',$spouseEducation, array('class' => 'form-control'))}}
-                              {!! $errors->first('spouse_education', '<p class="text-danger">:message</p>' ) !!} 
-                          </div>
-                        </div>
-                        <div class="form-group">                          
                           <label for="inputName" class="col-sm-4 ">Spouse Mobile</label>
                           <div class="col-xs-7">
                             @php
@@ -767,19 +754,20 @@ textarea:valid {
 
               <!-- Blank Page Start Here -->
               <div class="active tab-pane" id="personal">
+                  
                         <div class="form-group">
-                          <label for="inputName" class="col-sm-3">Childhood Memories</label>
+                          <label for="inputName" class="col-sm-3">How can we share this knowledge in future</label>
                           <div class="col-sm-8">
-                                {{Form::textarea('childhood_memories',null,array('class' => 'form-control max-length','rows' => 4, 'cols' => 2,'maxlength'=>'350'))}}
-                                {!! $errors->first('childhood_memories', '<p class="text-danger">:message</p>' ) !!}
+                                {{Form::textarea('share_knowledge',null,array('class' => 'form-control max-length','rows' => 4, 'cols' => 2,'maxlength'=>'150'))}}
+                                {!! $errors->first('share_knowledge', '<p class="text-danger">:message</p>' ) !!}
                             </div> 
                           
                         </div>
                         <div class="form-group">
-                          <label for="inputName" class="col-sm-3">How this knowledge and company strength can be shared by other companies in the group in future</label>
+                          <label for="inputName" class="col-sm-3">Childhood Memories</label>
                           <div class="col-sm-8">
-                                {{Form::textarea('share_knowledge',null,array('class' => 'form-control max-length','rows' => 5, 'cols' => 2,'maxlength'=>'350'))}}
-                                {!! $errors->first('share_knowledge', '<p class="text-danger">:message</p>' ) !!}
+                                {{Form::textarea('childhood_memories',null,array('class' => 'form-control max-length','rows' => 4, 'cols' => 2,'maxlength'=>'150'))}}
+                                {!! $errors->first('childhood_memories', '<p class="text-danger">:message</p>' ) !!}
                             </div> 
                           
                         </div>
@@ -800,6 +788,98 @@ textarea:valid {
     
    {{ Form::close() }} 
   </div>
+
+  @if($employees[0]->relationships->isNotEmpty())
+  <div class="row animated fadeInRight">
+    <div class="col-sm-12">
+        <h4 class="section-subtitle"><b>Do you have any relatives working in Dhaka Ice Cream Industries Limited ?? any sister concern of Pandughar Group ?</b>
+        <input type="radio" id="otheryes" name="otherppt" class="other_ppt" required value='yes' checked="checked" data-msg='Please select any one of these.'>Yes</label>
+        <input type="radio" id="otherno" name="otherppt" class="other_ppt" required value='no' data-msg="Please choose any one of these.">No</label></h4>
+    </div>
+    <div class="col-sm-12" id="otherdoi" style="display:">
+        <h4 class="section-subtitle"><b>Relatives Information</b></h4>
+        <span class="pull-right"> 
+          <button type="button" name="create_RelativeInfo" id="create_RelativeInfo" class="btn btn-success btn-sm" >Add Relatives Information</button></span>
+        <div class="panel">
+            <div class="panel-content">
+              <div class="table-responsive">
+                <table id="basic-table" class="data-table table table-striped nowrap table-hover" cellspacing="0" width="100%">
+                    <thead>
+                      <tr>
+                        <th>Relative Name</th>
+                        <th>Name of Company</th>
+                        <th>Relationship</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        @php ($i=1)
+                        @foreach ($employees[0]->relationships as $data)
+                        <tr>
+                        <td>{{$data->name ?? ''}}</td>
+                        <td>{{$data->organizations->organization ?? ''}}</td>
+                        <td>{{$data->relationship ?? ''}}</td>
+                        <td>
+                          {!!  Html::decode(link_to_route('relationships.edit', '<span aria-hidden="true" class="fa fa-edit fa-x"></span>', array($data->id)))!!}
+                          {!! Form::delete(route('relationships.destroy',array($data->id))) !!}
+                        </td>
+                      </tr>
+                     
+                        @php ($i=$i+1)
+                        @endforeach
+                    </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  @else
+  <div class="row animated fadeInRight">
+    <div class="col-sm-12">
+        <h4 class="section-subtitle"><b>Do you have any relatives working in Dhaka Ice Cream Industries Limited ?? any sister concern of Pandughar Group ?</b>
+        <input type="radio" id="otheryes" name="otherppt" class="other_ppt" required value='yes' data-msg='Please select any one of these.'>Yes</label>
+        <input type="radio" id="otherno" name="otherppt" class="other_ppt" required value='no' data-msg="Please choose any one of these.">No</label></h4>
+    </div>
+    <div class="col-sm-12" id="otherdoi" style="display:none">
+        <h4 class="section-subtitle"><b>Add Relatives Information</b></h4>
+        <span class="pull-right"> 
+          <button type="button" name="create_RelativeInfo" id="create_RelativeInfo" class="btn btn-success btn-sm" >Add Relatives Information</button></span>
+        <div class="panel">
+            <div class="panel-content">
+              <div class="table-responsive">
+                <table id="basic-table" class="data-table table table-striped nowrap table-hover" cellspacing="0" width="100%">
+                    <thead>
+                      <tr>
+                        <th>Relative Name</th>
+                        <th>Name of Company</th>
+                        <th>Relationship</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        @php ($i=1)
+                        @foreach ($employees[0]->relationships as $data)
+                        <tr>
+                        <td>{{$data->name ?? ''}}</td>
+                        <td>{{$data->organizations->organization ?? ''}}</td>
+                        <td>{{$data->relationship ?? ''}}</td>
+                        <td>
+                          {!!  Html::decode(link_to_route('relationships.edit', '<span aria-hidden="true" class="fa fa-edit fa-x"></span>', array($data->id)))!!}
+                          {!! Form::delete(route('relationships.destroy',array($data->id))) !!}
+                        </td>
+                      </tr>
+                     
+                        @php ($i=$i+1)
+                        @endforeach
+                    </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  @endif
   @if(($employees[0]->maritial_status == 'Married') && (!empty($employees[0]->child_details)))
   <div class="row animated fadeInRight">
     <div class="col-sm-12">
@@ -917,6 +997,21 @@ textarea:valid {
     </div>
    
   </div>
+    @if($employees[0]->disclaimer == 1)
+    <div class="row animated fadeInRight">
+        <div class="checkbox-custom checkbox-success th-custom-check">
+            <input type="checkbox" name="disclaimer" value="1" id="datatable-disclaimer" checked="checked">
+            <label for="datatable-disclaimer" class="check"><b><h5>আমি এই মর্মে ঘোষণা করছি যে উপরে প্রদানকৃত আমার পার্সোনাল ইনফরমেশন এর সকল তথ্য আমি নিজে পূরণ করেছি এবং আমার জ্ঞান ও বিশ্বাস অনুযায়ী সঠিক, সম্পূর্ণ এবং নির্ভুল। </h5></b></label>
+        </div>
+    </div>
+    @else
+    <div class="row animated fadeInRight">
+        <div class="checkbox-custom checkbox-success th-custom-check">
+            <input type="checkbox" name="disclaimer" value="1" id="datatable-disclaimer">
+            <label for="datatable-disclaimer" class="check"><b><h5>আমি এই মর্মে ঘোষণা করছি যে উপরে প্রদানকৃত আমার পার্সোনাল ইনফরমেশন এর সকল তথ্য আমি নিজে পূরণ করেছি এবং আমার জ্ঞান ও বিশ্বাস অনুযায়ী সঠিক, সম্পূর্ণ এবং নির্ভুল।</h5></b></label>
+        </div>
+    </div>
+    @endif
   <div id="formModalRelative" class="modal fade" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">

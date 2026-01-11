@@ -26,6 +26,7 @@
                       <tr>
                         <th>SI</th>
                         <th>Name</th>
+                        <th>Polar ID</th>
                         <th>Designation</th>
                         <th>Department</th>
                         <th>Location</th>
@@ -40,6 +41,7 @@
                           <tr>
                             <td>{{ $i }}</td>
                             <td>{{ $data->name ?? '' }}</td>
+                            <td>{{ $data->polar_id ?? '' }}</td>
                             <td>{{ $data->designation->title ?? '' }}</td>
                             <td>{{ $data->department->name ?? '' }}</td>
                             <td>{{ $data->office_location->name ?? '' }}</td>
