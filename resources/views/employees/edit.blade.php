@@ -19,10 +19,6 @@
 
         <div class="panel">
             <div class="panel-content">
-                <div class="active tab-pane" id="personal">
-                    {{ Form::model($employees[0], ['route' => ['employees.update', $employees[0]->id], 'method' => 'PUT','enctype'=>'multipart/form-data','class'=>'form-horizontal']) }}
-
-<<<<<<< HEAD
               <!-- Blank Page Start Here -->
               <div class="active tab-pane" id="personal">
                 {{ Form::model($employee, [
@@ -426,7 +422,6 @@
     </div>
 </div>
 @endsection
-
 @section('vuescript')
 <script>
 new Vue({
@@ -479,19 +474,15 @@ new Vue({
     }
 });
 </script>
-@stop
-
-
-=======
+<script>
     var laravelObj = laravelObj || {};
-    laravelObj.division_id='{{ $employees[0]->division_id ?? '' }}';
+    laravelObj.division_id='{{ $employee->division_id ?? '' }}';
     laravelObj.districts = {!! $districts ?? '[]' !!};
-    laravelObj.district_id='{{ $employees[0]->district_id ?? '' }}';
+    laravelObj.district_id='{{ $employee->district_id ?? '' }}';
     laravelObj.thanas = {!! $thanas ?? '[]' !!};
-    laravelObj.thana_id ='{{ $employees[0]->thana_id ?? '' }}';
+    laravelObj.thana_id ='{{ $employee->thana_id ?? '' }}';
 </script>
 @stop
-
 @component('common_pages.selectize')
 @include('common_pages.max_length')
 <link rel="stylesheet" href="{{ asset('vendor/bootstrap_date-picker/css/bootstrap-datepicker3.min.css') }}">
