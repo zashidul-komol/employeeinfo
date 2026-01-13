@@ -580,19 +580,6 @@ textarea:valid {
                           </div>
                         </div>
                         <div class="form-group">                          
-                          <label for="inputName" class="col-sm-4 ">Spouse Education and Institution</label>
-                          <div class="col-xs-7">
-                            @php
-                              $spouseEducation = '';
-                              if(!empty($employees[0]->family_details)){
-                              $spouseEducation = $employees[0]->family_details->spouse_education;
-                            }
-                            @endphp
-                             {{Form::text('spouse_education',$spouseEducation, array('class' => 'form-control'))}}
-                              {!! $errors->first('spouse_education', '<p class="text-danger">:message</p>' ) !!} 
-                          </div>
-                        </div>
-                        <div class="form-group">                          
                           <label for="inputName" class="col-sm-4 ">Spouse Mobile</label>
                           <div class="col-xs-7">
                             @php
