@@ -20,6 +20,7 @@ use App\Exports\FamilyDetailsExport;
 use App\Traits\PhpExcelFormater;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class EmployeesController extends Controller
 {
