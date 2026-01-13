@@ -19,9 +19,20 @@
         <div class="panel">
             <div class="panel-content">
 
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <strong>Fix these errors:</strong>
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
               <!-- Blank Page Start Here -->
               <div class="active tab-pane" id="personal">
-                  {{ Form::model($employees,array('route' => array('employees.update',$employees->id),'method' => 'PUT','enctype'=>'multipart/form-data','class'=>'form-horizontal')) }}
+                  {{ Form::model($employee,array('route' => array('employees.update',$employee->id),'method' => 'PUT','enctype'=>'multipart/form-data','class'=>'form-horizontal')) }}
                       <div class="form-group">
                           <label for="inputName" class="col-sm-2 ">Name</label>
 
@@ -257,9 +268,9 @@
 @endsection
 @section('vuescript')
 <script>
-    laravelObj.division_id='{{ old('division_id') }}';
-    laravelObj.district_id='{{ old('district_id') }}';
-    laravelObj.thana_id='{{ old('thana_id') }}';
+    laravelObj.division_id = '{{ old('division_id', $employee->division_id ?? '') }}';
+    laravelObj.district_id = '{{ old('district_id', $employee->district_id ?? '') }}';
+    laravelObj.thana_id    = '{{ old('thana_id', $employee->thana_id ?? '') }}';
 </script>
 @stop
 @component('common_pages.selectize')

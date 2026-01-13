@@ -13,7 +13,7 @@ use App\Traits\AjaxForReturn;
 use App\Traits\AjaxForService;
 use App\Models\Zone;
 use Illuminate\Http\Request;
-use Intervention\Image\Facades\Image;
+use Intervention\Image\Laravel\Facades\Image;
 
 class AjaxController extends Controller {
 	use AjaxForInventory, AjaxForRequisition, AjaxForService, AjaxForReturn, AjaxForReport;
@@ -221,7 +221,7 @@ class AjaxController extends Controller {
 		$directory = '../public' . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'images' . DIRECTORY_SEPARATOR . 'avatar' . DIRECTORY_SEPARATOR;
 		$fileName = time() . '_avatar.' . $upload->getClientOriginalExtension();
 		$imageUrl = $directory . $fileName;
-		$imgUploaded = Image::make($upload);
+		$imgUploaded = Image::read($upload);
 		if ($imgUploaded) {
 			$imgUploaded->resize(150, 150)->save($imageUrl);
 			$userObj = $user->update(['avatar' => $fileName]);

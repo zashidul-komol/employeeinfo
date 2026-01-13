@@ -398,7 +398,7 @@ class EmployeesController extends Controller
             'highest_education' => 'required',
             'permanent_address' => 'required',
             'jobstartdate' => 'required',
-            'employee_type' => 'required',
+            //'employee_type' => 'required',
 
         ]);
         //dd($validated);
