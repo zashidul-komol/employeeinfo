@@ -44,44 +44,34 @@ textarea:valid {
     </div>
 </div>
 <div class="row animated fadeInRight">
-    <div class="panel">
-    <div class="panel bg-scale-0 b-primary bt-sm mt-xl">
-        <div class="panel-content">
-            <div class="row align-items-center">
-                
-                <!-- Profile Image -->
-                <div class="col-sm-3 text-center">
+    <div class="col-md-2">
+        <!--CONTACT INFO-->
+        <div class="panel bg-scale-0 b-primary bt-sm mt-xl">
+            <div class="panel-content">
+                <div class="box box-primary">
+                  <div class="box-body box-profile">
+                    
                     @if(auth()->user()->avatar)
-                        <img class="profile-user-img img-circle"
-                             src="{{ asset('storage/images/avatar/'.auth()->user()->avatar) }}">
+                      <img class="profile-user-img img-responsive img-circle" src="{{ asset('storage/images/avatar/'.auth()->user()->avatar) }}" alt="User profile picture">
                     @else
-                        <img class="profile-user-img img-circle"
-                             src="{{ asset('storage/images/avatar/avatar_user.jpg') }}">
+                      <img class="profile-user-img img-responsive img-circle" src="{{ asset('storage/images/avatar/avatar_user.jpg') }}" />
                     @endif
-                </div>
+                    {!! $errors->first('avatar', '<p class="text-danger">:message</p>' ) !!}
 
-                <!-- Name & Designation -->
-                <div class="col-sm-9" style="margin-top:20px;">
-                    <h3 class="profile-username mb-1 mt-1">
-                        {{ $employees[0]->name ?? '' }}
-                    </h3>
-                    <h4 class="text-muted">
-                        {{ $employees[0]['designation']['title'] ?? '' }}
-                    </h4>
-                    <h4 class="text-muted">
-                        {{ $employees[0]->department->name ?? '' }}
-                    </h4>
-                </div>
+                    <h5 class="profile-username text-center">{{$employees[0]->name ?? ''}}</h5>
 
+                    <p class="text-muted text-center">{{$employees[0]['designation']['title'] ?? ''}}</p>
+
+                  </div>
+            <!-- /.box-body -->
+                </div>
             </div>
         </div>
     </div>
-</div>
+    
 
-</div>
-<div class="row animated fadeInRight">
     {{ Form::model($employees[0],array('route' => array('employees.updateEmployee',$employees[0]['id']),'method' => 'PUT','enctype'=>'multipart/form-data','class'=>'form-horizontal')) }}
-    <div class="col-sm-6">
+    <div class="col-sm-5">
         <h4 class="section-subtitle"><b>Employee Information</b></h4>
         
         <div class="panel">
@@ -324,7 +314,7 @@ textarea:valid {
     laravelObj.thana_id ='{{ $employees[0]->thana_id ?? '' }}';
 </script>
 @stop
-    <div class="col-sm-6">
+    <div class="col-sm-5">
         <h4 class="section-subtitle"><b>Family Information</b></h4>
           
         <div class="panel">
@@ -503,7 +493,7 @@ textarea:valid {
             </div>
         </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-5">
         <h4 class="section-subtitle"><b>Education</b></h4>
         
         <div class="panel">
@@ -538,7 +528,7 @@ textarea:valid {
         </div>
     </div>
     
-    <div class="col-sm-6">
+    <div class="col-sm-5">
         <h4 class="section-subtitle"><b>Spouse Information</b></h4>
         
         <div class="panel">
@@ -683,7 +673,7 @@ textarea:valid {
             </div>
         </div>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-5">
         <h4 class="section-subtitle"><b>Emergency Contact Information</b></h4>
         <input type="hidden" name="disclaimer" value="1" id="datatable-disclaimer">
         <div class="panel">
