@@ -45,38 +45,38 @@ textarea:valid {
 </div>
 <div class="row animated fadeInRight">
     <div class="panel">
-    <div class="panel bg-scale-0 b-primary bt-sm mt-xl">
-        <div class="panel-content">
-            <div class="row align-items-center">
-                
-                <!-- Profile Image -->
-                <div class="col-sm-3 text-center">
-                    @if(auth()->user()->avatar)
-                        <img class="profile-user-img img-circle"
-                             src="{{ asset('storage/images/avatar/'.auth()->user()->avatar) }}">
-                    @else
-                        <img class="profile-user-img img-circle"
-                             src="{{ asset('storage/images/avatar/avatar_user.jpg') }}">
-                    @endif
-                </div>
+        <div class="panel bg-scale-0 b-primary bt-sm mt-xl">
+            <div class="panel-content">
+                <div class="row align-items-center">
+                    
+                    <!-- Profile Image -->
+                    <div class="col-sm-3 text-center">
+                        @if(auth()->user()->avatar)
+                            <img class="profile-user-img img-circle"
+                                 src="{{ asset('storage/images/avatar/'.auth()->user()->avatar) }}">
+                        @else
+                            <img class="profile-user-img img-circle"
+                                 src="{{ asset('storage/images/avatar/avatar_user.jpg') }}">
+                        @endif
+                    </div>
 
-                <!-- Name & Designation -->
-                <div class="col-sm-9" style="margin-top:20px;">
-                    <h3 class="profile-username mb-1 mt-1">
-                        {{ $employees[0]->name ?? '' }}
-                    </h3>
-                    <h4 class="text-muted">
-                        {{ $employees[0]['designation']['title'] ?? '' }}
-                    </h4>
-                    <h4 class="text-muted">
-                        {{ $employees[0]->department->name ?? '' }}
-                    </h4>
-                </div>
+                    <!-- Name & Designation -->
+                    <div class="col-sm-9" style="margin-top:20px;">
+                        <h3 class="profile-username mb-1 mt-1">
+                            {{ $employees[0]->name ?? '' }}
+                        </h3>
+                        <h4 class="text-muted">
+                            {{ $employees[0]['designation']['title'] ?? '' }}
+                        </h4>
+                        <h4 class="text-muted">
+                            {{ $employees[0]->department->name ?? '' }}
+                        </h4>
+                    </div>
 
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 </div>
 <div class="row animated fadeInRight">

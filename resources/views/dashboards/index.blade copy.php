@@ -43,7 +43,9 @@ textarea:valid {
         </ul>
     </div>
 </div>
-<div class="row animated fadeInRight">
+   
+
+    {{ Form::model($employees[0],
     <div class="col-md-2">
         <!--CONTACT INFO-->
         <div class="panel bg-scale-0 b-primary bt-sm mt-xl">
@@ -69,10 +71,9 @@ textarea:valid {
         </div>
     </div>
     
-
-    {{ Form::model($employees[0],array('route' => array('employees.updateEmployee',$employees[0]['id']),'method' => 'PUT','enctype'=>'multipart/form-data','class'=>'form-horizontal')) }}
+array('route' => array('employees.updateEmployee',$employees[0]['id']),'method' => 'PUT','enctype'=>'multipart/form-data','class'=>'form-horizontal')) }}
     <div class="col-sm-5">
-        <h4 class="section-subtitle"><b>Employee Information</b></h4>
+        <h4 class="section-sub5itle"><b>Employee Information</b></h4>
         
         <div class="panel">
             <div class="panel-content">
@@ -315,7 +316,7 @@ textarea:valid {
 </script>
 @stop
     <div class="col-sm-5">
-        <h4 class="section-subtitle"><b>Family Information</b></h4>
+        <h4 class="section-sub5itle"><b>Family Information</b></h4>
           
         <div class="panel">
             <div class="panel-content">
@@ -494,7 +495,7 @@ textarea:valid {
         </div>
     </div>
     <div class="col-sm-5">
-        <h4 class="section-subtitle"><b>Education</b></h4>
+        <h4 class="section-sub5itle"><b>Education</b></h4>
         
         <div class="panel">
             <div class="panel-content">
@@ -529,7 +530,7 @@ textarea:valid {
     </div>
     
     <div class="col-sm-5">
-        <h4 class="section-subtitle"><b>Spouse Information</b></h4>
+        <h4 class="section-sub5itle"><b>Spouse Information</b></h4>
         
         <div class="panel">
             <div class="panel-content">
@@ -579,7 +580,20 @@ textarea:valid {
                               {!! $errors->first('spouse_education', '<p class="text-danger">:message</p>' ) !!} 
                           </div>
                         </div>
-                        <div class="form-group">                          
+                        <div class="form-group">          <div class="form-group">                          
+                          <label for="inputName" class="col-sm-4 ">Spouse Education and Institution</label>
+                          <div class="col-xs-7">
+                            @php
+                              $spouseEducation = '';
+                              if(!empty($employees[0]->family_details)){
+                              $spouseEducation = $employees[0]->family_details->spouse_education;
+                            }
+                            @endphp
+                             {{Form::text('spouse_education',$spouseEducation, array('class' => 'form-control'))}}
+                              {!! $errors->first('spouse_education', '<p class="text-danger">:message</p>' ) !!} 
+                          </div>
+                        </div>
+                                        
                           <label for="inputName" class="col-sm-4 ">Spouse Mobile</label>
                           <div class="col-xs-7">
                             @php
@@ -674,7 +688,7 @@ textarea:valid {
         </div>
     </div>
     <div class="col-sm-5">
-        <h4 class="section-subtitle"><b>Emergency Contact Information</b></h4>
+        <h4 class="section-sub5itle"><b>Emergency Contact Information</b></h4>
         <input type="hidden" name="disclaimer" value="1" id="datatable-disclaimer">
         <div class="panel">
             <div class="panel-content">
