@@ -561,68 +561,39 @@ class HomeController extends Controller {
 
 		//------------------Test Zashidul----------------------
 
-		$user_id = \App\Models\User::find(auth()->id());
-        $authUser = auth()->user()->id;
-        $employee_ID_qry = User::where('id',$authUser)->get();
-        $employees = Employee::with([
-            'designation' => function ($q) {
-                return $q->select('id', 'title');
-            },
-            'organization' => function ($q) {
-                return $q->select('id', 'organization');
-            },
-            'office_location' => function ($q) {
-                return $q->select('id', 'name');
-            },
-            'department'=>function($q){
-                return $q->select('id', 'name');
-            },
-            'family_details' => function ($q) {
-                return $q->select('*');
-            },
-            'employee_educations'=>function($q){
-                return $q->select('*');
-            },
-            'job_experiances'=>function($q){
-                return $q->select('*');
-            },
-            'child_details'=>function($q){
-                return $q->select('*');
-            },
-            'division'=>function($q){
-                return $q->select('*');
-            },
-            'district'=>function($q){
-                return $q->select('*');
-            },
-            'thana'=>function($q){
-                return $q->select('*');
-            },
-            'user'=>function($q){
-                return $q->select('id', 'employee_id');
-            },
-            'relationships' => function ($q) {
-                return $q->select('*');
-            },
-            'relationships.organizations' => function ($q) {
-                return $q->select('*');
-            },
+		$user = \App\Models\User::find(auth()->id());
+        //$userId = auth()->id();
+		$employee = Employee::query()
+			->where('status', 'active')
+			->whereKey($user->employee_id) // same as where('id', $userId)
+			->with([
+				'designation:id,title',
+				'organization:id,organization',
+				'office_location:id,name',
+				'department:id,name',
+				'family_details',
+				'employee_educations',
+				'job_experiances',
+				'child_details',
+				'division',
+				'district',
+				'thana',
 
+				'user:id,employee_id',
 
-        ])
-        ->where('status','active')
-        ->where('id',$employee_ID_qry[0]->employee_id)
-        ->get();
-        //$district = $employees[0];
+				'relationships',
+				'relationships.organizations',
+			])
+			->first();   
 
         $divisions = Location::whereNull('parent_id')->pluck('name', 'id');
 
-		$divisionId = $employees[0]->division_id ?? null;
+		$divisionId = $employee->division_id ?? null;
 		if ($divisionId && is_array($divisionId)) {
 			$divisionId = $divisionId[0];
 		}
 
-		$districtId = $employees[0]->district_id ?? null;
+		$districtId = $employee->district_id ?? null;
 		if ($districtId && is_array($districtId)) {
 			$districtId = $districtId[0];
 		}
@@ -637,7 +608,7 @@ class HomeController extends Controller {
 
 		//------------------Test End Zashidul------------------
 
-		return view('dashboards.index', compact('employees','divisions','districts', 'thanas','organizations'));
+		return view('dashboards.index', compact('employee','divisions','districts', 'thanas','organizations'));
 	}
 
 	

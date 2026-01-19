@@ -39,7 +39,7 @@ textarea:valid {
 <div class="content-header">
     <div class="text-center">
         <ul class="breadcrumbs">
-            <li><i class="fa fa-home" aria-hidden="true"></i><a href="#"><h4 class="section-subtitle"><b>Last Updated : {{\Carbon\Carbon::parse($employees[0]->updated_at)->format("d-m-Y")}}</b></h4></a></li>
+            <li><i class="fa fa-home" aria-hidden="true"></i><a href="#"><h4 class="section-subtitle"><b>Last Updated : {{\Carbon\Carbon::parse($employee->updated_at)->format("d-m-Y")}}</b></h4></a></li>
         </ul>
     </div>
 </div>
@@ -63,13 +63,13 @@ textarea:valid {
                     <!-- Name & Designation -->
                     <div class="col-sm-9" style="margin-top:20px;">
                         <h3 class="profile-username mb-1 mt-1">
-                            {{ $employees[0]->name ?? '' }}
+                            {{ $employee->name ?? '' }}
                         </h3>
                         <h4 class="text-muted">
-                            {{ $employees[0]['designation']['title'] ?? '' }}
+                            {{ $employee->designation->title ?? '' }}
                         </h4>
                         <h4 class="text-muted">
-                            {{ $employees[0]->department->name ?? '' }}
+                            {{ $employee->department->name ?? '' }}
                         </h4>
                     </div>
 
@@ -80,7 +80,7 @@ textarea:valid {
 
 </div>
 <div class="row animated fadeInRight">
-    {{ Form::model($employees[0],array('route' => array('employees.updateEmployee',$employees[0]['id']),'method' => 'PUT','enctype'=>'multipart/form-data','class'=>'form-horizontal')) }}
+    {{ Form::model($employee,array('route' => array('employees.updateEmployee',$employee->id),'method' => 'PUT','enctype'=>'multipart/form-data','class'=>'form-horizontal')) }}
     <div class="col-sm-6">
         <h4 class="section-subtitle"><b>Employee Information</b></h4>
         
@@ -101,7 +101,7 @@ textarea:valid {
                         <div class="form-group">
                           <label for="inputName" class="col-sm-3 ">Company Name</label>
                           <div class="col-sm-9">
-                            {{Form::text('name',$employees[0]->organization->organization,array('class' => 'form-control', 'readonly' => 'true'))}}
+                            {{Form::text('name',$employee->organization->organization,array('class' => 'form-control', 'readonly' => 'true'))}}
                               {!! $errors->first('name', '<p class="text-danger">:message</p>' ) !!}
                           </div>
                           
@@ -109,21 +109,21 @@ textarea:valid {
                         <div class="form-group">
                             <label for="inputName" class="col-sm-3 ">Department</label>
                             <div class="col-xs-9">
-                                {{Form::text('name',$employees[0]->department->name,array('class' => 'form-control', 'readonly' => 'true'))}}
+                                {{Form::text('name',$employee->department->name,array('class' => 'form-control', 'readonly' => 'true'))}}
                                 {!! $errors->first('name', '<p class="text-danger">:message</p>' ) !!}
                             </div>               
                         </div>
                         <div class="form-group">                          
                           <label for="inputName" class="col-sm-3 ">Designation</label>
                           <div class="col-xs-9">
-                             {{Form::text('title',$employees[0]['designation']['title'],array('class' => 'form-control', 'readonly' => 'true'))}}
+                             {{Form::text('title',$employee->designation->title,array('class' => 'form-control', 'readonly' => 'true'))}}
                              {!! $errors->first('title', '<p class="text-danger">:message</p>' ) !!} 
                           </div>
                         </div>
                         <div class="form-group">                          
                           <label for="inputName" class="col-sm-3 ">Current Location</label>
                           <div class="col-xs-9">
-                             {{Form::text('name',$employees[0]->office_location->name,array('class' => 'form-control', 'readonly' => 'true'))}}
+                             {{Form::text('name',$employee->office_location->name,array('class' => 'form-control', 'readonly' => 'true'))}}
                              {!! $errors->first('name', '<p class="text-danger">:message</p>' ) !!} 
                           </div>
                         </div>
@@ -187,7 +187,7 @@ textarea:valid {
                         </div>
 
                         <div class="form-group">
-                          @if($employees[0]->maritial_status == 'Married')
+                          @if($employee->maritial_status == 'Married')
                           <label for="inputName" class="col-sm-3 ">Maritial Status</label>
                             <div class="col-xs-4">
                                 <div class="input-group">
@@ -250,7 +250,7 @@ textarea:valid {
                         <div class="form-group">
                             <label for="inputName" class="col-sm-3 ">Age (Till Today)</label>
                             <div class="col-xs-7">
-                                {{\Carbon\Carbon::parse($employees[0]->birthdate)->diff(\Carbon\Carbon::now())->format('%y years, %m months and %d days')}}
+                                {{\Carbon\Carbon::parse($employee->birthdate)->diff(\Carbon\Carbon::now())->format('%y years, %m months and %d days')}}
                             </div>               
                         </div>
                         <h6 class="section-subtitle"><b>Present Address : </b></h6>
@@ -317,11 +317,13 @@ textarea:valid {
     </div>
 @section('vuescript')
 <script>
-    laravelObj.division_id='{{ $employees[0]->division_id ?? '' }}';
-    laravelObj.districts =JSON.parse('{!! $districts ?? '' !!}');
-    laravelObj.district_id='{{ $employees[0]->district_id ?? '' }}';
-    laravelObj.thanas =JSON.parse('{!! $thanas ?? '' !!}');
-    laravelObj.thana_id ='{{ $employees[0]->thana_id ?? '' }}';
+    window.laravelObj = window.laravelObj || {};
+
+    laravelObj.division_id = @json($employee->division_id ?? null);
+    laravelObj.districts   = @json($districts ?? []);
+    laravelObj.district_id = @json($employee->district_id ?? null);
+    laravelObj.thanas      = @json($thanas ?? []);
+    laravelObj.thana_id    = @json($employee->thana_id ?? null);
 </script>
 @stop
     <div class="col-sm-6">
@@ -339,8 +341,8 @@ textarea:valid {
                             <font style="font-size: 25px;">
                             @php
                               $fathername = '';
-                              if(!empty($employees[0]->family_details)){
-                              $fathername = $employees[0]->family_details->father_name;
+                              if(!empty($employee->family_details)){
+                              $fathername = $employee->family_details->father_name;
                             }
                             @endphp
                             {{Form::text('father_name',$fathername, array('class' => 'form-control', 'placeholder'=>"Please insert Father's Name"))}}
@@ -354,8 +356,8 @@ textarea:valid {
                             <div class="col-xs-5">
                               @php
                               $fatherOccupation = '';
-                              if(!empty($employees[0]->family_details)){
-                              $fatherOccupation = $employees[0]->family_details->father_occupation;
+                              if(!empty($employee->family_details)){
+                              $fatherOccupation = $employee->family_details->father_occupation;
                             }
                             @endphp
                                 {{Form::text('father_occupation',$fatherOccupation, array('class' => 'form-control' , 'placeholder'=>"Please insert Fathers Occupation"))}}
@@ -365,8 +367,8 @@ textarea:valid {
                                 <div class="input-group">
                                   @php
                                     $fatherLiveStatus = '';
-                                    if(!empty($employees[0]->family_details)){
-                                    $fatherLiveStatus = $employees[0]->family_details->father_live_status;
+                                    if(!empty($employee->family_details)){
+                                    $fatherLiveStatus = $employee->family_details->father_live_status;
                                   }
                                   @endphp
                                    {{Form::text('father_live_status',$fatherLiveStatus, array('class' => 'form-control', 'placeholder'=>"Alive Status"))}}
@@ -380,8 +382,8 @@ textarea:valid {
                           <div class="col-xs-7">
                             @php
                               $mothername = '';
-                              if(!empty($employees[0]->family_details)){
-                              $mothername = $employees[0]->family_details->mother_name;
+                              if(!empty($employee->family_details)){
+                              $mothername = $employee->family_details->mother_name;
                             }
                             @endphp
                              {{Form::text('mother_name',$mothername,array('class' => 'form-control', 'placeholder'=>"Please insert Mother's Name"))}}
@@ -393,8 +395,8 @@ textarea:valid {
                             <div class="col-xs-5">
                               @php
                               $motherOccupation = '';
-                              if(!empty($employees[0]->family_details)){
-                              $motherOccupation = $employees[0]->family_details->mother_occupation;
+                              if(!empty($employee->family_details)){
+                              $motherOccupation = $employee->family_details->mother_occupation;
                             }
                             @endphp
                                 {{Form::text('mother_occupation',$motherOccupation, array('class' => 'form-control', 'placeholder'=>"Please insert Mother's Occupation"))}}
@@ -404,8 +406,8 @@ textarea:valid {
                                 <div class="input-group">
                                   @php
                                     $motherLiveStatus = '';
-                                    if(!empty($employees[0]->family_details)){
-                                    $motherLiveStatus = $employees[0]->family_details->mother_live_status;
+                                    if(!empty($employee->family_details)){
+                                    $motherLiveStatus = $employee->family_details->mother_live_status;
                                   }
                                   @endphp
                                    {{Form::text('mother_live_status',$motherLiveStatus, array('class' => 'form-control', 'placeholder'=>"Alive Status"))}}
@@ -422,8 +424,8 @@ textarea:valid {
                                 <div class="input-group">
                                   @php
                                     $brother = '';
-                                    if(!empty($employees[0]->family_details)){
-                                    $brother = $employees[0]->family_details->no_of_brothers;
+                                    if(!empty($employee->family_details)){
+                                    $brother = $employee->family_details->no_of_brothers;
                                   }
                                   @endphp
                                    {{Form::text('no_of_brothers',$brother, array('class' => 'form-control'))}}
@@ -436,8 +438,8 @@ textarea:valid {
                                 <div class="input-group">
                                   @php
                                     $brother_position = '';
-                                    if(!empty($employees[0]->family_details)){
-                                    $brother_position = $employees[0]->family_details->brother_position;
+                                    if(!empty($employee->family_details)){
+                                    $brother_position = $employee->family_details->brother_position;
                                   }
                                   @endphp
                                    {{Form::text('brother_position',$brother_position, array('class' => 'form-control'))}}
@@ -452,8 +454,8 @@ textarea:valid {
                                 <div class="input-group">
                                   @php
                                     $sister = '';
-                                    if(!empty($employees[0]->family_details)){
-                                    $sister = $employees[0]->family_details->no_of_sisters;
+                                    if(!empty($employee->family_details)){
+                                    $sister = $employee->family_details->no_of_sisters;
                                   }
                                   @endphp
                                    {{Form::text('no_of_sisters',$sister, array('class' => 'form-control'))}}
@@ -466,8 +468,8 @@ textarea:valid {
                                 <div class="input-group">
                                   @php
                                     $sister_position = '';
-                                    if(!empty($employees[0]->family_details)){
-                                    $sister_position = $employees[0]->family_details->sister_position;
+                                    if(!empty($employee->family_details)){
+                                    $sister_position = $employee->family_details->sister_position;
                                   }
                                   @endphp
                                    {{Form::text('sister_position',$sister_position, array('class' => 'form-control'))}}
@@ -483,8 +485,8 @@ textarea:valid {
                                     <div class="input-group">
                                       @php
                                         $overall_position = '';
-                                        if(!empty($employees[0]->family_details)){
-                                        $overall_position = $employees[0]->family_details->overall_position;
+                                        if(!empty($employee->family_details)){
+                                        $overall_position = $employee->family_details->overall_position;
                                       }
                                       @endphp
                                        {{Form::text('overall_position',$overall_position, array('class' => 'form-control'))}}
@@ -552,8 +554,8 @@ textarea:valid {
                           <div class="col-xs-7">
                             @php
                               $spousename = '';
-                              if(!empty($employees[0]->family_details)){
-                              $spousename = $employees[0]->family_details->wife_name;
+                              if(!empty($employee->family_details)){
+                              $spousename = $employee->family_details->wife_name;
                             }
                             @endphp
                              {{Form::text('wife_name',$spousename, array('class' => 'form-control'))}}
@@ -567,8 +569,8 @@ textarea:valid {
                                   <span class="input-group-addon x-primary"><i class="fa fa-calendar"></i></span>
                                     @php
                                       $marriage_date = '';
-                                      if(!empty($employees[0]->family_details)){
-                                      $marriage_date = $employees[0]->family_details->marriage_date;
+                                      if(!empty($employee->family_details)){
+                                      $marriage_date = $employee->family_details->marriage_date;
                                     }
                                     @endphp
                                     {{Form::text('marriage_date',$marriage_date,array('class' => 'form-control datepicker' ))}}
@@ -581,8 +583,8 @@ textarea:valid {
                           <div class="col-xs-7">
                             @php
                               $spouseEducation = '';
-                              if(!empty($employees[0]->family_details)){
-                              $spouseEducation = $employees[0]->family_details->spouse_education;
+                              if(!empty($employee->family_details)){
+                              $spouseEducation = $employee->family_details->spouse_education;
                             }
                             @endphp
                              {{Form::text('spouse_education',$spouseEducation, array('class' => 'form-control'))}}
@@ -594,8 +596,8 @@ textarea:valid {
                           <div class="col-xs-7">
                             @php
                               $spouseMobile = '';
-                              if(!empty($employees[0]->family_details)){
-                              $spouseMobile = $employees[0]->family_details->spouse_mobile;
+                              if(!empty($employee->family_details)){
+                              $spouseMobile = $employee->family_details->spouse_mobile;
                             }
                             @endphp
                              {{Form::text('spouse_mobile',$spouseMobile, array('class' => 'form-control'))}}
@@ -604,8 +606,8 @@ textarea:valid {
                         </div>
                         @php
                               $spouseOccupation = '';
-                              if(!empty($employees[0]->family_details)){
-                              $spouseOccupation = $employees[0]->family_details->wife_occupation;
+                              if(!empty($employee->family_details)){
+                              $spouseOccupation = $employee->family_details->wife_occupation;
                             }
                         @endphp
                         @if($spouseOccupation == 'Service') 
@@ -622,8 +624,8 @@ textarea:valid {
                             <div class="col-xs-7">
                               @php
                                 $spouse_nameofcompany = '';
-                                if(!empty($employees[0]->family_details)){
-                                $spouse_nameofcompany = $employees[0]->family_details->spouse_nameofcompany;
+                                if(!empty($employee->family_details)){
+                                $spouse_nameofcompany = $employee->family_details->spouse_nameofcompany;
                               }
                               @endphp
                                 {{Form::text('spouse_nameofcompany',$spouse_nameofcompany, array('class' => 'form-control'))}}
@@ -633,8 +635,8 @@ textarea:valid {
                             <div class="col-xs-7">
                               @php
                                 $spouse_presentposition = '';
-                                if(!empty($employees[0]->family_details)){
-                                $spouse_presentposition = $employees[0]->family_details->spouse_presentposition;
+                                if(!empty($employee->family_details)){
+                                $spouse_presentposition = $employee->family_details->spouse_presentposition;
                               }
                               @endphp
                                 {{Form::text('spouse_presentposition',$spouse_presentposition, array('class' => 'form-control'))}}
@@ -655,8 +657,8 @@ textarea:valid {
                             <div class="col-xs-7">
                               @php
                                 $spouse_nameofcompany = '';
-                                if(!empty($employees[0]->family_details)){
-                                $spouse_nameofcompany = $employees[0]->family_details->spouse_nameofcompany;
+                                if(!empty($employee->family_details)){
+                                $spouse_nameofcompany = $employee->family_details->spouse_nameofcompany;
                               }
                               @endphp
                                 {{Form::text('spouse_nameofcompany',$spouse_nameofcompany, array('class' => 'form-control'))}}
@@ -666,8 +668,8 @@ textarea:valid {
                             <div class="col-xs-7">
                               @php
                                 $spouse_presentposition = '';
-                                if(!empty($employees[0]->family_details)){
-                                $spouse_presentposition = $employees[0]->family_details->spouse_presentposition;
+                                if(!empty($employee->family_details)){
+                                $spouse_presentposition = $employee->family_details->spouse_presentposition;
                               }
                               @endphp
                                 {{Form::text('spouse_presentposition',$spouse_presentposition, array('class' => 'form-control'))}}
@@ -734,7 +736,7 @@ textarea:valid {
     
    {{ Form::close() }} 
   </div>
-  @if(($employees[0]->maritial_status == 'Married') && (!empty($employees[0]->child_details)))
+  @if(($employee->maritial_status == 'Married') && (!empty($employee->child_details)))
   <div class="row animated fadeInRight">
     <div class="col-sm-12">
         <h4 class="section-subtitle"><b>Children's Information</b></h4>
@@ -759,7 +761,7 @@ textarea:valid {
                     </thead>
                     <tbody>
                         @php ($i=1)
-                        @foreach ($employees[0]->child_details as $data)
+                        @foreach ($employee->child_details as $data)
                         <tr>
                         <td>{{$data->child_name ?? ''}}</td>
                         <td>{{$data->date_of_birth ?? ''}}</td>
@@ -810,7 +812,7 @@ textarea:valid {
                     </thead>
                     <tbody>
                         @php ($i=1)
-                        @foreach ($employees[0]->job_experiances as $data)
+                        @foreach ($employee->job_experiances as $data)
                       <tr>
                         <td>{{$data->name_company ?? ''}}</td>
                         <td>{{$data->position ?? ''}}</td>
@@ -827,11 +829,11 @@ textarea:valid {
                         @php ($i=$i+1)
                         @endforeach
                       <tr>
-                        <td>{{$employees[0]->organization->organization ?? ''}}</td>
-                        <td>{{$employees[0]['designation']['title'] ?? ''}}</td>
-                        <td>{{$employees[0]->hiredate ?? ''}}</td>
+                        <td>{{$employee->organization->organization ?? ''}}</td>
+                        <td>{{$employee->designation->title ?? ''}}</td>
+                        <td>{{$employee->hiredate ?? ''}}</td>
                         <td></td>
-                        <td>{{\Carbon\Carbon::parse($employees[0]->hiredate)->diff(\Carbon\Carbon::now())->format('%y years, %m months and %d days')}}</td>
+                        <td>{{\Carbon\Carbon::parse($employee->hiredate)->diff(\Carbon\Carbon::now())->format('%y years, %m months and %d days')}}</td>
                         <td></td>
                         
                       </tr>
@@ -840,7 +842,7 @@ textarea:valid {
                         <td>Overall Career Length : </td>
                         <td></td>
                         <td></td>
-                        <td>{{\Carbon\Carbon::parse($employees[0]->jobstartdate)->diff(\Carbon\Carbon::now())->format('%y years, %m months and %d days')}}</td>
+                        <td>{{\Carbon\Carbon::parse($employee->jobstartdate)->diff(\Carbon\Carbon::now())->format('%y years, %m months and %d days')}}</td>
                         <td></td>                        
                       </tr>
                     </tbody>
