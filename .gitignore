@@ -37,3 +37,6 @@ composer.lock
 package-lock.json
 yarn.lock
 .envold
+/storage/*
+!/storage/app/public/
+!/storage/app/public/.gitignore

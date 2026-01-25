@@ -25,7 +25,12 @@
                 @else
                   <img alt="profile photo" src="{{ asset('storage/images/avatar/avatar_user.jpg') }}" />
                 @endif
-                {!! $errors->first('avatar', '<p class="text-danger">:message</p>' ) !!}
+                <div id="avatarError" class="text-danger mt-2" style="display:none;"></div>
+                @if ($errors->has('avatar'))
+                <div class="alert alert-danger mt-2" style="padding:8px 12px;">
+                    {{ $errors->first('avatar') }}
+                </div>
+                @endif
             </div>
 
             <div class="user-header-info">
@@ -83,13 +88,32 @@
 @endsection
 @section('script')
 <script>
-$("#profile-picture").change(function() {
-  var file = document.getElementById("profile-picture").value;
-  var fileExtension = file.split('.').pop().toLowerCase();
-  if(fileExtension == 'jpeg' || fileExtension == 'jpg' || fileExtension == 'png'){
-    document.getElementById("uploadProfilePicture").submit();
+document.getElementById('profile-picture').addEventListener('change', function () {
+  const el = document.getElementById('avatarError');
+  el.style.display = 'none';
+  el.innerText = '';
+
+  const file = this.files[0];
+  if (!file) return;
+
+  const allowed = ['image/jpeg', 'image/png'];
+  const maxBytes = 1024 * 1024; // 1MB
+
+  if (!allowed.includes(file.type)) {
+    el.innerText = 'Only JPG, JPEG, PNG images are allowed.';
+    el.style.display = 'block';
+    this.value = '';
+    return;
   }
-  
+
+  if (file.size > maxBytes) {
+    el.innerText = 'Maximum image size is 1MB.';
+    el.style.display = 'block';
+    this.value = '';
+    return;
+  }
+
+  document.getElementById('uploadProfilePicture').submit();
 });
 </script>
 @stop
