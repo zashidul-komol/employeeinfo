@@ -18,12 +18,12 @@ class FamilyDetailsController extends Controller
      */
     public function index()
     {
-        $familyDetails = FamilyDetail::with([
-            'employees' => function ($q) {
-                return $q->select('id', 'name');
-            },
-        ])
-       ->get();
+       $familyDetails = FamilyDetail::with(['employees'])
+            ->whereHas('employees', function ($q) {
+                $q->where('organization_id', 1)
+                    ->where('status', 'active');
+            })
+            ->get();
         //dd($familyDetails->toArray());
         return view('familyDetails.index', compact('familyDetails'));
     }

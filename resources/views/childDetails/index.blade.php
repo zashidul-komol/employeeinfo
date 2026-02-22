@@ -23,6 +23,7 @@
                     <thead>
                       <tr>
                         <th>SI NO.</th>
+                        <th>Polar ID</th>
                         <th>Employee Name</th>
                         <th>Son/Daughter Name</th>
                         <th>Birth Date</th>
@@ -35,6 +36,7 @@
                         @foreach ($childDetails as $data)
                       <tr>
                         <td>{{$i}}</td>
+                        <td>{{$data->employees->polar_id ?? ''}}</td>
                         <td>{{$data->employees->name ?? ''}}</td>
                         <td>{{$data->child_name ?? ''}}</td>
                         <td>{{$data->date_of_birth ?? ''}}</td>

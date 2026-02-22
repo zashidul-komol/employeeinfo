@@ -23,10 +23,12 @@
                     <thead>
                       <tr>
                         <th>SI NO.</th>
+                        <th>Polar ID</th>
                         <th>Employee Name</th>
                         <th>Father's Name</th>
                         <th>Mother's Name</th>
                         <th>Wife's Name</th>
+                        <th>Employee Type</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -35,10 +37,12 @@
                         @foreach ($familyDetails as $data)
                       <tr>
                         <td>{{$i}}</td>
+                        <td>{{$data->employees->polar_id ?? ''}}</td>
                         <td>{{$data->employees->name ?? ''}}</td>
                         <td>{{$data->father_name ?? ''}}</td>
                         <td>{{$data->mother_name ?? ''}}</td>
                         <td>{{$data->wife_name ?? ''}}</td>
+                        <td>{{$data->employees->employee_type ?? ''}}</td>
                         <td>
                           {!!  Html::decode(link_to_route('familyDetails.edit', '<span aria-hidden="true" class="fa fa-edit fa-x"></span>', array($data->id)))!!}
 
