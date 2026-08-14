@@ -23,6 +23,9 @@ use App\Models\StockTransfer;
 use App\Traits\HasStageExists;
 use App\Models\Zone;
 use App\Models\Organization;
+use App\Models\EmployeePromotionHistory;
+use App\Models\EmployeeTransferHistory;
+use App\Models\EmployeeTrainingHistory;
 use DB;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -608,7 +611,122 @@ class HomeController extends Controller {
 
 		//------------------Test End Zashidul------------------
 
-		return view('dashboards.index', compact('employee','divisions','districts', 'thanas','organizations'));
+		//----------------- Start Promotion Histories------------------
+
+        $Organization_id = $user->organization_id;
+
+		$employees = EmployeePromotionHistory::query()
+		    ->where('employee_id', $user->employee_id)
+		    ->with([
+		        'employee:id,name,polar_id',
+		        'previousDesignation:id,title',
+		        'newDesignation:id,title',
+		    ])
+		    ->whereHas('employee', function ($q) use ($Organization_id) {
+		        $q->where('organization_id', $Organization_id);
+		    })
+		    ->orderBy('employee_id', 'ASC')
+		    ->orderBy('effective_date', 'ASC')
+		    ->get()
+		    ->groupBy('employee_id');
+
+        /*
+        |--------------------------------------------------------------------------
+        | Calculate Promotion Duration
+        |--------------------------------------------------------------------------
+        */
+
+        foreach ($employees as $employeeId => $employeeHistories) {
+
+            // Make sure index is 0,1,2,3...
+            $employeeHistories = $employeeHistories->values();
+
+            foreach ($employeeHistories as $index => $data) {
+
+                // Get next promotion
+                $nextPromotion = $employeeHistories->get($index + 1);
+
+                if ($nextPromotion) {
+
+                    // Current promotion -> Next promotion
+                    $endDate = \Carbon\Carbon::parse(
+                        $nextPromotion->effective_date
+                    );
+
+                } else {
+
+                    // Last promotion -> Today
+                    $endDate = \Carbon\Carbon::now();
+
+                }
+
+                $startDate = \Carbon\Carbon::parse(
+                    $data->effective_date
+                );
+
+                $duration = $startDate->diff($endDate);
+
+                // Add calculated duration to model
+                $data->promotion_duration = $duration;
+            }
+
+            // Replace original collection with re-indexed collection
+            $employees[$employeeId] = $employeeHistories;
+        }
+
+        //----------------- End Promotion Histories------------------
+
+        //----------------- Start Transfer Histories ------------------
+
+		$user = \App\Models\User::find(auth()->id());
+
+		$employeesTransfer = EmployeeTransferHistory::with([
+		    'employee:id,name,polar_id',
+		    'previous_department:id,short_name',
+		    'new_department:id,short_name',
+		    'previous_office_location:id,name',
+		    'new_office_location:id,name',
+		    'previousReportingTo:id,name,polar_id',
+		    'newReportingTo:id,name,polar_id',
+		])
+		->where('employee_id', $user->employee_id)
+		->orderBy('effective_date', 'ASC')
+		->get();
+
+
+		// Calculate Transfer Duration
+
+		foreach ($employeesTransfer as $index => $data) {
+
+		    $nextTransfer = $employeesTransfer->get($index + 1);
+
+		    $startDate = \Carbon\Carbon::parse($data->effective_date);
+
+		    $endDate = $nextTransfer
+		        ? \Carbon\Carbon::parse($nextTransfer->effective_date)
+		        : now();
+
+		    $data->transfer_duration = $startDate->diff($endDate);
+		}
+
+		//----------------- End Transfer Histories ------------------
+
+		//----------------- End Training Histories ------------------
+
+		$user = \App\Models\User::find(auth()->id());
+
+        $Organization_id = $user->organization_id;
+
+        $trainings = EmployeeTrainingHistory::with([
+            'employee:id,name,polar_id',
+        ])
+        ->where('employee_id', $user->employee_id)
+        ->orderBy('start_date', 'ASC')
+        ->get();
+
+        //----------------- End Training Histories ------------------
+
+		return view('dashboards.index', compact('employee','employees','divisions','districts', 'thanas','organizations','employeesTransfer', 'trainings'));
 	}
 
 	

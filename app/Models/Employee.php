@@ -18,6 +18,9 @@ use App\Models\JobExperiance;
 use App\Models\ProfDegree;
 use App\Models\Region;
 use App\Models\Relationship;
+use App\Models\EmployeePromotionHistory;
+use App\Models\EmployeeTransferHistory;
+use App\Models\EmployeeTrainingHistory;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -92,6 +95,40 @@ class Employee extends Model
     }
     public function relationships() {
         return $this->hasMany(Relationship::class, 'employee_id');
+    }
+    public function promotion_histories()
+    {
+        return $this->hasMany(
+            EmployeePromotionHistory::class,
+            'employee_id',
+            'id'
+        );
+    }
+
+    public function transfer_histories()
+    {
+        return $this->hasMany(
+            EmployeeTransferHistory::class,
+            'employee_id',
+            'id'
+        );
+    }
+
+    public function training_histories()
+    {
+        return $this->hasMany(
+            EmployeeTrainingHistory::class,
+            'employee_id',
+            'id'
+        );
+    }
+    public function reportingTo()
+    {
+        return $this->belongsTo(
+            Employee::class,
+            'reporting_to',
+            'id'
+        );
     }
 }
 

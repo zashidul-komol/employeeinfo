@@ -45,6 +45,23 @@
         @endif
         <!-- Employee Managements end-->
 
+        <!-- Promotion Details  start-->
+        @if(isMenuRender(['EmployeePromotionHistoryController@create','EmployeePromotionHistoryController@index'],$menu_list))
+            <li class="has-child-item{{ check_menu_active($current_location,['EmployeePromotionHistoryController']) }}">
+                <a><span>Career & Training Management</span></a>
+                 <ul class="nav child-nav level-2">
+
+                    @if(isMenuRender('EmployeePromotionHistoryController@create',$menu_list))
+                        <li @if($current_location=='EmployeePromotionHistoryController@create') class="active-item" @endif><a href="{{ route('employee-promotion-history.create',[]) }}">Add Career Info</a></li>
+                    @endif
+                    @if(isMenuRender('EmployeePromotionHistoryController@index',$menu_list))
+                        <li @if($current_location=='EmployeePromotionHistoryController@index') class="active-item" @endif><a href="{{ route('employee-promotion-history.index',[]) }}">Career Details Lists</a></li>
+                    @endif
+                </ul>
+            </li>
+        @endif
+        <!-- Promotion Details end-->
+
         <!-- Family Details Managements start-->
         @if(isMenuRender(['FamilyDetailsController@create','FamilyDetailsController@index'],$menu_list))
             <li class="has-child-item{{ check_menu_active($current_location,['FamilyDetailsController']) }}">

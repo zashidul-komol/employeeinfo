@@ -63,6 +63,22 @@ return [
             ]) : [],
         ],
 
+        'medical_service' => [
+            'driver' => 'mysql',
+            'host' => env('MEDICAL_DB_HOST', '127.0.0.1'),
+            'port' => env('MEDICAL_DB_PORT', '3306'),
+            'database' => env('MEDICAL_DB_DATABASE', 'medical_service'),
+            'username' => env('MEDICAL_DB_USERNAME', 'pmauser'),
+            'password' => env('MEDICAL_DB_PASSWORD', 'StrongPassword123'),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => false,
+            'engine' => null,
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'url' => env('DATABASE_URL'),

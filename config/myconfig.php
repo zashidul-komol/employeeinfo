@@ -14,7 +14,7 @@ return [
 		'user' => ['RolesController', 'RegisterController'],
 	    'sms_promotionals' => ['SmsPromotionalsController'],
 	    'sms' => ['SmsController'],
-	    'inventory' => ['SuppliersController', 'InventoriesControler','EmployeesController','FamilyDetailsController', 'ChildDetailsController', 'JobExperiancesController', 'EmployeeEducationsController', 'CertificationCoursesController','ProfDegreesController','SiblingDetailsController'],
+	    'inventory' => ['SuppliersController', 'InventoriesControler','EmployeesController','FamilyDetailsController', 'ChildDetailsController', 'JobExperiancesController', 'EmployeeEducationsController', 'CertificationCoursesController','ProfDegreesController','SiblingDetailsController', 'EmployeePromotionHistoryController'],
 		'requisition' => ['ShopsController', 'RequisitionsController'],
 		'service' => ['ProblemTypesController', 'TechniciansController', 'ServicesController'],
 		'return' => ['DfReturnsController'],

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MedicalEmployee;
 use App\Models\Employee;
 use App\Models\ChildDetail;
 use App\Models\FamilyDetail;
@@ -124,35 +125,29 @@ class EmployeesController extends Controller
     {
         
         $data = $request->all();
-        //$BirthDate['birthdate'] = $data['birthdate'];
-        //$data['birthdate'] = Carbon::createFromFormat('d-m-Y', $data['birthdate'])
-                   // ->format('Y-m-d');
-        //$data['hiredate'] = Carbon::createFromFormat('d-m-Y', $data['hiredate'])
-                   // ->format('Y-m-d');
-        //$data['jobstartdate'] = Carbon::createFromFormat('d-m-Y', $data['jobstartdate'])
-                   // ->format('Y-m-d');
-//dd($data);
-        
-      
-        //$data['birthdate'] = Carbon::createFromFormat(config('app.date_format'), $data['birthdate'])->format('yyyy-mm-dd');
-        //$BirthDate['birthdate'] = $data['birthdate'];
-        //$transaction = Transaction::create($data);
-        //dd($BirthDate);
         $request->validate([
             'name' => 'required|unique:employees',
         ]);
 
-        $employees = Employee::create($data);
-        if ($employees) {
-            $message = "You have successfully created";
-            return redirect()->route('employees.create', [])
-                ->with('flash_success', $message);
+        try {
 
-        } else {
-            $message = "Something wrong!! Please try again";
-            return redirect()->route('employees.create', [])
-                ->with('flash_danger', $message);
+            // Employee DB
+            $employee = Employee::create($data);
+
+            // Medical Service DB
+            MedicalEmployee::create($data);
+
+            return redirect()
+                ->route('employees.create')
+                ->with('flash_success', 'Employee created successfully');
+
+        } catch (\Exception $e) {
+
+            return redirect()
+                ->route('employees.create')
+                ->with('flash_danger', $e->getMessage());
         }
+
     }
 
     /**

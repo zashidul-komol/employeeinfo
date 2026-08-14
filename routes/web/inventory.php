@@ -13,6 +13,9 @@ use App\Http\Controllers\EmployeeEducationsController;
 use App\Http\Controllers\CertificationCoursesController;
 use App\Http\Controllers\ProfDegreesController;
 use App\Http\Controllers\SiblingDetailsController;
+use App\Http\Controllers\EmployeePromotionHistoryController;
+use App\Http\Controllers\EmployeeTransferHistoryController;
+use App\Http\Controllers\EmployeeTrainingHistoryController;
 
 /*====================Ajax part start==============*/
 Route::group(['middleware' => 'auth'], function () {
@@ -122,6 +125,25 @@ Route::group(['middleware' => ['auth', 'auth.access']], function () {
 
     /*============Employee end here========================*/
 
+    /*============Employee Promotion Details Start here========================*/
+
+    Route::resource('employee-promotion-history', EmployeePromotionHistoryController::class)->except(['show']);
+
+    Route::get('employee-promotion-history/PromotionListdownload', [EmployeePromotionHistoryController::class, 'PromotionListdownload'])->name('employee-promotion-history.PromotionListdownload');
+
+    Route::resource('employee-transfer-history',
+        EmployeeTransferHistoryController::class)->except(['show']);
+
+    Route::get('employee-transfer-history/TransferListDownload', [EmployeeTransferHistoryController::class, 'TransferListDownload'])->name('employee-transfer-history.TransferListDownload');
+
+    Route::resource('employee-training-history',
+        EmployeeTrainingHistoryController::class)->except(['show']);
+
+    Route::get('employee-training-history/TrainingListDownload', [EmployeeTrainingHistoryController::class, 'TrainingListDownload'])->name('employee-training-history.TrainingListDownload');
+
+        
+    /*============Employee Promotion Details End here========================*/
+
     /*============Family Details start here========================*/
 
     Route::get('familyDetails/download', [FamilyDetailsController::class, 'download'])->name('familyDetails.download');
@@ -180,5 +202,7 @@ Route::group(['middleware' => ['auth', 'auth.access']], function () {
     Route::get('siblingDetails/download', [SiblingDetailsController::class, 'download'])->name('siblingDetails.download');
 
     /*============Sibling Detail end here========================*/
+
+    
 });
 /*====================Permission part end==============*/

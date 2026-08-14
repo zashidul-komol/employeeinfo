@@ -739,9 +739,9 @@ textarea:valid {
   @if(($employee->maritial_status == 'Married') && (!empty($employee->child_details)))
   <div class="row animated fadeInRight">
     <div class="col-sm-12">
-        <h4 class="section-subtitle"><b>Children's Information</b></h4>
+        <h4 class="section-subtitle"><b>Details of Dependents</b></h4>
         <span class="pull-right"> 
-          <button type="button" name="create_ChildInfo" id="create_ChildInfo" class="btn btn-success btn-sm" >Add Child Information</button></span>
+          <button type="button" name="create_ChildInfo" id="create_ChildInfo" class="btn btn-success btn-sm" >Add Dependent</button></span>
         <div class="panel">
             <div class="panel-content">
               <div class="table-responsive">
@@ -792,9 +792,9 @@ textarea:valid {
 
   <div class="row animated fadeInRight">
     <div class="col-sm-12">
-        <h4 class="section-subtitle"><b>Job Experiances</b></h4>
+        <h4 class="section-subtitle"><b>Professional Experience</b></h4>
         <span class="pull-right"> 
-          <button type="button" name="create_record" id="create_record" class="btn btn-success btn-sm" >Add Job Experiances</button></span>
+          <button type="button" name="create_record" id="create_record" class="btn btn-success btn-sm" >Add Experiances</button></span>
         <div class="panel">
             <div class="panel-content">
               <div class="table-responsive">
@@ -853,6 +853,275 @@ textarea:valid {
     </div>
    
   </div>
+
+  <div class="row animated fadeInRight">
+    <div class="col-sm-12">
+        <h4 class="section-subtitle"><b>Career Movement Details</b></h4>
+        <div class="panel">
+            <div class="panel-content">
+              <div class="table-responsive">
+                <table id="basic-table" class="data-table table table-striped nowrap table-hover" cellspacing="0" width="100%">
+                    <thead>
+                      <tr>
+                        <th>Career Movement Type</th>
+                        <th>Previous Designation</th>
+                        <th>New Designation</th>
+                        <th>Previous Grade</th>
+                        <th>New Grade</th>
+                        <th>Effective Date</th>
+                        <th>Promotion Year</th>
+                        <th>Duration</th>
+                        
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                        @php($i = 1)
+
+                        @foreach($employees as $employeeHistories)
+
+                            @foreach($employeeHistories as $data)
+
+                                <tr>
+                                    <td>
+                                        {{ $data->promotion_type ?? '' }}
+                                    </td>
+
+                                    <td>
+                                        {{ $data->previousDesignation->title ?? '' }}
+                                    </td>
+
+                                    <td>
+                                        {{ $data->newDesignation->title ?? '' }}
+                                    </td>
+
+                                    <td>
+                                        {{ $data->previous_grade ?? '' }}
+                                    </td>
+
+                                    <td>
+                                        {{ $data->new_grade ?? '' }}
+                                    </td>
+
+                                    <td>
+                                        {{ $data->effective_date ?? '' }}
+                                    </td>
+
+                                    <td>
+                                        {{ $data->year ?? '' }}
+                                    </td>
+
+                                    <td>
+                                        @if(isset($data->promotion_duration))
+
+                                            {{ $data->promotion_duration->y }} years,
+                                            {{ $data->promotion_duration->m }} months
+
+                                        @endif
+                                    </td>
+
+                                </tr>
+
+                            @endforeach
+
+                        @endforeach
+
+                    </tbody>
+                </table>
+              </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="row animated fadeInRight">
+        <div class="col-sm-12">
+            <h4 class="section-subtitle"><b>Transfer & Relocation Information</b></h4>
+            <div class="panel">
+                <div class="panel-content">
+                  <div class="table-responsive">
+                    <table id="basic-table" class="data-table table table-striped nowrap table-hover" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th style="width: 10%;">Transfer Type</th>
+                                <th style="width: 10%;">Prev Department</th>
+                                <th style="width: 10%;">New Department</th>
+                                <th style="width: 10%;">Prev Office </th>
+                                <th style="width: 10%;">New Office </th>
+                                <th style="width: 10%;">Prev Reporting</th>
+                                <th style="width: 10%;">New Reporting</th>
+                                <th style="width: 8%;">Effective Date</th>
+                                <th style="width: 12%;">Duration</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            @foreach($employeesTransfer as $data)
+
+                                <tr>
+
+                                    <td>
+                                        {{ $data->transfer_type ?? '' }}
+                                    </td>
+
+                                    <td>
+                                        {{ $data->previous_department->short_name ?? '' }}
+                                    </td>
+
+                                    <td>
+                                        {{ $data->new_department->short_name ?? '' }}
+                                    </td>
+
+                                    <td>
+                                        {{ $data->previous_office_location->name ?? '' }}
+                                    </td>
+
+                                    <td>
+                                        {{ $data->new_office_location->name ?? '' }}
+                                    </td>
+
+                                    <td>
+                                        {{ $data->previousReportingTo->name ?? '' }}
+                                    </td>
+
+                                    <td>
+                                        {{ $data->newReportingTo->name ?? '' }}
+                                    </td>
+
+                                    <td>
+                                        @if($data->effective_date)
+                                            {{ \Carbon\Carbon::parse($data->effective_date)->format('d-m-Y') }}
+                                        @endif
+                                    </td>
+
+                                    <td>
+                                        @if($data->transfer_duration)
+                                            {{ $data->transfer_duration->y }} Years,
+                                            {{ $data->transfer_duration->m }} Months
+                                        @endif
+                                    </td>
+
+                                </tr>
+
+                            @endforeach
+
+                        </tbody>
+                    </table>
+                  </div>
+                </div>
+            </div>
+        </div>
+  </div>
+
+  <div class="row animated fadeInRight">
+        <div class="col-sm-12">
+            <h4 class="section-subtitle"><b>Skills Development Summary</b></h4>
+            <span class="pull-right"> 
+            <button type="button" name="create_record" id="create_record" class="btn btn-success btn-sm" >Add Skills Development</button></span>
+            <div class="panel">
+                <div class="panel-content">
+                  <div class="table-responsive">
+                    <table id="basic-table" class="data-table table table-striped nowrap table-hover" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Training Name</th>
+                                <th>Training Type</th>
+                                <th>Trainer</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Duration</th>
+                                <th>Training Location</th>
+                                <th>Status</th>
+                                <th>Certificate</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            @php($i = 1)
+
+                                @foreach($trainings as $data)
+
+                                    <tr>
+                                        {{-- Training Name --}}
+                                        <td>
+                                            {{ $data->training_name ?? '' }}
+                                        </td>
+
+                                        {{-- Training Type --}}
+                                        <td>
+                                            {{ $data->training_type ?? '' }}
+                                        </td>
+
+                                        {{-- Training Provider --}}
+                                        <td>
+                                            {{ $data->training_provider ?? '' }}
+                                        </td>
+
+                                        {{-- Start Date --}}
+                                        <td>
+                                            @if($data->start_date)
+                                                {{ \Carbon\Carbon::parse($data->start_date)->format('d-m-Y') }}
+                                            @endif
+                                        </td>
+
+                                        {{-- End Date --}}
+                                        <td>
+                                            @if($data->end_date)
+                                                {{ \Carbon\Carbon::parse($data->end_date)->format('d-m-Y') }}
+                                            @endif
+                                        </td>
+
+                                        {{-- Duration --}}
+                                        <td>
+                                            {{ $data->duration ?? '' }}
+                                        </td>
+
+                                        {{-- Training Location --}}
+                                        <td>
+                                            {{ $data->training_location ?? '' }}
+                                        </td>
+
+                                        {{-- Status --}}
+                                        <td>
+                                            {{ $data->status ?? '' }}
+                                        </td>
+
+                                        {{-- Certificate --}}
+                                        <td>
+                                            @if($data->certificate_path)
+
+                                                <a href="{{ asset('storage/' . $data->certificate_path) }}"
+                                                   target="_blank"
+                                                   class="btn btn-xs btn-info">
+
+                                                    <i class="fa fa-file"></i>
+                                                    View
+
+                                                </a>
+
+                                            @else
+
+                                                <span class="text-muted">
+                                                    N/A
+                                                </span>
+
+                                            @endif
+                                        </td>
+
+                                    </tr>
+
+                                @endforeach
+
+                            </tbody>
+                    </table>
+                  </div>
+                </div>
+            </div>
+        </div>
+  </div>
+
   <div id="formModalRelative" class="modal fade" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
