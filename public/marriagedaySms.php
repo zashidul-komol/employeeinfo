@@ -1,6 +1,6 @@
 <?php 
 //$dblink = mysqli_connect("localhost", "devuser", "$dpuseR", "employee_info");
-$dblink = mysqli_connect("127.0.0.1", "root", "!sister", "employee_info");
+$dblink = mysqli_connect("localhost", "root", "ABcd@#321$", "employee_info");
 if (mysqli_connect_errno()) {
     echo "Could  not connect to database: Error: ".mysqli_connect_error();
     exit();
