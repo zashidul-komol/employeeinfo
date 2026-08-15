@@ -82,7 +82,7 @@ class EmployeeTransferListExport implements FromCollection, WithHeadings
             'Previous Office Location',
             'New Office Location',
             'Previous Reporting To',
-            'New Reporting To',
+            'Reporting To',
             'Effective Date',
             'Transfer Reason',
             'Remarks',
