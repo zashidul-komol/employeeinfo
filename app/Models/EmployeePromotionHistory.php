@@ -26,6 +26,8 @@ class EmployeePromotionHistory extends Model
         'new_designation_id',
         'new_department_id',
         'new_grade',
+        'previous_reporting_to',
+        'new_reporting_to',
         'new_office_location_id',
 
         'promotion_reason',
@@ -67,6 +69,60 @@ class EmployeePromotionHistory extends Model
         return $this->belongsTo(
             Designation::class,
             'new_designation_id',
+            'id'
+        );
+    }
+
+    public function previousDepartment()
+    {
+        return $this->belongsTo(
+            Department::class,
+            'previous_department_id',
+            'id'
+        );
+    }
+
+    public function newDepartment()
+    {
+        return $this->belongsTo(
+            Department::class,
+            'new_department_id',
+            'id'
+        );
+    }
+
+    public function previousOfficeLocation()
+    {
+        return $this->belongsTo(
+            OfficeLocation::class,
+            'previous_office_location_id',
+            'id'
+        );
+    }
+
+    public function newOfficeLocation()
+    {
+        return $this->belongsTo(
+            OfficeLocation::class,
+            'new_office_location_id',
+            'id'
+        );
+    }
+
+    public function previousReportingTo()
+    {
+        return $this->belongsTo(
+            Employee::class,
+            'previous_reporting_to',
+            'id'
+        );
+    }
+
+    public function newReportingTo()
+    {
+        return $this->belongsTo(
+            Employee::class,
+            'new_reporting_to',
             'id'
         );
     }

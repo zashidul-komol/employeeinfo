@@ -131,15 +131,21 @@ Route::group(['middleware' => ['auth', 'auth.access']], function () {
 
     Route::get('employee-promotion-history/PromotionListdownload', [EmployeePromotionHistoryController::class, 'PromotionListdownload'])->name('employee-promotion-history.PromotionListdownload');
 
+    Route::any('employee-promotion-history/uploadPromotion', [EmployeePromotionHistoryController::class, 'uploadPromotion'])->name('employee-promotion-history.uploadPromotion');
+
     Route::resource('employee-transfer-history',
         EmployeeTransferHistoryController::class)->except(['show']);
 
     Route::get('employee-transfer-history/TransferListDownload', [EmployeeTransferHistoryController::class, 'TransferListDownload'])->name('employee-transfer-history.TransferListDownload');
 
+    Route::any('employee-transfer-history/uploadTransfer', [EmployeeTransferHistoryController::class, 'uploadTransfer'])->name('employee-transfer-history.uploadTransfer');
+
     Route::resource('employee-training-history',
         EmployeeTrainingHistoryController::class)->except(['show']);
 
     Route::get('employee-training-history/TrainingListDownload', [EmployeeTrainingHistoryController::class, 'TrainingListDownload'])->name('employee-training-history.TrainingListDownload');
+
+    Route::any('employee-training-history/uploadTraining', [EmployeeTrainingHistoryController::class, 'uploadTraining'])->name('employee-training-history.uploadTraining');
 
         
     /*============Employee Promotion Details End here========================*/

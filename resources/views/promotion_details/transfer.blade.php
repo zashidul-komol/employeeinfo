@@ -58,8 +58,8 @@
                         <th>New Department</th>
                         <th>Previous Office Location</th>
                         <th>New Office Location</th>
-                        <th>Previous Reporting To</th>
-                        <th>New Reporting To</th>
+                        <th>Previous Reporting</th>
+                        <th>New Reporting</th>
                         <th>Effective Date</th>
                         <th>Duration</th>
                         <th>Action</th>

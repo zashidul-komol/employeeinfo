@@ -57,6 +57,19 @@
                     @if(isMenuRender('EmployeePromotionHistoryController@index',$menu_list))
                         <li @if($current_location=='EmployeePromotionHistoryController@index') class="active-item" @endif><a href="{{ route('employee-promotion-history.index',[]) }}">Career Details Lists</a></li>
                     @endif
+
+                    @if(isMenuRender('EmployeePromotionHistoryController@uploadPromotion',$menu_list))
+                        <li @if($current_location=='EmployeePromotionHistoryController@uploadPromotion') class="active-item" @endif><a href="{{ route('employee-promotion-history.uploadPromotion',[]) }}">Upload Promotions</a></li>
+                    @endif
+
+                    @if(isMenuRender('EmployeeTransferHistoryController@uploadTransfer',$menu_list))
+                        <li @if($current_location=='EmployeeTransferHistoryController@uploadTransfer') class="active-item" @endif><a href="{{ route('employee-transfer-history.uploadTransfer',[]) }}">Upload Transfer Info</a></li>
+                    @endif
+
+                    @if(isMenuRender('EmployeeTrainingHistoryController@uploadTraining',$menu_list))
+                        <li @if($current_location=='EmployeeTrainingHistoryController@uploadTraining') class="active-item" @endif><a href="{{ route('employee-training-history.uploadTraining',[]) }}">Upload Training Info</a></li>
+                    @endif
+
                 </ul>
             </li>
         @endif

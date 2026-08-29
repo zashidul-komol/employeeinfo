@@ -1,22 +1,62 @@
 @extends('layouts.admin')
+
 @section('title', 'Employee Promotion / Transfer / Training')
+
 @section('content')
 
 <div class="container-fluid">
 
-  @if(session('success'))
-    <div class="alert alert-success alert-dismissible fade in" role="alert">
-        <button type="button"
-                class="close"
-                data-dismiss="alert"
-                aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
+    {{-- =========================================================
+         SUCCESS MESSAGE
+    ========================================================== --}}
 
-        <i class="fa fa-check-circle"></i>
-        {{ session('success') }}
-    </div>
-@endif
+    @if(session('success'))
+
+        <div class="alert alert-success alert-dismissible fade in" role="alert">
+
+            <button type="button"
+                    class="close"
+                    data-dismiss="alert"
+                    aria-label="Close">
+
+                <span aria-hidden="true">&times;</span>
+
+            </button>
+
+            <i class="fa fa-check-circle"></i>
+
+            {{ session('success') }}
+
+        </div>
+
+    @endif
+
+
+    {{-- =========================================================
+         ERROR MESSAGE
+    ========================================================== --}}
+
+    @if(session('error'))
+
+        <div class="alert alert-danger alert-dismissible fade in" role="alert">
+
+            <button type="button"
+                    class="close"
+                    data-dismiss="alert"
+                    aria-label="Close">
+
+                <span aria-hidden="true">&times;</span>
+
+            </button>
+
+            <i class="fa fa-exclamation-circle"></i>
+
+            {{ session('error') }}
+
+        </div>
+
+    @endif
+
 
     {{-- =========================================================
          COMMON EMPLOYEE INFORMATION
@@ -29,15 +69,22 @@
             <div class="panel panel-default">
 
                 <div class="panel-heading">
+
                     <h4 class="panel-title">
+
                         <i class="fa fa-user"></i>
+
                         Employee Information
+
                     </h4>
+
                 </div>
+
 
                 <div class="panel-body">
 
                     <div class="row">
+
 
                         {{-- Employee --}}
                         <div class="col-md-4">
@@ -45,12 +92,15 @@
                             <div class="form-group">
 
                                 <label for="employee_id">
+
                                     Employee
+
                                     <span class="text-danger">*</span>
+
                                 </label>
 
+
                                 <select id="employee_id"
-                                        name="employee_id"
                                         class="form-control select2"
                                         required>
 
@@ -58,19 +108,32 @@
                                         Select Employee
                                     </option>
 
+
                                     @foreach($employeesName as $employee)
 
                                         <option value="{{ $employee->id }}"
+
                                             data-polar-id="{{ $employee->polar_id }}"
+
                                             data-designation-id="{{ $employee->desig_id }}"
+
                                             data-department-id="{{ $employee->dept_id }}"
-                                            data-officelocation-id="{{ $employee->office_loc_id }}"
+
+                                            data-office-location-id="{{ $employee->office_loc_id }}"
+
+                                            data-reporting-to="{{ $employee->reporting_to }}"
+
                                             data-designation="{{ optional($employee->designation)->title }}"
+
                                             data-department="{{ optional($employee->department)->name }}"
-                                            data-officelocation="{{ optional($employee->office_location)->name }}"
+
+                                            data-office-location="{{ optional($employee->office_location)->name }}"
+
                                             data-grade="{{ $employee->grade ?? '' }}">
 
-                                            {{ $employee->name }} - {{ $employee->polar_id }}
+                                            {{ $employee->name }}
+                                            -
+                                            {{ $employee->polar_id }}
 
                                         </option>
 
@@ -188,6 +251,7 @@
     </div>
 
 
+
     {{-- =========================================================
          TABS
     ========================================================== --}}
@@ -200,41 +264,54 @@
 
                 <div class="panel-body">
 
+
+                    {{-- TAB MENU --}}
+
                     <ul class="nav nav-tabs">
 
                         <li class="active">
+
                             <a href="#promotion_tab"
                                data-toggle="tab">
 
                                 <i class="fa fa-line-chart"></i>
+
                                 Promotion Details
 
                             </a>
+
                         </li>
 
 
                         <li>
+
                             <a href="#transfer_tab"
                                data-toggle="tab">
 
                                 <i class="fa fa-exchange"></i>
+
                                 Transfer Details
 
                             </a>
+
                         </li>
 
 
                         <li>
+
                             <a href="#training_tab"
                                data-toggle="tab">
 
                                 <i class="fa fa-graduation-cap"></i>
+
                                 Training Details
 
                             </a>
+
                         </li>
 
                     </ul>
+
 
 
                     <div class="tab-content">
@@ -249,13 +326,15 @@
 
                             <div class="tab-form-container">
 
+
                                 <form method="POST"
                                       action="{{ route('employee-promotion-history.store') }}"
                                       id="promotionForm">
 
                                     @csrf
 
-                                    {{-- Hidden Employee ID --}}
+
+                                    {{-- Employee ID --}}
                                     <input type="hidden"
                                            name="employee_id"
                                            id="promotion_employee_id">
@@ -263,10 +342,13 @@
 
                                     <div class="row">
 
+
                                         <div class="col-md-12">
 
                                             <h4 class="section-title">
+
                                                 Promotion Information
+
                                             </h4>
 
                                         </div>
@@ -278,9 +360,13 @@
                                             <div class="form-group">
 
                                                 <label for="promotion_type">
+
                                                     Promotion Type
+
                                                     <span class="text-danger">*</span>
+
                                                 </label>
+
 
                                                 <select name="promotion_type"
                                                         id="promotion_type"
@@ -303,6 +389,10 @@
                                                         Grade Change
                                                     </option>
 
+                                                    <option value="Promotion with Transfer">
+                                                        Promotion with Transfer
+                                                    </option>
+
                                                 </select>
 
                                             </div>
@@ -316,9 +406,13 @@
                                             <div class="form-group">
 
                                                 <label for="effective_date">
+
                                                     Effective Date
+
                                                     <span class="text-danger">*</span>
+
                                                 </label>
+
 
                                                 <input type="date"
                                                        name="effective_date"
@@ -337,9 +431,13 @@
                                             <div class="form-group">
 
                                                 <label for="new_designation_id">
+
                                                     New Designation
+
                                                     <span class="text-danger">*</span>
+
                                                 </label>
+
 
                                                 <select name="new_designation_id"
                                                         id="new_designation_id"
@@ -350,10 +448,13 @@
                                                         Select Designation
                                                     </option>
 
+
                                                     @foreach($designations as $id => $title)
 
                                                         <option value="{{ $id }}">
+
                                                             {{ $title }}
+
                                                         </option>
 
                                                     @endforeach
@@ -371,8 +472,11 @@
                                             <div class="form-group">
 
                                                 <label for="new_department_id">
+
                                                     New Department
+
                                                 </label>
+
 
                                                 <select name="new_department_id"
                                                         id="new_department_id"
@@ -382,10 +486,13 @@
                                                         Select Department
                                                     </option>
 
+
                                                     @foreach($departments as $id => $name)
 
                                                         <option value="{{ $id }}">
+
                                                             {{ $name }}
+
                                                         </option>
 
                                                     @endforeach
@@ -406,6 +513,7 @@
                                                     New Grade
                                                 </label>
 
+
                                                 <input type="text"
                                                        name="new_grade"
                                                        id="new_grade"
@@ -421,22 +529,68 @@
 
                                             <div class="form-group">
 
-                                                <label for="new_officelocation_id">
+                                                <label for="new_office_location_id">
+
                                                     New Office Location
+
                                                 </label>
 
-                                                <select name="new_officelocation_id"
-                                                        id="new_officelocation_id"
+
+                                                <select name="new_office_location_id"
+                                                        id="new_office_location_id"
                                                         class="form-control select2">
 
                                                     <option value="">
                                                         Select Office Location
                                                     </option>
 
+
                                                     @foreach($office_locations as $id => $name)
 
                                                         <option value="{{ $id }}">
+
                                                             {{ $name }}
+
+                                                        </option>
+
+                                                    @endforeach
+
+                                                </select>
+
+                                            </div>
+
+                                        </div>
+
+
+                                        {{-- New Reporting To --}}
+                                        <div class="col-md-3">
+
+                                            <div class="form-group">
+
+                                                <label for="promotion_new_reporting_to">
+
+                                                    New Reporting To
+
+                                                </label>
+
+
+                                                <select name="new_reporting_to"
+                                                        id="promotion_new_reporting_to"
+                                                        class="form-control select2">
+
+                                                    <option value="">
+                                                        Select Reporting To
+                                                    </option>
+
+
+                                                    @foreach($employeesName as $reportingEmployee)
+
+                                                        <option value="{{ $reportingEmployee->id }}">
+
+                                                            {{ $reportingEmployee->name }}
+                                                            -
+                                                            {{ $reportingEmployee->polar_id }}
+
                                                         </option>
 
                                                     @endforeach
@@ -454,8 +608,11 @@
                                             <div class="form-group">
 
                                                 <label for="promotion_reason">
+
                                                     Promotion Reason
+
                                                 </label>
+
 
                                                 <textarea name="promotion_reason"
                                                           id="promotion_reason"
@@ -473,8 +630,11 @@
                                             <div class="form-group">
 
                                                 <label for="promotion_remarks">
+
                                                     Remarks
+
                                                 </label>
+
 
                                                 <textarea name="remarks"
                                                           id="promotion_remarks"
@@ -488,29 +648,39 @@
                                     </div>
 
 
+
+                                    {{-- Promotion Buttons --}}
+
                                     <div class="row">
 
                                         <div class="col-md-12 text-right">
+
+
                                             <a href="{{ route('employee-promotion-history.index') }}"
                                                class="btn btn-default">
 
                                                 <i class="fa fa-arrow-left"></i>
+
                                                 Back
 
                                             </a>
+
 
                                             <button type="reset"
                                                     class="btn btn-warning">
 
                                                 <i class="fa fa-refresh"></i>
+
                                                 Reset
 
                                             </button>
+
 
                                             <button type="submit"
                                                     class="btn btn-primary">
 
                                                 <i class="fa fa-save"></i>
+
                                                 Save Promotion
 
                                             </button>
@@ -519,11 +689,13 @@
 
                                     </div>
 
+
                                 </form>
 
                             </div>
 
                         </div>
+
 
 
                         {{-- =================================================
@@ -535,13 +707,15 @@
 
                             <div class="tab-form-container">
 
+
                                 <form method="POST"
                                       action="{{ route('employee-transfer-history.store') }}"
                                       id="transferForm">
 
                                     @csrf
 
-                                    {{-- Hidden Employee ID --}}
+
+                                    {{-- Employee ID --}}
                                     <input type="hidden"
                                            name="employee_id"
                                            id="transfer_employee_id">
@@ -549,10 +723,13 @@
 
                                     <div class="row">
 
+
                                         <div class="col-md-12">
 
                                             <h4 class="section-title">
+
                                                 Transfer Information
+
                                             </h4>
 
                                         </div>
@@ -564,9 +741,13 @@
                                             <div class="form-group">
 
                                                 <label for="transfer_type">
+
                                                     Transfer Type
+
                                                     <span class="text-danger">*</span>
+
                                                 </label>
+
 
                                                 <select name="transfer_type"
                                                         id="transfer_type"
@@ -602,9 +783,13 @@
                                             <div class="form-group">
 
                                                 <label for="transfer_effective_date">
+
                                                     Effective Date
+
                                                     <span class="text-danger">*</span>
+
                                                 </label>
+
 
                                                 <input type="date"
                                                        name="effective_date"
@@ -623,9 +808,13 @@
                                             <div class="form-group">
 
                                                 <label for="transfer_department_id">
+
                                                     New Department
+
                                                     <span class="text-danger">*</span>
+
                                                 </label>
+
 
                                                 <select name="new_department_id"
                                                         id="transfer_department_id"
@@ -636,10 +825,13 @@
                                                         Select Department
                                                     </option>
 
+
                                                     @foreach($departments as $id => $name)
 
                                                         <option value="{{ $id }}">
+
                                                             {{ $name }}
+
                                                         </option>
 
                                                     @endforeach
@@ -657,9 +849,13 @@
                                             <div class="form-group">
 
                                                 <label for="transfer_office_location_id">
+
                                                     New Office Location
+
                                                     <span class="text-danger">*</span>
+
                                                 </label>
+
 
                                                 <select name="new_office_location_id"
                                                         id="transfer_office_location_id"
@@ -670,10 +866,13 @@
                                                         Select Office Location
                                                     </option>
 
+
                                                     @foreach($office_locations as $id => $name)
 
                                                         <option value="{{ $id }}">
+
                                                             {{ $name }}
+
                                                         </option>
 
                                                     @endforeach
@@ -684,45 +883,48 @@
 
                                         </div>
 
+
                                         {{-- New Reporting To --}}
-                                            <div class="col-md-3">
+                                        <div class="col-md-3">
 
-                                                <div class="form-group">
+                                            <div class="form-group">
 
-                                                    <label for="new_reporting_to">
-                                                        New Reporting To
-                                                        <span class="text-danger">*</span>
-                                                    </label>
+                                                <label for="transfer_new_reporting_to">
 
-                                                    <select name="new_reporting_to"
-                                                            id="new_reporting_to"
-                                                            class="form-control select2"
-                                                            required>
+                                                    New Reporting To
 
-                                                        <option value="">
-                                                            Select Reporting To
+                                                    <span class="text-danger">*</span>
+
+                                                </label>
+
+
+                                                <select name="new_reporting_to"
+                                                        id="transfer_new_reporting_to"
+                                                        class="form-control select2"
+                                                        required>
+
+                                                    <option value="">
+                                                        Select Reporting To
+                                                    </option>
+
+
+                                                    @foreach($employeesName as $reportingEmployee)
+
+                                                        <option value="{{ $reportingEmployee->id }}">
+
+                                                            {{ $reportingEmployee->name }}
+                                                            -
+                                                            {{ $reportingEmployee->polar_id }}
+
                                                         </option>
 
-                                                        @foreach($employeesName as $employee)
+                                                    @endforeach
 
-                                                            <option value="{{ $employee->id }}"
-                                                                {{ old('new_reporting_to') == $employee->id ? 'selected' : '' }}>
-
-                                                                {{ $employee->name }} - {{ $employee->polar_id }}
-
-                                                            </option>
-
-                                                        @endforeach
-
-                                                    </select>
-
-                                                    @error('new_reporting_to')
-                                                        <span class="text-danger">{{ $message }}</span>
-                                                    @enderror
-
-                                                </div>
+                                                </select>
 
                                             </div>
+
+                                        </div>
 
 
                                         {{-- Transfer Reason --}}
@@ -731,8 +933,11 @@
                                             <div class="form-group">
 
                                                 <label for="transfer_reason">
+
                                                     Transfer Reason
+
                                                 </label>
+
 
                                                 <textarea name="transfer_reason"
                                                           id="transfer_reason"
@@ -750,8 +955,11 @@
                                             <div class="form-group">
 
                                                 <label for="transfer_remarks">
+
                                                     Remarks
+
                                                 </label>
+
 
                                                 <textarea name="remarks"
                                                           id="transfer_remarks"
@@ -765,29 +973,39 @@
                                     </div>
 
 
+
+                                    {{-- Transfer Buttons --}}
+
                                     <div class="row">
 
                                         <div class="col-md-12 text-right">
+
+
                                             <a href="{{ route('employee-transfer-history.index') }}"
                                                class="btn btn-default">
 
                                                 <i class="fa fa-arrow-left"></i>
+
                                                 Back
 
                                             </a>
+
 
                                             <button type="reset"
                                                     class="btn btn-warning">
 
                                                 <i class="fa fa-refresh"></i>
+
                                                 Reset
 
                                             </button>
+
 
                                             <button type="submit"
                                                     class="btn btn-primary">
 
                                                 <i class="fa fa-save"></i>
+
                                                 Save Transfer
 
                                             </button>
@@ -796,11 +1014,13 @@
 
                                     </div>
 
+
                                 </form>
 
                             </div>
 
                         </div>
+
 
 
                         {{-- =================================================
@@ -812,14 +1032,16 @@
 
                             <div class="tab-form-container">
 
+
                                 <form method="POST"
-                                  action="{{ route('employee-training-history.store') }}"
-                                  id="trainingForm"
-                                  enctype="multipart/form-data">
+                                      action="{{ route('employee-training-history.store') }}"
+                                      id="trainingForm"
+                                      enctype="multipart/form-data">
 
                                     @csrf
 
-                                    {{-- Hidden Employee ID --}}
+
+                                    {{-- Employee ID --}}
                                     <input type="hidden"
                                            name="employee_id"
                                            id="training_employee_id">
@@ -827,25 +1049,31 @@
 
                                     <div class="row">
 
+
                                         <div class="col-md-12">
 
                                             <h4 class="section-title">
+
                                                 Training Information
+
                                             </h4>
 
                                         </div>
 
 
-                                         {{-- Training Name --}}
-
+                                        {{-- Training Name --}}
                                         <div class="col-md-6">
 
                                             <div class="form-group">
 
                                                 <label for="training_name">
+
                                                     Training Name
+
                                                     <span class="text-danger">*</span>
+
                                                 </label>
+
 
                                                 <input type="text"
                                                        name="training_name"
@@ -855,10 +1083,13 @@
                                                        placeholder="Enter Training Name"
                                                        required>
 
+
                                                 @error('training_name')
+
                                                     <span class="text-danger">
                                                         {{ $message }}
                                                     </span>
+
                                                 @enderror
 
                                             </div>
@@ -867,40 +1098,69 @@
 
 
                                         {{-- Training Type --}}
-
                                         <div class="col-md-3">
+
                                             <div class="form-group">
+
                                                 <label for="training_type">
+
                                                     Training Type
+
                                                     <span class="text-danger">*</span>
+
                                                 </label>
+
 
                                                 <select name="training_type"
                                                         id="training_type"
                                                         class="form-control"
                                                         required>
 
-                                                    <option value="">Select Type</option>
-                                                    <option value="Internal">Internal</option>
-                                                    <option value="External">External</option>
-                                                    <option value="Online">Online</option>
+                                                    <option value="">
+                                                        Select Type
+                                                    </option>
+
+                                                    <option value="Internal">
+                                                        Internal
+                                                    </option>
+
+                                                    <option value="External">
+                                                        External
+                                                    </option>
+
+                                                    <option value="Online">
+                                                        Online
+                                                    </option>
 
                                                 </select>
 
+
                                                 @error('training_type')
-                                                    <span class="text-danger">{{ $message }}</span>
+
+                                                    <span class="text-danger">
+                                                        {{ $message }}
+                                                    </span>
+
                                                 @enderror
+
                                             </div>
+
                                         </div>
 
 
                                         {{-- Training Provider --}}
                                         <div class="col-md-3">
+
                                             <div class="form-group">
+
                                                 <label for="training_provider">
+
                                                     Training Provider
+
                                                     <span class="text-danger">*</span>
+
                                                 </label>
+
 
                                                 <input type="text"
                                                        name="training_provider"
@@ -910,20 +1170,33 @@
                                                        placeholder="Training Provider"
                                                        required>
 
+
                                                 @error('training_provider')
-                                                    <span class="text-danger">{{ $message }}</span>
+
+                                                    <span class="text-danger">
+                                                        {{ $message }}
+                                                    </span>
+
                                                 @enderror
+
                                             </div>
+
                                         </div>
 
 
                                         {{-- Start Date --}}
                                         <div class="col-md-3">
+
                                             <div class="form-group">
+
                                                 <label for="start_date">
+
                                                     Start Date
+
                                                     <span class="text-danger">*</span>
+
                                                 </label>
+
 
                                                 <input type="date"
                                                        name="start_date"
@@ -932,20 +1205,33 @@
                                                        value="{{ old('start_date') }}"
                                                        required>
 
+
                                                 @error('start_date')
-                                                    <span class="text-danger">{{ $message }}</span>
+
+                                                    <span class="text-danger">
+                                                        {{ $message }}
+                                                    </span>
+
                                                 @enderror
+
                                             </div>
+
                                         </div>
 
 
                                         {{-- End Date --}}
                                         <div class="col-md-3">
+
                                             <div class="form-group">
+
                                                 <label for="end_date">
+
                                                     End Date
+
                                                     <span class="text-danger">*</span>
+
                                                 </label>
+
 
                                                 <input type="date"
                                                        name="end_date"
@@ -954,20 +1240,33 @@
                                                        value="{{ old('end_date') }}"
                                                        required>
 
+
                                                 @error('end_date')
-                                                    <span class="text-danger">{{ $message }}</span>
+
+                                                    <span class="text-danger">
+                                                        {{ $message }}
+                                                    </span>
+
                                                 @enderror
+
                                             </div>
+
                                         </div>
 
 
                                         {{-- Duration --}}
                                         <div class="col-md-3">
+
                                             <div class="form-group">
+
                                                 <label for="duration">
+
                                                     Duration
+
                                                     <span class="text-danger">*</span>
+
                                                 </label>
+
 
                                                 <input type="text"
                                                        name="duration"
@@ -978,20 +1277,33 @@
                                                        readonly
                                                        required>
 
+
                                                 @error('duration')
-                                                    <span class="text-danger">{{ $message }}</span>
+
+                                                    <span class="text-danger">
+                                                        {{ $message }}
+                                                    </span>
+
                                                 @enderror
+
                                             </div>
+
                                         </div>
 
 
                                         {{-- Training Location --}}
                                         <div class="col-md-3">
+
                                             <div class="form-group">
+
                                                 <label for="training_location">
+
                                                     Training Location
+
                                                     <span class="text-danger">*</span>
+
                                                 </label>
+
 
                                                 <input type="text"
                                                        name="training_location"
@@ -1001,21 +1313,31 @@
                                                        placeholder="Training Location"
                                                        required>
 
+
                                                 @error('training_location')
-                                                    <span class="text-danger">{{ $message }}</span>
+
+                                                    <span class="text-danger">
+                                                        {{ $message }}
+                                                    </span>
+
                                                 @enderror
+
                                             </div>
+
                                         </div>
 
-                                        {{-- Training Certificate --}}
 
+                                        {{-- Training Certificate --}}
                                         <div class="col-md-6">
 
                                             <div class="form-group">
 
                                                 <label for="certificate">
+
                                                     Training Certificate
+
                                                 </label>
+
 
                                                 <input type="file"
                                                        name="certificate"
@@ -1023,14 +1345,24 @@
                                                        class="form-control"
                                                        accept=".pdf,.jpg,.jpeg,.png">
 
+
                                                 <small class="text-muted">
-                                                    Allowed: PDF, JPG, JPEG, PNG | Maximum 5 MB
+
+                                                    Allowed: PDF, JPG, JPEG, PNG
+                                                    |
+                                                    Maximum 5 MB
+
                                                 </small>
 
+
                                                 @error('certificate')
+
                                                     <span class="text-danger">
+
                                                         {{ $message }}
+
                                                     </span>
+
                                                 @enderror
 
                                             </div>
@@ -1039,14 +1371,16 @@
 
 
                                         {{-- Status --}}
-
                                         <div class="col-md-3">
 
                                             <div class="form-group">
 
                                                 <label for="status">
+
                                                     Status
+
                                                 </label>
+
 
                                                 <select name="status"
                                                         id="status"
@@ -1056,18 +1390,15 @@
                                                         Select Status
                                                     </option>
 
-                                                    <option value="Completed"
-                                                        {{ old('status') == 'Completed' ? 'selected' : '' }}>
+                                                    <option value="Completed">
                                                         Completed
                                                     </option>
 
-                                                    <option value="Ongoing"
-                                                        {{ old('status') == 'Ongoing' ? 'selected' : '' }}>
+                                                    <option value="Ongoing">
                                                         Ongoing
                                                     </option>
 
-                                                    <option value="Cancelled"
-                                                        {{ old('status') == 'Cancelled' ? 'selected' : '' }}>
+                                                    <option value="Cancelled">
                                                         Cancelled
                                                     </option>
 
@@ -1079,17 +1410,19 @@
 
 
                                         {{-- Remarks --}}
-
                                         <div class="col-md-12">
 
                                             <div class="form-group">
 
-                                                <label for="remarks">
+                                                <label for="training_remarks">
+
                                                     Remarks
+
                                                 </label>
 
+
                                                 <textarea name="remarks"
-                                                          id="remarks"
+                                                          id="training_remarks"
                                                           class="form-control"
                                                           rows="3"
                                                           placeholder="Enter remarks">{{ old('remarks') }}</textarea>
@@ -1101,33 +1434,39 @@
                                     </div>
 
 
-                {{-- BUTTONS --}}
-                {{-- ============================= --}}
+
+                                    {{-- Training Buttons --}}
 
                                     <div class="row">
 
                                         <div class="col-md-12 text-right">
 
+
                                             <a href="{{ route('employee-training-history.index') }}"
                                                class="btn btn-default">
 
                                                 <i class="fa fa-arrow-left"></i>
+
                                                 Back
 
                                             </a>
+
 
                                             <button type="reset"
                                                     class="btn btn-warning">
 
                                                 <i class="fa fa-refresh"></i>
+
                                                 Reset
 
                                             </button>
+
 
                                             <button type="submit"
                                                     class="btn btn-primary">
 
                                                 <i class="fa fa-save"></i>
+
                                                 Save Training
 
                                             </button>
@@ -1136,11 +1475,13 @@
 
                                     </div>
 
+
                                 </form>
 
                             </div>
 
                         </div>
+
 
                     </div>
 
@@ -1153,15 +1494,12 @@
     </div>
 
 </div>
+
 @endsection
 
 
+
 @section('script')
-{{-- =========================================================
-     PAGE CSS + JAVASCRIPT
-========================================================= --}}
-
-
 
 <style>
 
@@ -1213,65 +1551,25 @@
     }
 
 </style>
-{{-- ====================== JAVASCRIPT ======================= --}} 
+
+
+
+{{-- =========================================================
+     SELECT2
+========================================================= --}}
 
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
       rel="stylesheet">
 
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js">
-</script>
 
-<script>
-$(document).ready(function () {
-
-    function calculateDuration() {
-
-        let startDate = $('#start_date').val();
-        let endDate   = $('#end_date').val();
-
-        if (!startDate || !endDate) {
-            $('#duration').val('');
-            return;
-        }
-
-        let start = new Date(startDate);
-        let end   = new Date(endDate);
-
-        if (end < start) {
-            $('#duration').val('');
-            return;
-        }
-
-        let diffTime = end.getTime() - start.getTime();
-
-        let diffDays = Math.floor(
-            diffTime / (1000 * 60 * 60 * 24)
-        ) + 1;
-
-        if (diffDays === 1) {
-
-            $('#duration').val('1 Day');
-
-        } else {
-
-            $('#duration').val(diffDays + ' Days');
-
-        }
-    }
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 
-    $('#start_date, #end_date').on('change', function () {
-
-        calculateDuration();
-
-    });
-
-});
-</script>
 
 <script>
 
 $(document).ready(function () {
+
 
     /*
     |--------------------------------------------------------------------------
@@ -1285,6 +1583,7 @@ $(document).ready(function () {
     });
 
 
+
     /*
     |--------------------------------------------------------------------------
     | Employee Selection
@@ -1293,34 +1592,49 @@ $(document).ready(function () {
 
     $('#employee_id').on('change', function () {
 
-        var selectedOption = $(this).find('option:selected');
+        var selectedOption =
+            $(this).find('option:selected');
+
 
         var employeeId =
             selectedOption.val() || '';
 
+
         var polarId =
             selectedOption.attr('data-polar-id') || '';
+
 
         var designationId =
             selectedOption.attr('data-designation-id') || '';
 
+
         var departmentId =
             selectedOption.attr('data-department-id') || '';
 
+
         var officeLocationId =
-            selectedOption.attr('data-officelocation-id') || '';
+            selectedOption.attr('data-office-location-id') || '';
+
+
+        var reportingTo =
+            selectedOption.attr('data-reporting-to') || '';
+
 
         var designation =
             selectedOption.attr('data-designation') || '';
 
+
         var department =
             selectedOption.attr('data-department') || '';
 
+
         var officeLocation =
-            selectedOption.attr('data-officelocation') || '';
+            selectedOption.attr('data-office-location') || '';
+
 
         var grade =
             selectedOption.attr('data-grade') || '';
+
 
 
         /*
@@ -1329,15 +1643,25 @@ $(document).ready(function () {
         |--------------------------------------------------------------------------
         */
 
-        $('#polar_id').val(polarId);
+        $('#polar_id')
+            .val(polarId);
 
-        $('#previous_designation').val(designation);
 
-        $('#previous_department').val(department);
+        $('#previous_designation')
+            .val(designation);
 
-        $('#previous_grade').val(grade);
 
-        $('#previous_office_location').val(officeLocation);
+        $('#previous_department')
+            .val(department);
+
+
+        $('#previous_grade')
+            .val(grade);
+
+
+        $('#previous_office_location')
+            .val(officeLocation);
+
 
 
         /*
@@ -1346,16 +1670,22 @@ $(document).ready(function () {
         |--------------------------------------------------------------------------
         */
 
-        $('#promotion_employee_id').val(employeeId);
+        $('#promotion_employee_id')
+            .val(employeeId);
 
-        $('#transfer_employee_id').val(employeeId);
 
-        $('#training_employee_id').val(employeeId);
+        $('#transfer_employee_id')
+            .val(employeeId);
+
+
+        $('#training_employee_id')
+            .val(employeeId);
+
 
 
         /*
         |--------------------------------------------------------------------------
-        | Promotion - Automatically Select Current Values
+        | PROMOTION
         |--------------------------------------------------------------------------
         */
 
@@ -1363,20 +1693,36 @@ $(document).ready(function () {
             .val(designationId)
             .trigger('change');
 
+
         $('#new_department_id')
             .val(departmentId)
             .trigger('change');
 
-        $('#new_officelocation_id')
+
+        $('#new_office_location_id')
             .val(officeLocationId)
             .trigger('change');
 
-        $('#new_grade').val(grade);
+
+        $('#new_grade')
+            .val(grade);
+
+
+        /*
+        | Current Reporting To → New Reporting To
+        |
+        | Promotion with Transfer-এর জন্য
+        */
+
+        $('#promotion_new_reporting_to')
+            .val(reportingTo)
+            .trigger('change');
+
 
 
         /*
         |--------------------------------------------------------------------------
-        | Transfer - Automatically Select Current Values
+        | TRANSFER
         |--------------------------------------------------------------------------
         */
 
@@ -1384,16 +1730,55 @@ $(document).ready(function () {
             .val(departmentId)
             .trigger('change');
 
+
         $('#transfer_office_location_id')
             .val(officeLocationId)
+            .trigger('change');
+
+
+        $('#transfer_new_reporting_to')
+            .val(reportingTo)
             .trigger('change');
 
     });
 
 
+
     /*
     |--------------------------------------------------------------------------
-    | Reset Promotion Form
+    | Promotion Type
+    |--------------------------------------------------------------------------
+    |
+    | Promotion with Transfer select করলে
+    | New Reporting To required হবে।
+    |
+    */
+
+    $('#promotion_type').on('change', function () {
+
+        var promotionType =
+            $(this).val();
+
+
+        if (promotionType === 'Promotion with Transfer') {
+
+            $('#promotion_new_reporting_to')
+                .prop('required', true);
+
+        } else {
+
+            $('#promotion_new_reporting_to')
+                .prop('required', false);
+
+        }
+
+    });
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Promotion Form Reset
     |--------------------------------------------------------------------------
     */
 
@@ -1401,32 +1786,47 @@ $(document).ready(function () {
 
         setTimeout(function () {
 
-            $('#promotion_employee_id').val(
-                $('#employee_id').val()
-            );
+            $('#promotion_employee_id')
+                .val($('#employee_id').val());
+
 
             $('#new_designation_id')
                 .val('')
                 .trigger('change');
 
+
             $('#new_department_id')
                 .val('')
                 .trigger('change');
 
-            $('#new_officelocation_id')
+
+            $('#new_office_location_id')
                 .val('')
                 .trigger('change');
 
-            $('#new_grade').val('');
+
+            $('#promotion_new_reporting_to')
+                .val('')
+                .trigger('change');
+
+
+            $('#new_grade')
+                .val('');
+
+
+            $('#promotion_type')
+                .val('');
+
 
         }, 10);
 
     });
 
 
+
     /*
     |--------------------------------------------------------------------------
-    | Reset Transfer Form
+    | Transfer Form Reset
     |--------------------------------------------------------------------------
     */
 
@@ -1434,26 +1834,38 @@ $(document).ready(function () {
 
         setTimeout(function () {
 
-            $('#transfer_employee_id').val(
-                $('#employee_id').val()
-            );
+            $('#transfer_employee_id')
+                .val($('#employee_id').val());
+
 
             $('#transfer_department_id')
                 .val('')
                 .trigger('change');
 
+
             $('#transfer_office_location_id')
                 .val('')
                 .trigger('change');
+
+
+            $('#transfer_new_reporting_to')
+                .val('')
+                .trigger('change');
+
+
+            $('#transfer_type')
+                .val('');
+
 
         }, 10);
 
     });
 
 
+
     /*
     |--------------------------------------------------------------------------
-    | Reset Training Form
+    | Training Form Reset
     |--------------------------------------------------------------------------
     */
 
@@ -1461,13 +1873,88 @@ $(document).ready(function () {
 
         setTimeout(function () {
 
-            $('#training_employee_id').val(
-                $('#employee_id').val()
-            );
+            $('#training_employee_id')
+                .val($('#employee_id').val());
 
         }, 10);
 
     });
+
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Training Duration Calculation
+    |--------------------------------------------------------------------------
+    */
+
+    function calculateDuration() {
+
+        let startDate =
+            $('#start_date').val();
+
+
+        let endDate =
+            $('#end_date').val();
+
+
+        if (!startDate || !endDate) {
+
+            $('#duration').val('');
+
+            return;
+        }
+
+
+        let start =
+            new Date(startDate);
+
+
+        let end =
+            new Date(endDate);
+
+
+        if (end < start) {
+
+            $('#duration').val('');
+
+            return;
+        }
+
+
+        let diffTime =
+            end.getTime() - start.getTime();
+
+
+        let diffDays =
+            Math.floor(
+                diffTime /
+                (1000 * 60 * 60 * 24)
+            ) + 1;
+
+
+        if (diffDays === 1) {
+
+            $('#duration')
+                .val('1 Day');
+
+        } else {
+
+            $('#duration')
+                .val(diffDays + ' Days');
+
+        }
+
+    }
+
+
+    $('#start_date, #end_date')
+        .on('change', function () {
+
+            calculateDuration();
+
+        });
+
 
 
     /*
@@ -1476,30 +1963,30 @@ $(document).ready(function () {
     |--------------------------------------------------------------------------
     */
 
-    $('#promotionForm, #transferForm, #trainingForm').on(
-        'submit',
-        function (e) {
+    $('#promotionForm, #transferForm, #trainingForm')
+        .on('submit', function (e) {
 
             if (!$('#employee_id').val()) {
 
                 e.preventDefault();
 
-                alert('Please select an employee first.');
+
+                alert(
+                    'Please select an employee first.'
+                );
+
 
                 $('#employee_id')
                     .select2('open');
 
+
                 return false;
             }
 
-        }
-    );
+        });
 
 });
 
 </script>
 
 @endsection
-
-
-

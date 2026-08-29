@@ -12,6 +12,8 @@ use Maatwebsite\Excel\Events\AfterSheet;
 use \Maatwebsite\Excel\Sheet;
 use App\Models\EmployeeTransferHistory;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 class EmployeeTransferListExport implements FromCollection, WithHeadings
 {
@@ -56,8 +58,14 @@ class EmployeeTransferListExport implements FromCollection, WithHeadings
                 'Previous Reporting To' =>
                     $data->previousReportingTo->name ?? '',
 
+                'Previous Reporting To Polar ID' =>
+                    $data->previousReportingTo->polar_id ?? '',
+
                 'New Reporting To' =>
                     $data->newReportingTo->name ?? '',
+
+                'New Reporting To Polar ID' =>
+                    $data->newReportingTo->polar_id ?? '',
 
                 'Effective Date' =>
                     $data->effective_date ?? '',
@@ -82,7 +90,9 @@ class EmployeeTransferListExport implements FromCollection, WithHeadings
             'Previous Office Location',
             'New Office Location',
             'Previous Reporting To',
+            'Previous Reporting Polar ID',
             'Reporting To',
+            'New Reporting Polar ID',
             'Effective Date',
             'Transfer Reason',
             'Remarks',

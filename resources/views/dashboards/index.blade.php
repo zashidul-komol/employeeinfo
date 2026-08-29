@@ -1016,10 +1016,15 @@ textarea:valid {
 
   <div class="row animated fadeInRight">
         <div class="col-sm-12">
-            <h4 class="section-subtitle"><b>Skills Development Summary</b></h4>
-            <span class="pull-right"> 
-            <button type="button" name="create_record" id="create_record" class="btn btn-success btn-sm" >
-                <a href="{{ route('employee-promotion-history.create') }}">Add Skills Development</a></button></span>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <h4 class="section-subtitle mb-0">
+                        <b>Skills Development Summary</b>
+                    </h4>
+
+                    <a href="{{ route('employee-promotion-history.create') }}" class="btn btn-success btn-sm text-white">
+                        Add Skills Development
+                    </a>
+                </div>
             
             <div class="panel">
                 <div class="panel-content">

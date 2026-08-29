@@ -12,66 +12,157 @@ use Maatwebsite\Excel\Events\AfterSheet;
 use \Maatwebsite\Excel\Sheet;
 use App\Models\EmployeePromotionHistory;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
+use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
+use Carbon\Carbon;
 
-class EmployeePromotionListExport implements FromCollection, WithHeadings
-{
-    public function collection()
+class EmployeePromotionListExport implements FromCollection, WithHeadings, WithColumnFormatting
     {
-        return EmployeePromotionHistory::with([
-            'employee:id,name,polar_id',
-            'previousDesignation:id,title',
-            'newDesignation:id,title',
-        ])
-        ->orderBy('employee_id', 'ASC')
-        ->orderBy('effective_date', 'ASC')
-        ->get()
-        ->map(function ($data) {
+        public function collection()
+        {
+            return EmployeePromotionHistory::with([
 
+                'employee:id,name,polar_id',
+
+                'previousDesignation:id,title',
+                'newDesignation:id,title',
+
+                'previousDepartment:id,name',
+                'newDepartment:id,name',
+
+                'previousOfficeLocation:id,name',
+                'newOfficeLocation:id,name',
+
+                'previousReportingTo:id,name,polar_id',
+                'newReportingTo:id,name,polar_id',
+
+            ])
+            ->orderBy('employee_id', 'ASC')
+            ->orderBy('effective_date', 'ASC')
+            ->get()
+            ->map(function ($data) {
+
+                return [
+
+                    'Employee Name' =>
+                        $data->employee->name ?? '',
+
+                    'Polar ID' =>
+                        $data->employee->polar_id ?? '',
+
+                    'Year' =>
+                        $data->year ?? '',
+
+                    'Promotion Type' =>
+                        $data->promotion_type ?? '',
+
+
+                    // Department
+                    'Previous Department' =>
+                        $data->previousDepartment->name ?? '',
+
+                    'New Department' =>
+                        $data->newDepartment->name ?? '',
+
+
+                    // Designation
+                    'Previous Designation' =>
+                        $data->previousDesignation->title ?? '',
+
+                    'New Designation' =>
+                        $data->newDesignation->title ?? '',
+
+
+                    // Grade
+                    'Previous Grade' =>
+                        $data->previous_grade ?? '',
+
+                    'New Grade' =>
+                        $data->new_grade ?? '',
+
+
+                    // Office Location
+                    'Previous Office Location' =>
+                        $data->previousOfficeLocation->name ?? '',
+
+                    'New Office Location' =>
+                        $data->newOfficeLocation->name ?? '',
+
+
+                    // Reporting To
+                    'Previous Reporting To' =>
+                        $data->previousReportingTo->name ?? '',
+
+                    'Prev. Reporting To Polar ID' =>
+                        $data->previousReportingTo->polar_id ?? '',
+
+                    'New Reporting To' =>
+                        $data->newReportingTo->name ?? '',
+
+                    'New Reporting To Polar ID' =>
+                        $data->newReportingTo->polar_id ?? '',
+
+
+                    // Date
+                    'Effective Date' =>
+                        $data->effective_date
+                            ? Carbon::parse($data->effective_date)
+                            : null,
+
+
+                    'Promotion Reason' =>
+                        $data->promotion_reason ?? '',
+
+                    'Remarks' =>
+                        $data->remarks ?? '',
+                ];
+            });
+        }
+
+
+        public function headings(): array
+        {
             return [
-                'Employee Name'       => $data->employee->name ?? '',
-                'Polar ID'            => $data->employee->polar_id ?? '',
 
-                'Year'                => $data->year ?? '',
+                'Employee Name',
+                'Polar ID',
 
-                'Promotion Type'      => $data->promotion_type ?? '',
+                'Year',
+                'Promotion Type',
 
-                'Previous Designation' =>
-                    $data->previousDesignation->title ?? '',
+                'Previous Department',
+                'New Department',
 
-                'New Designation' =>
-                    $data->newDesignation->title ?? '',
+                'Previous Designation',
+                'New Designation',
 
-                'Previous Grade' =>
-                    $data->previous_grade ?? '',
+                'Previous Grade',
+                'New Grade',
 
-                'New Grade' =>
-                    $data->new_grade ?? '',
+                'Previous Office Location',
+                'New Office Location',
 
-                'Effective Date'      => $data->effective_date ?? '',
+                'Previous Reporting To',
+                'Prev. Reporting To Polar ID',
 
-                'Promotion Reason'    => $data->promotion_reason ?? '',
+                'New Reporting To',
+                'New Reporting To Polar ID',
 
-                'Remarks'             => $data->remarks ?? '',
+                'Effective Date',
+
+                'Promotion Reason',
+                'Remarks',
             ];
-        });
-    }
+        }
 
-    public function headings(): array
-    {
-        return [
-            'Employee Name',
-            'Polar ID',
-            'Year',
-            'Promotion Type',
-            'Previous Designation',
-            'New Designation',
-            'Previous Grade',
-            'New Grade',
-            'Effective Date',
-            'Promotion Reason',
-            'Remarks',
-        ];
-    }
+
+        public function columnFormats(): array
+        {
+            return [
+                'Q' => NumberFormat::FORMAT_DATE_DDMMYYYY,
+            ];
+        }
+    
 
 
     /**
